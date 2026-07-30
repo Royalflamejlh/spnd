@@ -107,7 +107,7 @@ in
             node-test = {
               enable = true;
               name = "node test";
-              entry = "${lib.getExe pkgs.nodejs} --test apps/ccusage/src/cli.test.ts nix/tools/models-dev-gen/compact.test.ts";
+              entry = "${lib.getExe pkgs.nodejs} --test apps/spnd/src/cli.test.ts nix/tools/models-dev-gen/compact.test.ts";
               files = "\\.(ts|tsx|js|jsx|mjs|cjs)$";
               pass_filenames = false;
               stages = [ "pre-push" ];

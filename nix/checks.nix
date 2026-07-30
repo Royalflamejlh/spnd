@@ -87,7 +87,7 @@ in
       # the Rust source generates. This catches PRs that add or change a config
       # field without regenerating the schema (run
       # `just ccusage::generate-schema` to fix). Only the tracked
-      # apps/ccusage/config-schema.json is checked; docs/public/config-schema.json
+      # apps/spnd/config-schema.json is checked; docs/public/config-schema.json
       # is a gitignored build copy.
       config-schema =
         pkgs.runCommand "config-schema-check"
@@ -107,8 +107,8 @@ in
             generate-config-schema generated.json
             oxfmt --write generated.json
 
-            if ! diff -u apps/ccusage/config-schema.json generated.json; then
-              echo "ERROR: apps/ccusage/config-schema.json is out of sync with the Rust schema source." >&2
+            if ! diff -u apps/spnd/config-schema.json generated.json; then
+              echo "ERROR: apps/spnd/config-schema.json is out of sync with the Rust schema source." >&2
               echo "Run 'nix run .#generate-schema' (or 'just ccusage::generate-schema') and commit the result." >&2
               exit 1
             fi
@@ -174,7 +174,7 @@ in
           gitleaks detect --source . --config .gitleaks.toml --no-git
         '';
         config-example = mkRepoCheck "config-example-check" [ pkgs.check-jsonschema ] ''
-          check-jsonschema --schemafile apps/ccusage/config-schema.json ccusage.example.json
+          check-jsonschema --schemafile apps/spnd/config-schema.json ccusage.example.json
         '';
         publint =
           mkRepoCheck "publint-check"

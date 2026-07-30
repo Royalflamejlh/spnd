@@ -25,10 +25,10 @@
             (format-fixture-stats (or (:codex-fixture-stats section) (:fixture-stats section))))))
 (defn render-fixture-section [section options]
   (let [has-memory (some #(or (:base-memory %) (:head-memory %)) (:results section))
-        base-desc (or (:base-runtime-description options) "Base runs the package `ccusage` bin from `apps/ccusage/package.json` with Node")
+        base-desc (or (:base-runtime-description options) "Base runs the package `ccusage` bin from `apps/spnd/package.json` with Node")
         head-desc (or (:head-runtime-description options)
                       (if (= "rust" (:head-runtime options)) "PR runs `rust/target/release/ccusage` directly"
-                          "PR runs the package `ccusage` bin from `apps/ccusage/package.json` with Node"))
+                          "PR runs the package `ccusage` bin from `apps/spnd/package.json` with Node"))
         rows (mapv (fn [result]
                      (let [stats (fixture-stats-for-command section (:command result))
                            common ["Command" (str "`" (:command result) " --offline --json`")

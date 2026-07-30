@@ -38,7 +38,7 @@ sed -n '1,220p' rust/adapters/<agent>/src/README.md
 ```
 
 When porting behavior from the historical TypeScript implementation, first find
-the relevant commit or tag that still contains `apps/ccusage/src/adapter`, then
+the relevant commit or tag that still contains `apps/spnd/src/adapter`, then
 compare against that source. Do not assume `origin/main` still contains the
 TypeScript adapter.
 

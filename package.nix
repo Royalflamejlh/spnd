@@ -17,7 +17,7 @@ let
   inherit (lib.importJSON (root + /package.json)) version;
   # The published npm manifest owns the name and the user-facing metadata, so
   # `meta` below derives from it instead of restating it in Nix.
-  cliPackageJson = lib.importJSON (root + /apps/ccusage/package.json);
+  cliPackageJson = lib.importJSON (root + /apps/spnd/package.json);
   src = lib.cleanSourceWith {
     src = root + /rust;
     filter =

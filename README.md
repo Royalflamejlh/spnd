@@ -1,1 +1,1 @@
-./apps/ccusage/README.md
+./apps/spnd/README.md

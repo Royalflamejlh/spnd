@@ -5,8 +5,8 @@ paths:
   - 'rust/Cargo.toml'
   - 'rust/**/*.rs'
   - 'rust/**/*.toml'
-  - 'apps/ccusage/scripts/**'
-globs: 'rust/**/*.rs,rust/**/*.toml,apps/ccusage/scripts/**'
+  - 'apps/spnd/scripts/**'
+globs: 'rust/**/*.rs,rust/**/*.toml,apps/spnd/scripts/**'
 ---
 
 # Rust Binary Size

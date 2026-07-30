@@ -30,7 +30,7 @@ importers:
 
   .: {}
 
-  apps/ccusage:
+  apps/spnd:
     devDependencies:
       '@types/node':
         specifier: catalog:types

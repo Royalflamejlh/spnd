@@ -13,7 +13,7 @@ source in its own `ccusage-adapter-*` crate.
   `blocks` and `statusline`.
 - `adapter/` — the thin aliases that map each `ccusage <agent>` subcommand to its
   adapter crate.
-- `bin/generate_config_schema.rs` — writes `apps/ccusage/config-schema.json`; the
+- `bin/generate_config_schema.rs` — writes `apps/spnd/config-schema.json`; the
   `config-schema` flake check fails when the committed file drifts.
 
 ## Depends on

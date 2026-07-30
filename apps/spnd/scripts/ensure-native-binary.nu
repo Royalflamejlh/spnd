@@ -55,10 +55,10 @@ def matching_native_package_root [repo_root: path, target_platform: string, targ
 }
 def list_contains [value, needle: string] { (($value | describe) =~ '^list') and ($value | any {|item| $item == $needle }) }
 def expected_version [repo_root: path] {
-    let version = open ($repo_root | path join apps ccusage package.json) | get --optional version
+    let version = open ($repo_root | path join apps spnd package.json) | get --optional version
     match ($version | describe) {
         'string' => $version
-        _ => (error make {msg: 'apps/ccusage/package.json version is not configured'})
+        _ => (error make {msg: 'apps/spnd/package.json version is not configured'})
     }
 }
 def native_package_includes_binary [package_root, binary_name: string] {

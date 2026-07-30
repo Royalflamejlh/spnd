@@ -11,7 +11,7 @@ Inspect script options with `--help`, but do not treat help output as a
 profiling workload.
 
 ```sh
-node --cpu-prof --cpu-prof-dir ./profiles apps/ccusage/dist/cli.js <args>
+node --cpu-prof --cpu-prof-dir ./profiles apps/spnd/dist/cli.js <args>
 ```
 
 For package scripts, inject profiler flags without rewriting the command:
@@ -23,7 +23,7 @@ NODE_OPTIONS="--cpu-prof --cpu-prof-dir=./profiles" pnpm <script>
 Keep benchmark runs quiet and deterministic:
 
 ```sh
-LOG_LEVEL=0 COLUMNS=200 node --cpu-prof apps/ccusage/dist/cli.js <args>
+LOG_LEVEL=0 COLUMNS=200 node --cpu-prof apps/spnd/dist/cli.js <args>
 ```
 
 ## Branch Comparison
@@ -45,8 +45,8 @@ Run the same command against both builds. Prefer the published package entry
 shape when profiling package startup or launcher behavior.
 
 ```sh
-LOG_LEVEL=0 COLUMNS=200 node apps/ccusage/dist/cli.js daily --offline --json >/tmp/head.json
-LOG_LEVEL=0 COLUMNS=200 node /tmp/ccusage-main/apps/ccusage/dist/cli.js daily --offline --json >/tmp/main.json
+LOG_LEVEL=0 COLUMNS=200 node apps/spnd/dist/cli.js daily --offline --json >/tmp/head.json
+LOG_LEVEL=0 COLUMNS=200 node /tmp/ccusage-main/apps/spnd/dist/cli.js daily --offline --json >/tmp/main.json
 jq -e . /tmp/head.json >/dev/null
 jq -e . /tmp/main.json >/dev/null
 ```
@@ -56,15 +56,15 @@ change:
 
 ```sh
 hyperfine --warmup 4 --runs 10 --shell none \
-	"node apps/ccusage/dist/cli.js daily --offline --json" \
-	"node /tmp/ccusage-main/apps/ccusage/dist/cli.js daily --offline --json" \
+	"node apps/spnd/dist/cli.js daily --offline --json" \
+	"node /tmp/ccusage-main/apps/spnd/dist/cli.js daily --offline --json" \
 	--export-json /tmp/ccusage-hyperfine.json
 ```
 
 If `hyperfine` is missing, use comma first:
 
 ```sh
-, hyperfine --warmup 4 --runs 10 --shell none "node apps/ccusage/dist/cli.js daily --offline --json"
+, hyperfine --warmup 4 --runs 10 --shell none "node apps/spnd/dist/cli.js daily --offline --json"
 ```
 
 ## Reading Profiles

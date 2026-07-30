@@ -9,4 +9,4 @@ reason = "the distributed CLI"
 [[production]]
 package = "ccusage-config"
 bin = "generate-config-schema"
-reason = "writes apps/ccusage/config-schema.json; the config-schema flake check runs it"
+reason = "writes apps/spnd/config-schema.json; the config-schema flake check runs it"

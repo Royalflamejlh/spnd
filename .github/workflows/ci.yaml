@@ -180,7 +180,7 @@ jobs:
               mkdir -p "$HOME/.config/claude/projects"
               just test-node
           - name: Babashka performance harness test
-            run: apps/ccusage/scripts/compare-pr-performance_test.clj
+            run: apps/spnd/scripts/compare-pr-performance_test.clj
 
   build-native-packages:
     needs: [changes, tirith-scan, preflight]
@@ -280,7 +280,7 @@ jobs:
         # job is the only thing that runs it, and it never needs to resolve
         # against the workspace. Renovate does not update `dlx` specifiers, so
         # bump the pin here by hand.
-        run: pnpm dlx pkg-pr-new@0.0.75 publish --pnpm --bin './apps/ccusage' './packages/ccusage-linux-arm64' './packages/ccusage-linux-x64' './packages/ccusage-darwin-arm64' './packages/ccusage-darwin-x64' './packages/ccusage-win32-x64'
+        run: pnpm dlx pkg-pr-new@0.0.75 publish --pnpm --bin './apps/spnd' './packages/ccusage-linux-arm64' './packages/ccusage-linux-x64' './packages/ccusage-darwin-arm64' './packages/ccusage-darwin-x64' './packages/ccusage-win32-x64'
       # Resolve the ccusage CLI preview URL and build the E2E fixture here (this
       # job has the checkout); the E2E jobs then run without a checkout.
       - id: preview-url
@@ -499,14 +499,14 @@ jobs:
 
       - name: Compare performance
         run: |
-          apps/ccusage/scripts/compare-pr-performance.bb \
+          apps/spnd/scripts/compare-pr-performance.bb \
             --base-package-url "https://pkg.pr.new/${{ github.repository }}/ccusage@${{ github.event.pull_request.base.sha }}" \
             --base-sha "${{ github.event.pull_request.base.sha }}" \
             --head-dir . \
             --head-package-url "$CCUSAGE_PREVIEW_URL" \
             ${{ matrix.head-runtime-arg }} \
-            --fixture-dir apps/ccusage/test/fixtures/claude \
-            --codex-fixture-dir apps/ccusage/test/fixtures/codex \
+            --fixture-dir apps/spnd/test/fixtures/claude \
+            --codex-fixture-dir apps/spnd/test/fixtures/codex \
             --warmup 2 \
             --runs 7 \
             --large-fixture-dir "$RUNNER_TEMP/ccusage-large-fixture" \

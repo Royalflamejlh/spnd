@@ -70,7 +70,7 @@ jobs:
           - name: Babashka performance harness test
             run: |
               git diff --quiet && exit 0
-              apps/ccusage/scripts/compare-pr-performance_test.clj
+              apps/spnd/scripts/compare-pr-performance_test.clj
       - uses: ./.github/actions/commit-and-push-main
         if: steps.update.outputs.changed == 'true'
         with:

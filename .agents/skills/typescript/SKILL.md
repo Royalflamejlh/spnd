@@ -13,8 +13,8 @@ globs: '*.ts,*.tsx,*.js,*.jsx'
 
 Use this skill for the remaining TypeScript and JavaScript package surface:
 
-- `apps/ccusage/src/cli.ts` native binary launcher.
-- `apps/ccusage/scripts/**` package, schema, benchmark, and native staging scripts.
+- `apps/spnd/src/cli.ts` native binary launcher.
+- `apps/spnd/scripts/**` package, schema, benchmark, and native staging scripts.
 - Node test coverage for TypeScript package/tooling behavior.
 - VitePress and root TypeScript configuration or scripts when the change is not docs-content-only.
 

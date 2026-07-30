@@ -9,11 +9,11 @@ description: Guides ccusage monorepo development. Use when editing packages, doc
 
 This is a monorepo. Check the nearest package-specific `AGENTS.md` before editing a package:
 
-- `apps/ccusage/AGENTS.md` - main Claude Code usage CLI and library
+- `apps/spnd/AGENTS.md` - main Claude Code usage CLI and library
 - `docs/AGENTS.md` - VitePress documentation site
 
 The production CLI implementation is Rust-first under `rust/crates/ccusage`.
-The `apps/ccusage` package now mainly provides npm metadata, a TypeScript bin
+The `apps/spnd` package now mainly provides npm metadata, a TypeScript bin
 launcher, generated schema artifacts, benchmarks, and release packaging.
 
 The canonical user-facing command is `ccusage` with agent subcommands:
