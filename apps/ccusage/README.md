@@ -23,6 +23,13 @@
 
 > Analyze coding (agent) CLI token usage and costs from local data.
 
+> [!NOTE]
+> **This repository is [ccusageui](https://github.com/Royalflamejlh/ccusageui)** — a fork of
+> [ccusage/ccusage](https://github.com/ccusage/ccusage) that adds `ccusage tui`, an interactive
+> [ratatui](https://ratatui.rs/) terminal UI for browsing Claude Code usage with daily, monthly,
+> and session tabs. Everything else works exactly like upstream ccusage. See
+> [Interactive TUI](#interactive-tui-ccusageui) below.
+
 ## Major Sponsors
 
 <div align="center">
@@ -116,6 +123,7 @@ bunx ccusage monthly  # All detected sources by month
 bunx ccusage session  # All detected sources by session
 bunx ccusage blocks   # Claude Code 5-hour billing windows
 bunx ccusage statusline  # Claude Code status line for hooks (Beta)
+ccusage tui           # Interactive Claude Code usage browser (ccusageui fork only)
 
 # Source-focused reports and options
 bunx ccusage claude daily --mode display
@@ -159,8 +167,27 @@ bunx ccusage --compact  # Force compact table mode
 bunx ccusage monthly --compact  # Compact monthly report
 ```
 
+## Interactive TUI (ccusageui)
+
+This fork adds `ccusage tui`, an interactive [ratatui](https://ratatui.rs/) terminal UI for
+browsing Claude Code usage instead of printing a one-shot report:
+
+```bash
+ccusage tui
+ccusage tui --since 20260101 --offline
+```
+
+- **Daily / Monthly / Sessions tabs** over the same data as the `claude` reports
+- **Keyboard navigation**: `tab`/`←`/`→` switch tabs, `↑`/`↓`/`j`/`k` move, `g`/`G` jump to the ends, `s` toggles sort direction
+- **Model breakdown**: `enter` opens the per-model cost breakdown for the selected row
+- **Totals footer** that always reflects the current view
+- Accepts the shared Claude report options such as `--since`, `--until`, `--timezone`, `--mode`, and `--offline`
+
+The TUI ships in this fork's `ccusage` binary. Build it from this repository (`cargo build --release` under `rust/`, or `nix run github:Royalflamejlh/ccusageui -- tui`); the upstream npm package does not include it.
+
 ## Features
 
+- 🖥️ **Interactive TUI**: Browse daily, monthly, and session usage in a ratatui terminal UI with `ccusage tui` (ccusageui fork)
 - 📊 **Daily Report**: View token usage and costs aggregated by date
 - 📅 **Monthly Report**: View token usage and costs aggregated by month
 - 💬 **Session Report**: View usage grouped by conversation sessions

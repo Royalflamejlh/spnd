@@ -63,6 +63,7 @@ export default defineConfig({
 						{ text: 'Weekly Usage', link: '/guide/weekly-reports' },
 						{ text: 'Monthly Usage', link: '/guide/monthly-reports' },
 						{ text: 'Session Usage', link: '/guide/session-reports' },
+						{ text: 'Interactive TUI', link: '/guide/tui' },
 					],
 				},
 				{

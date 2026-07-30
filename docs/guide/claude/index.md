@@ -51,6 +51,7 @@ Claude Code exposes additional local data that enables features beyond the share
 
 - [Blocks](/guide/blocks-reports) - Claude Code 5-hour billing window analysis
 - [Statusline](/guide/statusline) - Compact real-time usage display for Claude Code status bar hooks
+- [Interactive TUI](/guide/tui) - Browse daily, monthly, and session usage in a terminal UI with `ccusage tui`
 
 ## Environment Variables
 
