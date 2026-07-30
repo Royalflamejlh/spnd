@@ -539,11 +539,11 @@ fn draw_footer(frame: &mut Frame, app: &App, area: Rect) {
         " Totals ".bold(),
         Span::from(format!(
             " In {}  Out {}  Cache {}/{}  Tokens {}  ",
-            format_number(totals.input_tokens),
-            format_number(totals.output_tokens),
-            format_number(totals.cache_creation_tokens),
-            format_number(totals.cache_read_tokens),
-            format_number(totals.total_tokens),
+            data::format_compact_number(totals.input_tokens),
+            data::format_compact_number(totals.output_tokens),
+            data::format_compact_number(totals.cache_creation_tokens),
+            data::format_compact_number(totals.cache_read_tokens),
+            data::format_compact_number(totals.total_tokens),
         )),
         format_currency(totals.cost).bold().yellow(),
     ]);

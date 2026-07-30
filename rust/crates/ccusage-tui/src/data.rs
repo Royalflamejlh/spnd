@@ -207,6 +207,26 @@ pub(crate) fn totals(rows: &[UsageSummary]) -> Totals {
     totals
 }
 
+/// Abbreviates a token count to three significant digits with a k/M/B
+/// suffix, e.g. `31.1k`, `1.76M`, `340M`. The tables keep full counts; this
+/// is only for the totals footer.
+pub(crate) fn format_compact_number(value: u64) -> String {
+    const UNITS: [(f64, &str); 3] = [(1e9, "B"), (1e6, "M"), (1e3, "k")];
+    for (divisor, suffix) in UNITS {
+        let scaled = value as f64 / divisor;
+        if scaled >= 1.0 {
+            return if scaled >= 100.0 {
+                format!("{scaled:.0}{suffix}")
+            } else if scaled >= 10.0 {
+                format!("{scaled:.1}{suffix}")
+            } else {
+                format!("{scaled:.2}{suffix}")
+            };
+        }
+    }
+    value.to_string()
+}
+
 #[cfg(test)]
 pub(crate) mod fixtures {
     use ccusage_core::ModelBreakdown;
@@ -373,5 +393,17 @@ mod tests {
         daily.reverse();
         let series = model_series(&daily, "claude-sonnet-5", Granularity::Daily);
         assert_eq!(series[0].date.as_deref(), Some("2026-07-01"));
+    }
+
+    #[test]
+    fn compact_numbers_use_three_significant_digits() {
+        assert_eq!(format_compact_number(0), "0");
+        assert_eq!(format_compact_number(999), "999");
+        assert_eq!(format_compact_number(1_000), "1.00k");
+        assert_eq!(format_compact_number(31_100), "31.1k");
+        assert_eq!(format_compact_number(1_760_000), "1.76M");
+        assert_eq!(format_compact_number(3_970_000), "3.97M");
+        assert_eq!(format_compact_number(340_000_000), "340M");
+        assert_eq!(format_compact_number(1_500_000_000), "1.50B");
     }
 }
