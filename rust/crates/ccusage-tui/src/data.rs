@@ -105,3 +105,110 @@ pub(crate) fn totals(rows: &[UsageSummary]) -> Totals {
     }
     totals
 }
+
+#[cfg(test)]
+pub(crate) mod fixtures {
+    use ccusage_core::ModelBreakdown;
+
+    use super::*;
+
+    pub(crate) struct RowFixture {
+        pub(crate) date: Option<&'static str>,
+        pub(crate) session: Option<(&'static str, &'static str)>,
+        pub(crate) model: &'static str,
+        pub(crate) input_tokens: u64,
+        pub(crate) cost: f64,
+    }
+
+    pub(crate) fn row(fixture: RowFixture) -> UsageSummary {
+        UsageSummary {
+            date: fixture.date.map(str::to_string),
+            month: None,
+            week: None,
+            session_id: fixture.session.map(|(_, session)| session.to_string()),
+            project_path: fixture.session.map(|(project, _)| project.to_string()),
+            last_activity: fixture.date.map(str::to_string),
+            first_activity: None,
+            input_tokens: fixture.input_tokens,
+            output_tokens: 10,
+            cache_creation_tokens: 1,
+            cache_read_tokens: 2,
+            extra_total_tokens: 0,
+            total_cost: fixture.cost,
+            credits: None,
+            message_count: None,
+            models_used: vec![fixture.model.to_string()],
+            model_breakdowns: vec![ModelBreakdown {
+                model_name: fixture.model.to_string(),
+                input_tokens: fixture.input_tokens,
+                output_tokens: 10,
+                cache_creation_tokens: 1,
+                cache_read_tokens: 2,
+                extra_total_tokens: 0,
+                cost: fixture.cost,
+                missing_pricing: false,
+            }],
+            project: None,
+            versions: None,
+        }
+    }
+
+    pub(crate) fn tables() -> Tables {
+        Tables {
+            daily: vec![
+                row(RowFixture {
+                    date: Some("2026-07-01"),
+                    session: None,
+                    model: "claude-sonnet-5",
+                    input_tokens: 100,
+                    cost: 1.0,
+                }),
+                row(RowFixture {
+                    date: Some("2026-07-02"),
+                    session: None,
+                    model: "claude-fable-5",
+                    input_tokens: 200,
+                    cost: 2.0,
+                }),
+                row(RowFixture {
+                    date: Some("2026-07-03"),
+                    session: None,
+                    model: "claude-sonnet-5",
+                    input_tokens: 300,
+                    cost: 3.0,
+                }),
+            ],
+            monthly: vec![row(RowFixture {
+                date: None,
+                session: None,
+                model: "claude-sonnet-5",
+                input_tokens: 600,
+                cost: 6.0,
+            })],
+            sessions: vec![
+                row(RowFixture {
+                    date: Some("2026-07-03"),
+                    session: Some(("/home/user/project-a", "session-a")),
+                    model: "claude-sonnet-5",
+                    input_tokens: 400,
+                    cost: 4.0,
+                }),
+                row(RowFixture {
+                    date: Some("2026-07-02"),
+                    session: Some(("/home/user/project-b", "session-b")),
+                    model: "claude-fable-5",
+                    input_tokens: 200,
+                    cost: 2.0,
+                }),
+            ],
+        }
+    }
+
+    pub(crate) fn empty_tables() -> Tables {
+        Tables {
+            daily: Vec::new(),
+            monthly: Vec::new(),
+            sessions: Vec::new(),
+        }
+    }
+}

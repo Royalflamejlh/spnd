@@ -3,6 +3,7 @@
 //! Loads usage data through the Claude adapter before the terminal enters raw
 //! mode, so loader progress renders normally, then hands the shaped rows to a
 //! ratatui event loop with daily, monthly, and session tabs.
+mod action;
 mod app;
 mod data;
 mod input;
@@ -31,8 +32,9 @@ fn event_loop(terminal: &mut ratatui::DefaultTerminal, app: &mut app::App) -> Re
             .context("failed to draw terminal frame")?;
         if let Event::Key(key) = event::read().context("failed to read terminal event")?
             && key.kind == KeyEventKind::Press
+            && let Some(action) = input::key_action(app, key)
         {
-            input::handle_key(app, key);
+            action::update(app, action);
         }
     }
     Ok(())

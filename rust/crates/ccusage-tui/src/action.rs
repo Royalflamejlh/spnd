@@ -1,0 +1,103 @@
+//! The single action vocabulary every input source maps into, and the update
+//! function that applies one action to the application state.
+use crate::app::App;
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) enum Action {
+    Quit,
+    NextTab,
+    PrevTab,
+    MoveBy(isize),
+    SelectFirst,
+    SelectLast,
+    ToggleSort,
+    OpenBreakdown,
+    CloseBreakdown,
+}
+
+pub(crate) fn update(app: &mut App, action: Action) {
+    match action {
+        Action::Quit => app.should_quit = true,
+        Action::NextTab => app.next_tab(),
+        Action::PrevTab => app.prev_tab(),
+        Action::MoveBy(delta) => app.move_by(delta),
+        Action::SelectFirst => app.select_first(),
+        Action::SelectLast => app.select_last(),
+        Action::ToggleSort => app.toggle_sort(),
+        Action::OpenBreakdown => {
+            if app.selected().is_some() {
+                app.show_breakdown = true;
+            }
+        }
+        Action::CloseBreakdown => app.show_breakdown = false,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use ccusage_core::cli::SortOrder;
+
+    use super::*;
+    use crate::{app::Tab, data::fixtures::tables};
+
+    fn app() -> App {
+        App::new(tables(), SortOrder::Asc)
+    }
+
+    #[test]
+    fn quit_sets_should_quit() {
+        let mut app = app();
+        update(&mut app, Action::Quit);
+        assert!(app.should_quit);
+    }
+
+    #[test]
+    fn tab_cycling_wraps_both_directions() {
+        let mut app = app();
+        assert_eq!(app.tab, Tab::Daily);
+        update(&mut app, Action::NextTab);
+        assert_eq!(app.tab, Tab::Monthly);
+        update(&mut app, Action::PrevTab);
+        update(&mut app, Action::PrevTab);
+        assert_eq!(app.tab, Tab::Sessions);
+        update(&mut app, Action::NextTab);
+        assert_eq!(app.tab, Tab::Daily);
+    }
+
+    #[test]
+    fn movement_clamps_to_table_bounds() {
+        let mut app = app();
+        update(&mut app, Action::MoveBy(-5));
+        assert_eq!(app.states[0].selected(), Some(0));
+        update(&mut app, Action::MoveBy(100));
+        assert_eq!(app.states[0].selected(), Some(app.rows().len() - 1));
+        update(&mut app, Action::SelectFirst);
+        assert_eq!(app.states[0].selected(), Some(0));
+        update(&mut app, Action::SelectLast);
+        assert_eq!(app.states[0].selected(), Some(app.rows().len() - 1));
+    }
+
+    #[test]
+    fn toggle_sort_reverses_rows_and_direction() {
+        let mut app = app();
+        let first_before = app.rows().first().unwrap().date.clone();
+        let descending_before = app.descending();
+        update(&mut app, Action::ToggleSort);
+        assert_eq!(app.rows().last().unwrap().date, first_before);
+        assert_ne!(app.descending(), descending_before);
+        assert_eq!(app.states[0].selected(), Some(0));
+    }
+
+    #[test]
+    fn breakdown_opens_only_with_a_selection() {
+        let mut app = app();
+        update(&mut app, Action::OpenBreakdown);
+        assert!(app.show_breakdown);
+        update(&mut app, Action::CloseBreakdown);
+        assert!(!app.show_breakdown);
+
+        let mut empty = App::new(crate::data::fixtures::empty_tables(), SortOrder::Asc);
+        update(&mut empty, Action::OpenBreakdown);
+        assert!(!empty.show_breakdown);
+    }
+}

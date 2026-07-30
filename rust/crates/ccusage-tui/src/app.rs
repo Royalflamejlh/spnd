@@ -5,7 +5,7 @@ use ratatui::widgets::TableState;
 
 use crate::data::Tables;
 
-#[derive(Clone, Copy, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum Tab {
     Daily,
     Monthly,
