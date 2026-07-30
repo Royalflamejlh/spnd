@@ -113,9 +113,11 @@ void describe(resolveCliRuntime.name, () => {
 	void it('treats package bin symlinks as the main module entry point', () => {
 		const actual = isMainModule({
 			argvEntry: '/project/node_modules/.bin/spnd',
-			moduleUrl: 'file:///project/node_modules/spnd/src/cli.js',
+			moduleUrl: 'file:///project/node_modules/@spnd/spnd/src/cli.js',
 			realpathPath: (path) =>
-				path === '/project/node_modules/.bin/spnd' ? '/project/node_modules/spnd/src/cli.js' : path,
+				path === '/project/node_modules/.bin/spnd'
+					? '/project/node_modules/@spnd/spnd/src/cli.js'
+					: path,
 		});
 
 		assert.equal(actual, true);

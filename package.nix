@@ -36,7 +36,9 @@ let
   # duplicated.
   cargoConfigEnv = (builtins.fromTOML (builtins.readFile (root + /.cargo/config.toml))).env;
   commonArgs = {
-    pname = cliPackageJson.name;
+    # The npm name is scoped (@spnd/spnd), which is not a valid derivation
+    # name, so the Nix pname comes from the bin entry like mainProgram does.
+    pname = builtins.head (builtins.attrNames cliPackageJson.bin);
     inherit version src;
     strictDeps = true;
     doCheck = false;

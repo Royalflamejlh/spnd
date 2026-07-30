@@ -1,5 +1,5 @@
 {
-	"name": "spnd",
+	"name": "@spnd/spnd",
 	"version": "20.0.19",
 	"description": "Interactive TUI and reports for coding-agent token usage and costs (fork of ccusage)",
 	"homepage": "https://github.com/Royalflamejlh/spnd#readme",
