@@ -27,7 +27,7 @@ runs:
         BINARY: ${{ inputs.binary }}
       run: |
         mkdir -p "packages/ccusage-win32-$ARCH/bin"
-        cp "$BINARY" "packages/ccusage-win32-$ARCH/bin/ccusage.exe"
+        cp "$BINARY" "packages/ccusage-win32-$ARCH/bin/spnd.exe"
 
     - name: Archive native package binary
       shell: bash

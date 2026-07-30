@@ -36,22 +36,22 @@ importers:
         specifier: catalog:types
         version: 24.13.3
     optionalDependencies:
-      '@ccusage/ccusage-darwin-arm64':
+      '@spnd/spnd-darwin-arm64':
         specifier: workspace:*
         version: link:../../packages/ccusage-darwin-arm64
-      '@ccusage/ccusage-darwin-x64':
+      '@spnd/spnd-darwin-x64':
         specifier: workspace:*
         version: link:../../packages/ccusage-darwin-x64
-      '@ccusage/ccusage-linux-arm64':
+      '@spnd/spnd-linux-arm64':
         specifier: workspace:*
         version: link:../../packages/ccusage-linux-arm64
-      '@ccusage/ccusage-linux-x64':
+      '@spnd/spnd-linux-x64':
         specifier: workspace:*
         version: link:../../packages/ccusage-linux-x64
-      '@ccusage/ccusage-win32-arm64':
+      '@spnd/spnd-win32-arm64':
         specifier: workspace:*
         version: link:../../packages/ccusage-win32-arm64
-      '@ccusage/ccusage-win32-x64':
+      '@spnd/spnd-win32-x64':
         specifier: workspace:*
         version: link:../../packages/ccusage-win32-x64
 

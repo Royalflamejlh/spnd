@@ -1,15 +1,15 @@
 {
-	"name": "@ccusage/ccusage-darwin-x64",
+	"name": "@spnd/spnd-darwin-x64",
 	"version": "20.0.19",
-	"description": "Native ccusage binary for macOS x64",
+	"description": "Native spnd binary for macOS x64",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/ccusage/ccusage.git",
+		"url": "git+https://github.com/Royalflamejlh/spnd.git",
 		"directory": "packages/ccusage-darwin-x64"
 	},
 	"files": [
-		"bin/ccusage"
+		"bin/spnd"
 	],
 	"os": [
 		"darwin"

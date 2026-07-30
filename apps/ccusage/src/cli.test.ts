@@ -13,12 +13,12 @@ void describe(resolveCliRuntime.name, () => {
 			arch: 'arm64',
 			platform: 'darwin',
 			resolvePath: (id) => {
-				assert.equal(id, '@ccusage/ccusage-darwin-arm64/bin/ccusage');
-				return '/native/bin/ccusage';
+				assert.equal(id, '@spnd/spnd-darwin-arm64/bin/spnd');
+				return '/native/bin/spnd';
 			},
 		});
 
-		assert.equal(actual, '/native/bin/ccusage');
+		assert.equal(actual, '/native/bin/spnd');
 	});
 
 	void it('resolves the Windows native package binary with the exe suffix', () => {
@@ -26,23 +26,23 @@ void describe(resolveCliRuntime.name, () => {
 			arch: 'arm64',
 			platform: 'win32',
 			resolvePath: (id) => {
-				assert.equal(id, '@ccusage/ccusage-win32-arm64/bin/ccusage.exe');
-				return 'C:\\native\\bin\\ccusage.exe';
+				assert.equal(id, '@spnd/spnd-win32-arm64/bin/spnd.exe');
+				return 'C:\\native\\bin\\spnd.exe';
 			},
 		});
 
-		assert.equal(actual, 'C:\\native\\bin\\ccusage.exe');
+		assert.equal(actual, 'C:\\native\\bin\\spnd.exe');
 	});
 
 	void it('prefers the matching native package binary when it is available', () => {
 		assert.deepEqual(
 			resolveCliRuntime({
 				argv: ['daily'],
-				nativeBinaryPath: '/app/node_modules/@ccusage/ccusage-darwin-arm64/bin/ccusage',
+				nativeBinaryPath: '/app/node_modules/@spnd/spnd-darwin-arm64/bin/spnd',
 			}),
 			{
 				args: ['daily'],
-				command: '/app/node_modules/@ccusage/ccusage-darwin-arm64/bin/ccusage',
+				command: '/app/node_modules/@spnd/spnd-darwin-arm64/bin/spnd',
 			},
 		);
 	});
@@ -67,7 +67,7 @@ void describe(resolveCliRuntime.name, () => {
 
 		assert.equal(
 			ensureNativeBinaryExecutable({
-				binaryPath: '/native/bin/ccusage',
+				binaryPath: '/native/bin/spnd',
 				chmodPath,
 				platform: 'linux',
 				statPath: () => ({ mode: 0o644 }),
@@ -76,7 +76,7 @@ void describe(resolveCliRuntime.name, () => {
 		);
 		assert.deepEqual(
 			chmodPath.mock.calls.map((call) => call.arguments),
-			[['/native/bin/ccusage', 0o755]],
+			[['/native/bin/spnd', 0o755]],
 		);
 	});
 
@@ -85,7 +85,7 @@ void describe(resolveCliRuntime.name, () => {
 
 		assert.equal(
 			ensureNativeBinaryExecutable({
-				binaryPath: '/native/bin/ccusage',
+				binaryPath: '/native/bin/spnd',
 				chmodPath,
 				platform: 'darwin',
 				statPath: () => ({ mode: 0o755 }),
@@ -100,7 +100,7 @@ void describe(resolveCliRuntime.name, () => {
 
 		assert.equal(
 			ensureNativeBinaryExecutable({
-				binaryPath: 'C:\\native\\bin\\ccusage.exe',
+				binaryPath: 'C:\\native\\bin\\spnd.exe',
 				chmodPath,
 				platform: 'win32',
 				statPath: () => ({ mode: 0o644 }),
@@ -112,12 +112,10 @@ void describe(resolveCliRuntime.name, () => {
 
 	void it('treats package bin symlinks as the main module entry point', () => {
 		const actual = isMainModule({
-			argvEntry: '/project/node_modules/.bin/ccusage',
-			moduleUrl: 'file:///project/node_modules/ccusage/src/cli.js',
+			argvEntry: '/project/node_modules/.bin/spnd',
+			moduleUrl: 'file:///project/node_modules/spnd/src/cli.js',
 			realpathPath: (path) =>
-				path === '/project/node_modules/.bin/ccusage'
-					? '/project/node_modules/ccusage/src/cli.js'
-					: path,
+				path === '/project/node_modules/.bin/spnd' ? '/project/node_modules/spnd/src/cli.js' : path,
 		});
 
 		assert.equal(actual, true);

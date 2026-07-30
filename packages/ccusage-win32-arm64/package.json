@@ -1,15 +1,15 @@
 {
-	"name": "@ccusage/ccusage-win32-arm64",
+	"name": "@spnd/spnd-win32-arm64",
 	"version": "20.0.19",
-	"description": "Native ccusage binary for Windows arm64",
+	"description": "Native spnd binary for Windows arm64",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/ccusage/ccusage.git",
+		"url": "git+https://github.com/Royalflamejlh/spnd.git",
 		"directory": "packages/ccusage-win32-arm64"
 	},
 	"files": [
-		"bin/ccusage.exe"
+		"bin/spnd.exe"
 	],
 	"os": [
 		"win32"

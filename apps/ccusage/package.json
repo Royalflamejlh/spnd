@@ -30,11 +30,11 @@
 		"@types/node": "catalog:types"
 	},
 	"optionalDependencies": {
-		"@ccusage/ccusage-darwin-arm64": "workspace:*",
-		"@ccusage/ccusage-darwin-x64": "workspace:*",
-		"@ccusage/ccusage-linux-arm64": "workspace:*",
-		"@ccusage/ccusage-linux-x64": "workspace:*",
-		"@ccusage/ccusage-win32-arm64": "workspace:*",
-		"@ccusage/ccusage-win32-x64": "workspace:*"
+		"@spnd/spnd-darwin-arm64": "workspace:*",
+		"@spnd/spnd-darwin-x64": "workspace:*",
+		"@spnd/spnd-linux-arm64": "workspace:*",
+		"@spnd/spnd-linux-x64": "workspace:*",
+		"@spnd/spnd-win32-arm64": "workspace:*",
+		"@spnd/spnd-win32-x64": "workspace:*"
 	}
 }
