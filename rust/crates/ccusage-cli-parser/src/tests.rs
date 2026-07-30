@@ -190,6 +190,10 @@ fn command_snapshot(command: Option<Command>) -> Value {
             "config": args.config.as_ref().map(|path| path.to_string_lossy().to_string()),
             "debug": args.debug,
         }),
+        Some(Command::Tui(shared)) => json!({
+            "type": "tui",
+            "shared": shared_snapshot(&shared),
+        }),
         Some(Command::Codex(args)) => agent_command_snapshot("codex", args),
         Some(Command::OpenCode(args)) => agent_command_snapshot("opencode", args),
         Some(Command::Amp(args)) => agent_command_snapshot("amp", args),
@@ -840,9 +844,41 @@ fn snapshots_representative_cli_parse_shapes() {
                 "--debug",
             ])),
         }),
+        json!({
+            "case": "tui with shared flags",
+            "cli": cli_snapshot(parse(&[
+                "ccusage",
+                "tui",
+                "--since",
+                "20260101",
+                "--order",
+                "desc",
+                "--timezone",
+                "Asia/Tokyo",
+            ])),
+        }),
     ];
 
     insta::assert_json_snapshot!(cases);
+}
+
+#[test]
+fn parses_tui_command_with_shared_options() {
+    let cli = parse(&["ccusage", "tui", "--offline", "--order", "desc"]);
+    let Some(Command::Tui(shared)) = cli.command else {
+        panic!("expected tui command");
+    };
+    assert!(shared.offline);
+    assert_eq!(shared.order, SortOrder::Desc);
+}
+
+#[test]
+fn rejects_last_for_tui() {
+    let error = parse_error(&["ccusage", "tui", "--last", "3"]);
+    assert_eq!(
+        error,
+        "The --last option is only available for the daily, weekly, and monthly reports."
+    );
 }
 
 #[test]

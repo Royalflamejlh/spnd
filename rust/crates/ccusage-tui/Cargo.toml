@@ -1,0 +1,10 @@
+[package]
+name = "ccusage-tui"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[dependencies]
+ccusage-adapter-claude.workspace = true
+ccusage-core.workspace = true
+ratatui.workspace = true

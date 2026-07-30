@@ -39,6 +39,7 @@ ccusage-config = { path = "crates/ccusage-config" }
 ccusage-core = { path = "crates/ccusage-core" }
 ccusage-terminal = { path = "crates/ccusage-terminal" }
 ccusage-test-support = { path = "crates/ccusage-test-support" }
+ccusage-tui = { path = "crates/ccusage-tui" }
 assert_fs = "1"
 compact_str = "0.9"
 insta = { version = "1.47.2", features = ["json"] }
@@ -51,6 +52,7 @@ jiff = { version = "0.2.24", default-features = false, features = [
 memchr = "2"
 mimalloc = "0.1.50"
 minreq = { version = "3.0.0-rc.1", default-features = false, features = ["https-rustls"] }
+ratatui = "0.30"
 rustc-hash = "2"
 schemars = "0.8"
 serde = { version = "1", features = ["derive"] }

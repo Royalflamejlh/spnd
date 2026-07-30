@@ -255,6 +255,7 @@ fn parse_command(
             }
             Ok(Command::Statusline(args))
         }
+        "tui" => parse_tui_command(parser, shared),
         "claude" => parse_claude_command(parser, shared, config, default_session_duration_hours),
         "codex" => parse_codex_command(parser, shared, config),
         "opencode" => parse_basic_agent_command(
@@ -481,6 +482,13 @@ fn parse_claude_monthly_command(
         parse_shared_arg(parser, &mut shared)?;
     }
     Ok(Command::Monthly(shared))
+}
+
+fn parse_tui_command(parser: &mut ArgParser, mut shared: SharedArgs) -> Result<Command, String> {
+    while parser.peek().is_some() {
+        parse_shared_arg(parser, &mut shared)?;
+    }
+    Ok(Command::Tui(shared))
 }
 
 fn parse_claude_weekly_command(
@@ -747,6 +755,7 @@ fn is_command(arg: &str) -> bool {
             | "session"
             | "blocks"
             | "statusline"
+            | "tui"
             | "claude"
             | "codex"
             | "opencode"
@@ -1016,6 +1025,7 @@ fn last_option_error(command: Option<&Command>, root_shared: &SharedArgs) -> Opt
         Some(Command::Session(args)) => (&args.shared, false),
         Some(Command::Blocks(args)) => (&args.shared, false),
         Some(Command::Statusline(_)) => (root_shared, false),
+        Some(Command::Tui(shared)) => (shared, false),
         Some(
             Command::Codex(args)
             | Command::OpenCode(args)

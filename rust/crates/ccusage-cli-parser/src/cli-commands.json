@@ -42,6 +42,10 @@
 				"description": "Display compact status line for Claude Code hooks with hybrid time+file caching (Beta)"
 			},
 			{
+				"name": "tui",
+				"description": "Browse Claude Code usage reports in an interactive terminal UI"
+			},
+			{
 				"name": "claude",
 				"description": "Show Claude Code usage commands"
 			},
@@ -139,6 +143,12 @@
 			"description": "Display compact status line for Claude Code hooks with hybrid time+file caching (Beta)",
 			"usage": "ccusage statusline <OPTIONS>",
 			"options": "statusline_options"
+		},
+		{
+			"path": ["tui"],
+			"description": "Browse Claude Code usage reports in an interactive terminal UI",
+			"usage": "ccusage tui <OPTIONS>",
+			"options": "shared_claude_options"
 		},
 		{
 			"path": ["claude"],

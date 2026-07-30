@@ -1,6 +1,5 @@
 ---
-source: crates/ccusage-cli/src/tests.rs
-assertion_line: 752
+source: crates/ccusage-cli-parser/src/tests.rs
 expression: cases
 ---
 [
@@ -451,6 +450,52 @@ expression: cases
         "refreshInterval": 3,
         "type": "statusline",
         "visualBurnRate": "EmojiText"
+      },
+      "shared": {
+        "breakdown": false,
+        "color": false,
+        "compact": false,
+        "config": null,
+        "debug": false,
+        "debugSamples": 5,
+        "jq": null,
+        "json": false,
+        "mode": "Auto",
+        "noColor": false,
+        "noOffline": false,
+        "offline": false,
+        "order": "Asc",
+        "since": null,
+        "singleThread": false,
+        "timezone": null,
+        "until": null
+      }
+    }
+  },
+  {
+    "case": "tui with shared flags",
+    "cli": {
+      "command": {
+        "shared": {
+          "breakdown": false,
+          "color": false,
+          "compact": false,
+          "config": null,
+          "debug": false,
+          "debugSamples": 5,
+          "jq": null,
+          "json": false,
+          "mode": "Auto",
+          "noColor": false,
+          "noOffline": false,
+          "offline": false,
+          "order": "Desc",
+          "since": "20260101",
+          "singleThread": false,
+          "timezone": "Asia/Tokyo",
+          "until": null
+        },
+        "type": "tui"
       },
       "shared": {
         "breakdown": false,

@@ -11,6 +11,7 @@ pub enum Command {
     Session(SessionArgs),
     Blocks(BlocksArgs),
     Statusline(StatuslineArgs),
+    Tui(SharedArgs),
     Codex(AgentCommandArgs),
     OpenCode(AgentCommandArgs),
     Amp(AgentCommandArgs),
