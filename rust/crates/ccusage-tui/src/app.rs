@@ -83,7 +83,6 @@ impl Granularity {
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum SortColumn {
     Key,
-    Activity,
     Input,
     Output,
     CacheCreate,
@@ -95,7 +94,7 @@ pub(crate) enum SortColumn {
 impl SortColumn {
     /// Numeric columns read best largest-first; textual ones smallest-first.
     fn default_descending(self) -> bool {
-        !matches!(self, Self::Key | Self::Activity)
+        !matches!(self, Self::Key)
     }
 }
 
@@ -114,9 +113,8 @@ pub(crate) const PERIOD_SORT_COLUMNS: [SortColumn; 7] = [
     SortColumn::TotalTokens,
     SortColumn::Cost,
 ];
-pub(crate) const SESSION_SORT_COLUMNS: [SortColumn; 6] = [
+pub(crate) const SESSION_SORT_COLUMNS: [SortColumn; 5] = [
     SortColumn::Key,
-    SortColumn::Activity,
     SortColumn::Input,
     SortColumn::Output,
     SortColumn::TotalTokens,
@@ -139,7 +137,6 @@ pub(crate) fn key_pair(row: &UsageSummary) -> (&str, &str) {
 fn compare_rows(a: &UsageSummary, b: &UsageSummary, column: SortColumn) -> Ordering {
     match column {
         SortColumn::Key => key_pair(a).cmp(&key_pair(b)),
-        SortColumn::Activity => a.last_activity.cmp(&b.last_activity),
         SortColumn::Input => a.input_tokens.cmp(&b.input_tokens),
         SortColumn::Output => a.output_tokens.cmp(&b.output_tokens),
         SortColumn::CacheCreate => a.cache_creation_tokens.cmp(&b.cache_creation_tokens),

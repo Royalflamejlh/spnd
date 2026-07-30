@@ -65,10 +65,13 @@ fn chart_height(area: Rect, app: &App) -> u16 {
 }
 
 fn draw_header(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect) {
+    // The granularity control only applies to bucketed views, so it
+    // disappears on Sessions and the Models list.
+    let bucketed_view = app.tab == Tab::Usage || app.detail.is_some();
     let [title_area, tabs_area, granularity_area, sort_area] = Layout::horizontal([
         Constraint::Length(10),
         Constraint::Min(0),
-        Constraint::Length(10),
+        Constraint::Length(if bucketed_view { 10 } else { 0 }),
         Constraint::Length(12),
     ])
     .areas(area);
@@ -94,7 +97,9 @@ fn draw_header(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect) {
     }
     frame.render_widget(Line::from(spans), tabs_area);
 
-    draw_granularity(frame, app, hits, granularity_area);
+    if bucketed_view {
+        draw_granularity(frame, app, hits, granularity_area);
+    }
 
     let sort = app.sort();
     let indicator = format!(
@@ -107,7 +112,7 @@ fn draw_header(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect) {
 }
 
 /// The [D][W][M] segmented control; clicking a segment rebuckets the open
-/// drill-down, or lands on the Usage tab with that bucketing.
+/// drill-down, or the Usage table.
 fn draw_granularity(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect) {
     let mut spans = Vec::new();
     let mut x = area.x;
@@ -118,8 +123,7 @@ fn draw_granularity(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect)
             Rect::new(x, area.y, width, 1),
             Action::SetGranularity(granularity),
         );
-        let bucketed_view = app.tab == Tab::Usage || app.detail.is_some();
-        spans.push(if bucketed_view && granularity == app.granularity {
+        spans.push(if granularity == app.granularity {
             label.bold().cyan()
         } else {
             label.dim()
@@ -304,7 +308,6 @@ impl SortColumn {
     fn short_label(self) -> &'static str {
         match self {
             Self::Key => "key",
-            Self::Activity => "act",
             Self::Input => "in",
             Self::Output => "out",
             Self::CacheCreate => "cc",
@@ -479,10 +482,9 @@ fn share_cell(cost: f64, total: f64) -> Cell<'static> {
     ]))
 }
 
-const SESSION_SORT_MAP: [Option<SortColumn>; 7] = [
+const SESSION_SORT_MAP: [Option<SortColumn>; 6] = [
     Some(SortColumn::Key),
     Some(SortColumn::Key),
-    Some(SortColumn::Activity),
     Some(SortColumn::Input),
     Some(SortColumn::Output),
     Some(SortColumn::TotalTokens),
@@ -493,7 +495,6 @@ fn session_table(rows: &[UsageSummary], hovered: Option<usize>, sort: Sort) -> T
     let header = Row::new(vec![
         header_cell("Project", Some(SortColumn::Key), sort, false),
         header_cell("Session", Some(SortColumn::Key), sort, false),
-        header_cell("Last Activity", Some(SortColumn::Activity), sort, false),
         header_cell("Input", Some(SortColumn::Input), sort, true),
         header_cell("Output", Some(SortColumn::Output), sort, true),
         header_cell("Total Tokens", Some(SortColumn::TotalTokens), sort, true),
@@ -502,7 +503,6 @@ fn session_table(rows: &[UsageSummary], hovered: Option<usize>, sort: Sort) -> T
     let widths = vec![
         Constraint::Fill(1),
         Constraint::Fill(2),
-        Constraint::Length(15),
         Constraint::Length(12),
         Constraint::Length(12),
         Constraint::Length(14),
@@ -519,7 +519,6 @@ fn session_table(rows: &[UsageSummary], hovered: Option<usize>, sort: Sort) -> T
                     &aliases,
                 )),
                 Cell::from(row.session_id.clone().unwrap_or_default()),
-                Cell::from(activity_date(row)),
                 number_cell(format_number(row.input_tokens)),
                 number_cell(format_number(row.output_tokens)),
                 number_cell(format_number(row.total_tokens())),
@@ -676,11 +675,6 @@ fn row_key(row: &UsageSummary) -> String {
         .or_else(|| row.month.clone())
         .or_else(|| row.session_id.clone())
         .unwrap_or_default()
-}
-
-fn activity_date(row: &UsageSummary) -> String {
-    let activity = row.last_activity.as_deref().unwrap_or_default();
-    activity.get(..10).unwrap_or(activity).to_string()
 }
 
 fn model_list(row: &UsageSummary) -> String {
