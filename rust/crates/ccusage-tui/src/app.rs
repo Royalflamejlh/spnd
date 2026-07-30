@@ -39,6 +39,7 @@ pub(crate) struct App {
     descending: [bool; 3],
     pub(crate) show_breakdown: bool,
     pub(crate) should_quit: bool,
+    pub(crate) hovered_row: Option<usize>,
 }
 
 impl App {
@@ -56,6 +57,7 @@ impl App {
             descending: [date_descending, date_descending, true],
             show_breakdown: false,
             should_quit: false,
+            hovered_row: None,
         };
         for tab in Tab::ALL {
             let selected = (!app.rows_for(tab).is_empty()).then_some(0);
@@ -97,12 +99,21 @@ impl App {
         self.descending[self.tab.index()]
     }
 
+    pub(crate) fn state_selected(&self) -> Option<usize> {
+        self.states[self.tab.index()].selected()
+    }
+
     pub(crate) fn next_tab(&mut self) {
-        self.tab = Tab::ALL[(self.tab.index() + 1) % Tab::ALL.len()];
+        self.switch_tab(Tab::ALL[(self.tab.index() + 1) % Tab::ALL.len()]);
     }
 
     pub(crate) fn prev_tab(&mut self) {
-        self.tab = Tab::ALL[(self.tab.index() + Tab::ALL.len() - 1) % Tab::ALL.len()];
+        self.switch_tab(Tab::ALL[(self.tab.index() + Tab::ALL.len() - 1) % Tab::ALL.len()]);
+    }
+
+    pub(crate) fn switch_tab(&mut self, tab: Tab) {
+        self.tab = tab;
+        self.hovered_row = None;
     }
 
     pub(crate) fn move_by(&mut self, delta: isize) {
@@ -129,11 +140,18 @@ impl App {
         }
     }
 
+    pub(crate) fn select_row(&mut self, index: usize) {
+        if index < self.rows().len() {
+            self.state_mut().select(Some(index));
+        }
+    }
+
     /// Reverses the current tab's rows; every tab loads already sorted, so a
     /// reversal is exactly a sort-direction toggle.
     pub(crate) fn toggle_sort(&mut self) {
         self.descending[self.tab.index()] ^= true;
         self.rows_mut().reverse();
+        self.hovered_row = None;
         self.select_first();
     }
 }

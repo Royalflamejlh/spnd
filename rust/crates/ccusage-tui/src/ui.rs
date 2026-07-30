@@ -1,4 +1,6 @@
 //! Rendering: tab bar, report tables, totals footer, and the breakdown popup.
+//! Every interactive element registers its screen region in the hit map while
+//! it draws, so mouse clicks resolve to the same actions as the keyboard.
 use std::collections::HashMap;
 
 use ccusage_core::{
@@ -9,15 +11,18 @@ use ratatui::{
     layout::{Constraint, Layout, Rect},
     style::{Style, Stylize},
     text::{Line, Span},
-    widgets::{Block, Cell, Clear, Paragraph, Row, Table, Tabs},
+    widgets::{Block, Cell, Clear, Paragraph, Row, Table},
 };
 
 use crate::{
+    action::Action,
     app::{App, Tab},
     data,
+    hit::HitMap,
 };
 
-pub(crate) fn draw(frame: &mut Frame, app: &mut App) {
+pub(crate) fn draw(frame: &mut Frame, app: &mut App, hits: &mut HitMap) {
+    hits.clear();
     let [header_area, body_area, footer_area] = Layout::vertical([
         Constraint::Length(1),
         Constraint::Min(0),
@@ -25,15 +30,15 @@ pub(crate) fn draw(frame: &mut Frame, app: &mut App) {
     ])
     .areas(frame.area());
 
-    draw_header(frame, app, header_area);
-    draw_table(frame, app, body_area);
+    draw_header(frame, app, hits, header_area);
+    draw_table(frame, app, hits, body_area);
     draw_footer(frame, app, footer_area);
     if app.show_breakdown {
-        draw_breakdown(frame, app, frame.area());
+        draw_breakdown(frame, app, hits, frame.area());
     }
 }
 
-fn draw_header(frame: &mut Frame, app: &App, area: Rect) {
+fn draw_header(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect) {
     let [title_area, tabs_area, sort_area] = Layout::horizontal([
         Constraint::Length(10),
         Constraint::Min(0),
@@ -42,19 +47,37 @@ fn draw_header(frame: &mut Frame, app: &App, area: Rect) {
     .areas(area);
 
     frame.render_widget(Line::from(" ccusage ".bold().cyan()), title_area);
-    let tabs = Tabs::new(Tab::ALL.map(Tab::title))
-        .select(app.tab.index())
-        .highlight_style(Style::new().bold().cyan().underlined());
-    frame.render_widget(tabs, tabs_area);
+
+    let mut spans = Vec::new();
+    let mut x = tabs_area.x;
+    for (index, tab) in Tab::ALL.into_iter().enumerate() {
+        if index > 0 {
+            spans.push("│".dim());
+            x += 1;
+        }
+        let label = format!(" {} ", tab.title());
+        let width = label.len() as u16;
+        hits.register(Rect::new(x, tabs_area.y, width, 1), Action::SwitchTab(tab));
+        spans.push(if tab == app.tab {
+            label.bold().cyan().underlined()
+        } else {
+            Span::from(label)
+        });
+        x += width;
+    }
+    frame.render_widget(Line::from(spans), tabs_area);
+
     let direction = if app.descending() { "desc" } else { "asc" };
+    hits.register(sort_area, Action::ToggleSort);
     frame.render_widget(Line::from(format!("[{direction}]").dim()), sort_area);
 }
 
-fn draw_table(frame: &mut Frame, app: &mut App, area: Rect) {
+fn draw_table(frame: &mut Frame, app: &mut App, hits: &mut HitMap, area: Rect) {
     let rows = app.rows();
-    let plural = if rows.len() == 1 { "row" } else { "rows" };
+    let row_count = rows.len();
+    let plural = if row_count == 1 { "row" } else { "rows" };
     let block = Block::bordered()
-        .title(format!(" {} — {} {plural} ", app.tab.title(), rows.len()))
+        .title(format!(" {} — {row_count} {plural} ", app.tab.title()))
         .dim();
     if rows.is_empty() {
         frame.render_widget(
@@ -65,22 +88,53 @@ fn draw_table(frame: &mut Frame, app: &mut App, area: Rect) {
     }
 
     let (header, widths, body_rows) = match app.tab {
-        Tab::Daily => period_table("Date", rows, |row| row.date.clone().unwrap_or_default()),
-        Tab::Monthly => period_table("Month", rows, |row| row.month.clone().unwrap_or_default()),
-        Tab::Sessions => session_table(rows),
+        Tab::Daily => period_table("Date", rows, app.hovered_row, |row| {
+            row.date.clone().unwrap_or_default()
+        }),
+        Tab::Monthly => period_table("Month", rows, app.hovered_row, |row| {
+            row.month.clone().unwrap_or_default()
+        }),
+        Tab::Sessions => session_table(rows, app.hovered_row),
     };
     let table = Table::new(body_rows, widths)
         .header(header.bold())
         .block(block)
         .row_highlight_style(Style::new().reversed());
     frame.render_stateful_widget(table, area, app.state_mut());
+
+    // The stateful render just fixed up the scroll offset, so the visible
+    // window is only known now: one row per line under the border + header.
+    let offset = app.state_mut().offset();
+    let body_top = area.y + 2;
+    let body_height = usize::from(area.height.saturating_sub(3));
+    let visible = row_count.saturating_sub(offset).min(body_height);
+    for index in 0..visible {
+        hits.register(
+            Rect::new(
+                area.x + 1,
+                body_top + index as u16,
+                area.width.saturating_sub(2),
+                1,
+            ),
+            Action::ClickRow(offset + index),
+        );
+    }
 }
 
 type TableParts = (Row<'static>, Vec<Constraint>, Vec<Row<'static>>);
 
+fn hover_style(hovered: Option<usize>, index: usize) -> Style {
+    if hovered == Some(index) {
+        Style::new().on_dark_gray()
+    } else {
+        Style::new()
+    }
+}
+
 fn period_table(
     key_title: &'static str,
     rows: &[UsageSummary],
+    hovered: Option<usize>,
     key: impl Fn(&UsageSummary) -> String,
 ) -> TableParts {
     let header = Row::new(vec![
@@ -105,7 +159,8 @@ fn period_table(
     ];
     let body = rows
         .iter()
-        .map(|row| {
+        .enumerate()
+        .map(|(index, row)| {
             Row::new(vec![
                 Cell::from(key(row)),
                 number_cell(format_number(row.input_tokens)),
@@ -116,12 +171,13 @@ fn period_table(
                 cost_cell(row.total_cost),
                 Cell::from(model_list(row)),
             ])
+            .style(hover_style(hovered, index))
         })
         .collect();
     (header, widths, body)
 }
 
-fn session_table(rows: &[UsageSummary]) -> TableParts {
+fn session_table(rows: &[UsageSummary], hovered: Option<usize>) -> TableParts {
     let header = Row::new(vec![
         Cell::from("Project"),
         Cell::from("Session"),
@@ -143,7 +199,8 @@ fn session_table(rows: &[UsageSummary]) -> TableParts {
     let aliases = HashMap::new();
     let body = rows
         .iter()
-        .map(|row| {
+        .enumerate()
+        .map(|(index, row)| {
             Row::new(vec![
                 Cell::from(format_project_name(
                     row.project_path.as_deref().unwrap_or_default(),
@@ -156,6 +213,7 @@ fn session_table(rows: &[UsageSummary]) -> TableParts {
                 number_cell(format_number(row.total_tokens())),
                 cost_cell(row.total_cost),
             ])
+            .style(hover_style(hovered, index))
         })
         .collect();
     (header, widths, body)
@@ -179,18 +237,21 @@ fn draw_footer(frame: &mut Frame, app: &App, area: Rect) {
     ]);
     frame.render_widget(line, totals_area);
     frame.render_widget(
-        Line::from(" q quit · tab/←→ switch · ↑↓/jk move · g/G ends · s sort · enter breakdown")
-            .dim(),
+        Line::from(
+            " q quit · tab/←→ switch · ↑↓/jk move · g/G ends · s sort · enter breakdown · mouse: click/scroll",
+        )
+        .dim(),
         hints_area,
     );
 }
 
-fn draw_breakdown(frame: &mut Frame, app: &App, area: Rect) {
+fn draw_breakdown(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect) {
     let Some(row) = app.selected() else {
         return;
     };
     let height = (row.model_breakdowns.len() as u16 + 4).min(area.height.saturating_sub(2));
     let popup = centered_rect(area, 88, height);
+    hits.set_popup(popup);
     frame.render_widget(Clear, popup);
 
     let header = Row::new(vec![

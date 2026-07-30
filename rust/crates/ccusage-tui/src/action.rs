@@ -1,15 +1,20 @@
 //! The single action vocabulary every input source maps into, and the update
 //! function that applies one action to the application state.
-use crate::app::App;
+use crate::app::{App, Tab};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum Action {
     Quit,
     NextTab,
     PrevTab,
+    SwitchTab(Tab),
     MoveBy(isize),
     SelectFirst,
     SelectLast,
+    /// Mouse click on a table row: selects it, or opens the breakdown when
+    /// the row is already selected.
+    ClickRow(usize),
+    HoverRow(Option<usize>),
     ToggleSort,
     OpenBreakdown,
     CloseBreakdown,
@@ -20,9 +25,18 @@ pub(crate) fn update(app: &mut App, action: Action) {
         Action::Quit => app.should_quit = true,
         Action::NextTab => app.next_tab(),
         Action::PrevTab => app.prev_tab(),
+        Action::SwitchTab(tab) => app.switch_tab(tab),
         Action::MoveBy(delta) => app.move_by(delta),
         Action::SelectFirst => app.select_first(),
         Action::SelectLast => app.select_last(),
+        Action::ClickRow(index) => {
+            if app.state_selected() == Some(index) {
+                app.show_breakdown = true;
+            } else {
+                app.select_row(index);
+            }
+        }
+        Action::HoverRow(row) => app.hovered_row = row,
         Action::ToggleSort => app.toggle_sort(),
         Action::OpenBreakdown => {
             if app.selected().is_some() {
@@ -86,6 +100,42 @@ mod tests {
         assert_eq!(app.rows().last().unwrap().date, first_before);
         assert_ne!(app.descending(), descending_before);
         assert_eq!(app.states[0].selected(), Some(0));
+    }
+
+    #[test]
+    fn switch_tab_jumps_directly_and_clears_hover() {
+        let mut app = app();
+        app.hovered_row = Some(1);
+        update(&mut app, Action::SwitchTab(Tab::Sessions));
+        assert_eq!(app.tab, Tab::Sessions);
+        assert_eq!(app.hovered_row, None);
+    }
+
+    #[test]
+    fn click_row_selects_then_opens_breakdown() {
+        let mut app = app();
+        update(&mut app, Action::ClickRow(1));
+        assert_eq!(app.states[0].selected(), Some(1));
+        assert!(!app.show_breakdown);
+        update(&mut app, Action::ClickRow(1));
+        assert!(app.show_breakdown);
+    }
+
+    #[test]
+    fn click_row_ignores_out_of_range_indexes() {
+        let mut app = app();
+        update(&mut app, Action::ClickRow(999));
+        assert_eq!(app.states[0].selected(), Some(0));
+        assert!(!app.show_breakdown);
+    }
+
+    #[test]
+    fn hover_row_updates_transient_state() {
+        let mut app = app();
+        update(&mut app, Action::HoverRow(Some(2)));
+        assert_eq!(app.hovered_row, Some(2));
+        update(&mut app, Action::HoverRow(None));
+        assert_eq!(app.hovered_row, None);
     }
 
     #[test]
