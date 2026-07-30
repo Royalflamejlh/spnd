@@ -1,6 +1,6 @@
 # ccusage-tui
 
-The interactive `ccusage tui` terminal UI: a ratatui application over the Claude
+The interactive `spnd tui` terminal UI: a ratatui application over the Claude
 Code usage data, with Usage/Sessions/Models pages, daily/weekly/monthly
 bucketing, a cost bar chart, per-model drill-down pages, column sorting, and
 full mouse support.
@@ -34,5 +34,5 @@ full mouse support.
 
 ## Build layer
 
-Built in the final binary Crane artifact layer alongside the `ccusage` binary,
+Built in the final binary Crane artifact layer alongside the `spnd` binary,
 so a change here only recompiles that last layer.

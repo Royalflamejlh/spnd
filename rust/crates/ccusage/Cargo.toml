@@ -6,7 +6,7 @@ build = "build.rs"
 publish.workspace = true
 
 [[bin]]
-name = "ccusage"
+name = "spnd"
 path = "src/main.rs"
 
 [features]

@@ -101,7 +101,7 @@ function resolveCliRuntime({
 	}
 
 	return {
-		errorMessage: `ccusage native binary is not available for ${platform}-${arch}. Reinstall ccusage so optional native dependencies are installed.\n`,
+		errorMessage: `spnd native binary is not available for ${platform}-${arch}. Reinstall spnd so optional native dependencies are installed.\n`,
 	};
 }
 
@@ -135,7 +135,7 @@ function ensureNativeBinaryExecutable({
 		chmodPath(binaryPath, 0o755);
 		return undefined;
 	} catch (error) {
-		return `ccusage native binary is not executable: ${errorMessage(error)}\n`;
+		return `spnd native binary is not executable: ${errorMessage(error)}\n`;
 	}
 }
 

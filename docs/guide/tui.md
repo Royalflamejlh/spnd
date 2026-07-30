@@ -1,6 +1,6 @@
 # Interactive TUI
 
-The `ccusage tui` command opens an interactive terminal UI for browsing Claude
+The `spnd tui` command opens an interactive terminal UI for browsing Claude
 Code usage instead of printing a one-shot report. It loads the same data as the
 `claude` reports and lets you flip between usage, session, and model views,
 switch between daily, weekly, and monthly bucketing, sort by any column, and
@@ -9,7 +9,7 @@ drill into any model's usage over time — with the keyboard or the mouse.
 ## Basic Usage
 
 ```bash
-ccusage tui
+spnd tui
 ```
 
 ## Example Output
@@ -17,7 +17,7 @@ ccusage tui
 <!-- eslint-skip -->
 
 ```
- ccusage   Usage │ Sessions │ Models                        [D][W][M]  [key▴]
+ spnd   Usage │ Sessions │ Models                        [D][W][M]  [key▴]
 ┌ cost per daily ─────────────────────────────────────────────────────────────┐
 │                                        ████                                 │
 │                          ████    ████  ████                                 │
@@ -40,7 +40,7 @@ ccusage tui
   `[D][W][M]` control or the <kbd>d</kbd>/<kbd>w</kbd>/<kbd>m</kbd> keys. A
   cost bar chart sits above the table; clicking a bar selects its row.
 - **Sessions**: usage grouped by project and session, sorted
-  most-expensive-first, matching `ccusage claude session`.
+  most-expensive-first, matching `spnd claude session`.
 - **Models**: one row per model with aggregated tokens, cost, and a
   share-of-total-cost bar. Opening a row (Enter, or clicking the selected row)
   drills into that model's usage over time at the current bucketing;
@@ -84,21 +84,21 @@ while a program captures the mouse.
 
 ## Command Options
 
-`ccusage tui` accepts the shared Claude report options, so the data it browses
+`spnd tui` accepts the shared Claude report options, so the data it browses
 can be filtered and shaped the same way as the printed reports:
 
 ```bash
 # Only browse a date range
-ccusage tui --since 20260101 --until 20260131
+spnd tui --since 20260101 --until 20260131
 
 # Force cost calculation from tokens and use a fixed timezone
-ccusage tui --mode calculate --timezone UTC
+spnd tui --mode calculate --timezone UTC
 
 # Use cached pricing without network access
-ccusage tui --offline
+spnd tui --offline
 ```
 
-Run `ccusage tui --help` for the full list. Options that only affect printed
+Run `spnd tui --help` for the full list. Options that only affect printed
 output, such as `--json`, are accepted but have no effect inside the TUI.
 
 ## Related Guides

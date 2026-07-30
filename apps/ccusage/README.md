@@ -1,17 +1,19 @@
-# ccusageui
+# spnd
 
-A fork of [ccusage/ccusage](https://github.com/ccusage/ccusage) that adds `ccusage tui`, an
-interactive [ratatui](https://ratatui.rs/) terminal UI for browsing Claude Code usage with
-daily, monthly, and session tabs. Everything else works exactly like upstream ccusage — see
-the [upstream repository](https://github.com/ccusage/ccusage) and
-[ccusage.com](https://ccusage.com/) for full documentation of the CLI, supported sources,
-and report options.
+An interactive terminal UI and reports for coding-agent token usage and spend.
+`spnd` is a fork of [ccusage/ccusage](https://github.com/ccusage/ccusage) that
+adds `spnd tui`, an interactive [ratatui](https://ratatui.rs/) terminal UI for
+browsing Claude Code usage. Everything else works exactly like upstream
+ccusage — see the [upstream repository](https://github.com/ccusage/ccusage)
+and [ccusage.com](https://ccusage.com/) for full documentation of the CLI,
+supported sources, and report options (substitute `spnd` for `ccusage` in the
+commands).
 
 ## Interactive TUI
 
 ```bash
-ccusage tui
-ccusage tui --since 20260101 --offline
+spnd tui
+spnd tui --since 20260101 --offline
 ```
 
 - **Usage / Sessions / Models pages** over the same data as the `claude` reports
@@ -23,25 +25,23 @@ ccusage tui --since 20260101 --offline
 - **Help overlay** on `?`, totals footer that always reflects the current view
 - Accepts the shared Claude report options such as `--since`, `--until`, `--timezone`, `--mode`, and `--offline`
 
-The TUI ships in this fork's `ccusage` binary only; the upstream npm package does not include it.
-
 ## Building and Installing
 
 Build the Rust CLI from this repository:
 
 ```bash
 cd rust
-cargo build --release                 # binary at rust/target/release/ccusage
-cargo install --path crates/ccusage   # install to ~/.cargo/bin
+cargo build --release                 # binary at rust/target/release/spnd
+cargo install --path crates/ccusage   # install spnd to ~/.cargo/bin
 ```
 
 Or run it via Nix:
 
 ```bash
-nix run github:Royalflamejlh/ccusageui -- tui
+nix run github:Royalflamejlh/spnd -- tui
 ```
 
-All of the regular ccusage commands (`ccusage daily`, `ccusage monthly`, `ccusage session`,
+All of the regular reports (`spnd daily`, `spnd monthly`, `spnd session`,
 per-agent subcommands, and so on) work from the same binary.
 
 ## License

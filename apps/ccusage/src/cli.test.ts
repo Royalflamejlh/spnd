@@ -57,7 +57,7 @@ void describe(resolveCliRuntime.name, () => {
 			}),
 			{
 				errorMessage:
-					'ccusage native binary is not available for darwin-arm64. Reinstall ccusage so optional native dependencies are installed.\n',
+					'spnd native binary is not available for darwin-arm64. Reinstall spnd so optional native dependencies are installed.\n',
 			},
 		);
 	});

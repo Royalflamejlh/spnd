@@ -76,7 +76,7 @@ fn draw_header(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect) {
     ])
     .areas(area);
 
-    frame.render_widget(Line::from(" ccusage ".bold().cyan()), title_area);
+    frame.render_widget(Line::from(" spnd ".bold().cyan()), title_area);
 
     let mut spans = Vec::new();
     let mut x = tabs_area.x;
