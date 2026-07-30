@@ -22,7 +22,17 @@ pub(crate) fn key_action(app: &App, key: KeyEvent) -> Option<Action> {
         .then_some(Action::CloseBreakdown);
     }
     Some(match key.code {
-        KeyCode::Char('q') | KeyCode::Esc => Action::Quit,
+        KeyCode::Char('q') => Action::Quit,
+        KeyCode::Esc => {
+            if app.detail.is_some() {
+                Action::Back
+            } else {
+                Action::Quit
+            }
+        }
+        KeyCode::Backspace => Action::Back,
+        KeyCode::Char('[') => Action::StepModel(-1),
+        KeyCode::Char(']') => Action::StepModel(1),
         KeyCode::Tab | KeyCode::Right | KeyCode::Char('l') => Action::NextTab,
         KeyCode::BackTab | KeyCode::Left | KeyCode::Char('h') => Action::PrevTab,
         KeyCode::Down | KeyCode::Char('j') => Action::MoveBy(1),
@@ -44,13 +54,16 @@ pub(crate) fn mouse_action(app: &App, hits: &HitMap, mouse: MouseEvent) -> Optio
     let (x, y) = (mouse.column, mouse.row);
     if hits.popup_active() {
         return match mouse.kind {
-            MouseEventKind::Down(_) if !hits.popup_contains(x, y) => Some(Action::CloseBreakdown),
-            MouseEventKind::Down(MouseButton::Right) => Some(Action::CloseBreakdown),
+            MouseEventKind::Down(MouseButton::Left) if hits.popup_contains(x, y) => {
+                hits.popup_hit(x, y)
+            }
+            MouseEventKind::Down(_) => Some(Action::CloseBreakdown),
             _ => None,
         };
     }
     match mouse.kind {
         MouseEventKind::Down(MouseButton::Left) => hits.hit(x, y),
+        MouseEventKind::Down(MouseButton::Right) => Some(Action::Back),
         MouseEventKind::ScrollDown => Some(Action::MoveBy(1)),
         MouseEventKind::ScrollUp => Some(Action::MoveBy(-1)),
         MouseEventKind::Moved => {

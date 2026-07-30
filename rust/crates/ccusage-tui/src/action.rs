@@ -12,11 +12,19 @@ pub(crate) enum Action {
     MoveBy(isize),
     SelectFirst,
     SelectLast,
-    /// Mouse click on a table row: selects it, or opens the breakdown when
-    /// the row is already selected.
+    /// Mouse click on a table row: selects it, or drills in when the row is
+    /// already selected.
     ClickRow(usize),
     HoverRow(Option<usize>),
     ToggleSort,
+    /// Opens the drill-down for `tables.models[index]`.
+    OpenModel(usize),
+    /// Steps the open model drill-down forward or backward through the model
+    /// list, wrapping around.
+    StepModel(isize),
+    /// Closes the topmost layer: the breakdown popup, or the model
+    /// drill-down.
+    Back,
     OpenBreakdown,
     CloseBreakdown,
 }
@@ -33,19 +41,36 @@ pub(crate) fn update(app: &mut App, action: Action) {
         Action::SelectLast => app.select_last(),
         Action::ClickRow(index) => {
             if app.state_selected() == Some(index) {
-                app.show_breakdown = true;
+                drill_in(app);
             } else {
                 app.select_row(index);
             }
         }
         Action::HoverRow(row) => app.hovered_row = row,
         Action::ToggleSort => app.toggle_sort(),
-        Action::OpenBreakdown => {
-            if app.selected().is_some() {
-                app.show_breakdown = true;
+        Action::OpenModel(index) => app.open_model(index),
+        Action::StepModel(delta) => app.step_model(delta),
+        Action::Back => {
+            if app.show_breakdown {
+                app.show_breakdown = false;
+            } else {
+                app.close_detail();
             }
         }
+        Action::OpenBreakdown => drill_in(app),
         Action::CloseBreakdown => app.show_breakdown = false,
+    }
+}
+
+/// Enter on the models table opens the drill-down; everywhere else it opens
+/// the selected row's breakdown popup.
+fn drill_in(app: &mut App) {
+    if app.tab == Tab::Models && app.detail.is_none() {
+        if let Some(index) = app.state_selected() {
+            app.open_model(index);
+        }
+    } else if app.selected().is_some() {
+        app.show_breakdown = true;
     }
 }
 
@@ -68,15 +93,11 @@ mod tests {
     }
 
     #[test]
-    fn tab_cycling_wraps_both_directions() {
+    fn prev_tab_wraps_backwards() {
         let mut app = app();
         assert_eq!(app.tab, Tab::Usage);
-        update(&mut app, Action::NextTab);
-        assert_eq!(app.tab, Tab::Sessions);
-        update(&mut app, Action::NextTab);
-        assert_eq!(app.tab, Tab::Usage);
         update(&mut app, Action::PrevTab);
-        assert_eq!(app.tab, Tab::Sessions);
+        assert_eq!(app.tab, Tab::Models);
     }
 
     #[test]
@@ -168,6 +189,93 @@ mod tests {
         assert_eq!(app.hovered_row, Some(2));
         update(&mut app, Action::HoverRow(None));
         assert_eq!(app.hovered_row, None);
+    }
+
+    #[test]
+    fn tab_cycling_covers_all_three_tabs() {
+        let mut app = app();
+        update(&mut app, Action::NextTab);
+        assert_eq!(app.tab, Tab::Sessions);
+        update(&mut app, Action::NextTab);
+        assert_eq!(app.tab, Tab::Models);
+        update(&mut app, Action::NextTab);
+        assert_eq!(app.tab, Tab::Usage);
+    }
+
+    #[test]
+    fn open_model_builds_the_drill_down() {
+        let mut app = app();
+        update(&mut app, Action::OpenModel(0));
+        let detail = app.detail.as_ref().unwrap();
+        assert_eq!(detail.model, "claude-sonnet-5");
+        assert_eq!(detail.rows.len(), 2);
+        assert_eq!(app.tab, Tab::Models);
+        assert_eq!(app.rows().len(), 2);
+        update(&mut app, Action::Back);
+        assert!(app.detail.is_none());
+    }
+
+    #[test]
+    fn step_model_wraps_through_the_model_list() {
+        let mut app = app();
+        update(&mut app, Action::OpenModel(0));
+        update(&mut app, Action::StepModel(1));
+        assert_eq!(app.detail.as_ref().unwrap().model, "claude-fable-5");
+        update(&mut app, Action::StepModel(1));
+        assert_eq!(app.detail.as_ref().unwrap().model, "claude-sonnet-5");
+        update(&mut app, Action::StepModel(-1));
+        assert_eq!(app.detail.as_ref().unwrap().model, "claude-fable-5");
+    }
+
+    #[test]
+    fn granularity_rebuckets_an_open_drill_down_in_place() {
+        let mut app = app();
+        update(&mut app, Action::OpenModel(0));
+        update(&mut app, Action::SetGranularity(Granularity::Monthly));
+        let detail = app.detail.as_ref().unwrap();
+        assert_eq!(detail.rows.len(), 1);
+        assert_eq!(detail.rows[0].month.as_deref(), Some("2026-07"));
+        assert_eq!(app.tab, Tab::Models);
+    }
+
+    #[test]
+    fn enter_on_the_models_tab_opens_the_drill_down() {
+        let mut app = app();
+        update(&mut app, Action::SwitchTab(Tab::Models));
+        update(&mut app, Action::OpenBreakdown);
+        assert!(app.detail.is_some());
+        assert!(!app.show_breakdown);
+    }
+
+    #[test]
+    fn click_on_selected_models_row_drills_in() {
+        let mut app = app();
+        update(&mut app, Action::SwitchTab(Tab::Models));
+        update(&mut app, Action::ClickRow(1));
+        assert!(app.detail.is_none());
+        update(&mut app, Action::ClickRow(1));
+        assert_eq!(app.detail.as_ref().unwrap().model, "claude-fable-5");
+    }
+
+    #[test]
+    fn back_closes_the_popup_before_the_drill_down() {
+        let mut app = app();
+        update(&mut app, Action::OpenModel(0));
+        update(&mut app, Action::OpenBreakdown);
+        assert!(app.show_breakdown);
+        update(&mut app, Action::Back);
+        assert!(!app.show_breakdown);
+        assert!(app.detail.is_some());
+        update(&mut app, Action::Back);
+        assert!(app.detail.is_none());
+    }
+
+    #[test]
+    fn switching_tabs_closes_the_drill_down() {
+        let mut app = app();
+        update(&mut app, Action::OpenModel(0));
+        update(&mut app, Action::SwitchTab(Tab::Usage));
+        assert!(app.detail.is_none());
     }
 
     #[test]

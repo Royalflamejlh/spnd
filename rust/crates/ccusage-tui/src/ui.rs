@@ -87,7 +87,8 @@ fn draw_granularity(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect)
             Rect::new(x, area.y, width, 1),
             Action::SetGranularity(granularity),
         );
-        spans.push(if app.tab == Tab::Usage && granularity == app.granularity {
+        let bucketed_view = app.tab == Tab::Usage || app.detail.is_some();
+        spans.push(if bucketed_view && granularity == app.granularity {
             label.bold().cyan()
         } else {
             label.dim()
@@ -101,13 +102,24 @@ fn draw_table(frame: &mut Frame, app: &mut App, hits: &mut HitMap, area: Rect) {
     let rows = app.rows();
     let row_count = rows.len();
     let plural = if row_count == 1 { "row" } else { "rows" };
-    let title = match app.tab {
-        Tab::Usage => app.granularity.title(),
-        Tab::Sessions => app.tab.title(),
+    let title = match &app.detail {
+        Some(detail) => format!(
+            " {} — {} — {row_count} {plural} ",
+            short_model_name(&detail.model),
+            app.granularity.title(),
+        ),
+        None => {
+            let title = match app.tab {
+                Tab::Usage => app.granularity.title(),
+                Tab::Sessions | Tab::Models => app.tab.title(),
+            };
+            format!(" {title} — {row_count} {plural} ")
+        }
     };
-    let block = Block::bordered()
-        .title(format!(" {title} — {row_count} {plural} "))
-        .dim();
+    let mut block = Block::bordered().title(title).dim();
+    if app.detail.is_some() {
+        block = block.title_bottom(Line::from(" [/] switch model · esc back ").right_aligned());
+    }
     if rows.is_empty() {
         frame.render_widget(
             Paragraph::new("No rows for this report.").block(block),
@@ -116,18 +128,20 @@ fn draw_table(frame: &mut Frame, app: &mut App, hits: &mut HitMap, area: Rect) {
         return;
     }
 
-    let (header, widths, body_rows) = match app.tab {
-        Tab::Usage => {
-            let granularity = app.granularity;
-            period_table(granularity.key_title(), rows, app.hovered_row, move |row| {
-                match granularity {
-                    Granularity::Daily => row.date.clone().unwrap_or_default(),
-                    Granularity::Weekly => row.week.clone().unwrap_or_default(),
-                    Granularity::Monthly => row.month.clone().unwrap_or_default(),
-                }
-            })
+    let granularity = app.granularity;
+    let period_key = move |row: &UsageSummary| match granularity {
+        Granularity::Daily => row.date.clone().unwrap_or_default(),
+        Granularity::Weekly => row.week.clone().unwrap_or_default(),
+        Granularity::Monthly => row.month.clone().unwrap_or_default(),
+    };
+    let (header, widths, body_rows) = if app.detail.is_some() {
+        period_table(granularity.key_title(), rows, app.hovered_row, period_key)
+    } else {
+        match app.tab {
+            Tab::Usage => period_table(granularity.key_title(), rows, app.hovered_row, period_key),
+            Tab::Sessions => session_table(rows, app.hovered_row),
+            Tab::Models => models_table(rows, app.hovered_row),
         }
-        Tab::Sessions => session_table(rows, app.hovered_row),
     };
     let table = Table::new(body_rows, widths)
         .header(header.bold())
@@ -210,6 +224,65 @@ fn period_table(
     (header, widths, body)
 }
 
+fn models_table(rows: &[UsageSummary], hovered: Option<usize>) -> TableParts {
+    let header = Row::new(vec![
+        Cell::from("Model"),
+        number_cell("Input"),
+        number_cell("Output"),
+        number_cell("Cache Create"),
+        number_cell("Cache Read"),
+        number_cell("Total Tokens"),
+        number_cell("Cost (USD)"),
+        Cell::from("Share"),
+    ]);
+    let widths = vec![
+        Constraint::Fill(1),
+        Constraint::Length(12),
+        Constraint::Length(12),
+        Constraint::Length(13),
+        Constraint::Length(14),
+        Constraint::Length(14),
+        Constraint::Length(10),
+        Constraint::Length(18),
+    ];
+    let total_cost: f64 = rows.iter().map(|row| row.total_cost).sum();
+    let body = rows
+        .iter()
+        .enumerate()
+        .map(|(index, row)| {
+            Row::new(vec![
+                Cell::from(
+                    row.models_used
+                        .first()
+                        .map(|model| short_model_name(model))
+                        .unwrap_or_default(),
+                ),
+                number_cell(format_number(row.input_tokens)),
+                number_cell(format_number(row.output_tokens)),
+                number_cell(format_number(row.cache_creation_tokens)),
+                number_cell(format_number(row.cache_read_tokens)),
+                number_cell(format_number(row.total_tokens())),
+                cost_cell(row.total_cost),
+                share_cell(row.total_cost, total_cost),
+            ])
+            .style(hover_style(hovered, index))
+        })
+        .collect();
+    (header, widths, body)
+}
+
+/// A percentage plus a proportional bar, e.g. ` 42% █████`.
+fn share_cell(cost: f64, total: f64) -> Cell<'static> {
+    const BAR_WIDTH: usize = 12;
+    let fraction = if total > 0.0 { cost / total } else { 0.0 };
+    let filled = (fraction * BAR_WIDTH as f64).round() as usize;
+    let bar = "█".repeat(filled.min(BAR_WIDTH));
+    Cell::from(Line::from(vec![
+        Span::from(format!("{:>3.0}% ", fraction * 100.0)),
+        bar.cyan(),
+    ]))
+}
+
 fn session_table(rows: &[UsageSummary], hovered: Option<usize>) -> TableParts {
     let header = Row::new(vec![
         Cell::from("Project"),
@@ -269,13 +342,14 @@ fn draw_footer(frame: &mut Frame, app: &App, area: Rect) {
         format_currency(totals.cost).bold().yellow(),
     ]);
     frame.render_widget(line, totals_area);
-    frame.render_widget(
-        Line::from(
-            " q quit · tab/←→ switch · d/w/m bucket · ↑↓/jk move · s sort · enter breakdown · mouse: click/scroll",
-        )
-        .dim(),
-        hints_area,
-    );
+    let hints = if app.detail.is_some() {
+        " esc back · [/] switch model · d/w/m bucket · ↑↓/jk move · s sort · enter breakdown"
+    } else if app.tab == Tab::Models {
+        " q quit · tab/←→ switch · ↑↓/jk move · s sort · enter open model · mouse: click/scroll"
+    } else {
+        " q quit · tab/←→ switch · d/w/m bucket · ↑↓/jk move · s sort · enter breakdown · mouse: click/scroll"
+    };
+    frame.render_widget(Line::from(hints).dim(), hints_area);
 }
 
 fn draw_breakdown(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect) {
@@ -317,10 +391,34 @@ fn draw_breakdown(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect) {
             ])
         })
         .collect::<Vec<_>>();
+    // Each popup row is a jump to that model's drill-down.
+    for (index, breakdown) in row.model_breakdowns.iter().enumerate() {
+        let Some(model_index) = app
+            .tables
+            .models
+            .iter()
+            .position(|model| model.models_used.first() == Some(&breakdown.model_name))
+        else {
+            continue;
+        };
+        hits.register_popup(
+            Rect::new(
+                popup.x + 1,
+                popup.y + 2 + index as u16,
+                popup.width.saturating_sub(2),
+                1,
+            ),
+            Action::OpenModel(model_index),
+        );
+    }
     let table = Table::new(body, widths).header(header.bold()).block(
         Block::bordered()
             .title(format!(" {} — model breakdown ", row_key(row)))
-            .title_bottom(Line::from(" esc close ").right_aligned().dim()),
+            .title_bottom(
+                Line::from(" click a model to drill in · esc close ")
+                    .right_aligned()
+                    .dim(),
+            ),
     );
     frame.render_widget(table, popup);
 }

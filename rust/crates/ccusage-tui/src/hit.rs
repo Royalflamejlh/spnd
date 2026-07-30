@@ -8,12 +8,14 @@ use crate::action::Action;
 pub(crate) struct HitMap {
     targets: Vec<(Rect, Action)>,
     popup: Option<Rect>,
+    popup_targets: Vec<(Rect, Action)>,
 }
 
 impl HitMap {
     pub(crate) fn clear(&mut self) {
         self.targets.clear();
         self.popup = None;
+        self.popup_targets.clear();
     }
 
     pub(crate) fn register(&mut self, rect: Rect, action: Action) {
@@ -24,6 +26,19 @@ impl HitMap {
     /// popup instead of hitting the targets underneath.
     pub(crate) fn set_popup(&mut self, rect: Rect) {
         self.popup = Some(rect);
+    }
+
+    /// Registers a clickable region inside the popup, which shadows the
+    /// regular targets while the popup is open.
+    pub(crate) fn register_popup(&mut self, rect: Rect, action: Action) {
+        self.popup_targets.push((rect, action));
+    }
+
+    pub(crate) fn popup_hit(&self, x: u16, y: u16) -> Option<Action> {
+        self.popup_targets
+            .iter()
+            .find(|(rect, _)| contains(*rect, x, y))
+            .map(|(_, action)| *action)
     }
 
     pub(crate) fn popup_contains(&self, x: u16, y: u16) -> bool {
