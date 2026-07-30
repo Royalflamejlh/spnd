@@ -9,6 +9,7 @@ pub(crate) struct HitMap {
     targets: Vec<(Rect, Action)>,
     popup: Option<Rect>,
     popup_targets: Vec<(Rect, Action)>,
+    scrollbar: Option<(Rect, usize)>,
 }
 
 impl HitMap {
@@ -16,6 +17,25 @@ impl HitMap {
         self.targets.clear();
         self.popup = None;
         self.popup_targets.clear();
+        self.scrollbar = None;
+    }
+
+    /// Marks the vertical scrollbar track and the row count it spans, so
+    /// clicks and drags on it can jump proportionally.
+    pub(crate) fn set_scrollbar(&mut self, track: Rect, row_count: usize) {
+        self.scrollbar = Some((track, row_count));
+    }
+
+    /// A click or drag on the scrollbar track, mapped to the row at that
+    /// fraction of the table.
+    pub(crate) fn scrollbar_jump(&self, x: u16, y: u16) -> Option<Action> {
+        let (track, row_count) = self.scrollbar?;
+        if !contains(track, x, y) || track.height == 0 || row_count == 0 {
+            return None;
+        }
+        let fraction = f64::from(y - track.y) / f64::from(track.height.saturating_sub(1).max(1));
+        let index = (fraction * (row_count - 1) as f64).round() as usize;
+        Some(Action::SelectRow(index.min(row_count - 1)))
     }
 
     pub(crate) fn register(&mut self, rect: Rect, action: Action) {
@@ -83,6 +103,17 @@ mod tests {
         assert_eq!(hits.hit(10, 0), None);
         assert_eq!(hits.row_at(5, 2), Some(2));
         assert_eq!(hits.row_at(5, 0), None);
+    }
+
+    #[test]
+    fn scrollbar_jump_maps_track_position_to_rows() {
+        let mut hits = HitMap::default();
+        hits.set_scrollbar(Rect::new(79, 1, 1, 21), 100);
+        assert_eq!(hits.scrollbar_jump(79, 1), Some(Action::SelectRow(0)));
+        assert_eq!(hits.scrollbar_jump(79, 21), Some(Action::SelectRow(99)));
+        assert_eq!(hits.scrollbar_jump(79, 11), Some(Action::SelectRow(50)));
+        assert_eq!(hits.scrollbar_jump(78, 11), None);
+        assert_eq!(hits.scrollbar_jump(79, 0), None);
     }
 
     #[test]

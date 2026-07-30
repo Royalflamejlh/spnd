@@ -1,6 +1,6 @@
 //! The single action vocabulary every input source maps into, and the update
 //! function that applies one action to the application state.
-use crate::app::{App, Granularity, Tab};
+use crate::app::{App, Granularity, SortColumn, Tab};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum Action {
@@ -12,11 +12,19 @@ pub(crate) enum Action {
     MoveBy(isize),
     SelectFirst,
     SelectLast,
+    /// Selects a row outright (chart bars, scrollbar jumps).
+    SelectRow(usize),
     /// Mouse click on a table row: selects it, or drills in when the row is
     /// already selected.
     ClickRow(usize),
     HoverRow(Option<usize>),
     ToggleSort,
+    /// Click on a column header: sorts by that column, flipping direction on
+    /// a repeat.
+    SortBy(SortColumn),
+    /// Steps the sort column through the active view's columns.
+    CycleSortColumn,
+    ToggleHelp,
     /// Opens the drill-down for `tables.models[index]`.
     OpenModel(usize),
     /// Steps the open model drill-down forward or backward through the model
@@ -39,6 +47,7 @@ pub(crate) fn update(app: &mut App, action: Action) {
         Action::MoveBy(delta) => app.move_by(delta),
         Action::SelectFirst => app.select_first(),
         Action::SelectLast => app.select_last(),
+        Action::SelectRow(index) => app.select_row(index),
         Action::ClickRow(index) => {
             if app.state_selected() == Some(index) {
                 drill_in(app);
@@ -48,6 +57,9 @@ pub(crate) fn update(app: &mut App, action: Action) {
         }
         Action::HoverRow(row) => app.hovered_row = row,
         Action::ToggleSort => app.toggle_sort(),
+        Action::SortBy(column) => app.sort_by(column),
+        Action::CycleSortColumn => app.cycle_sort_column(),
+        Action::ToggleHelp => app.show_help = !app.show_help,
         Action::OpenModel(index) => app.open_model(index),
         Action::StepModel(delta) => app.step_model(delta),
         Action::Back => {
@@ -79,7 +91,7 @@ mod tests {
     use ccusage_core::cli::SortOrder;
 
     use super::*;
-    use crate::{app::Tab, data::fixtures::tables};
+    use crate::data::fixtures::tables;
 
     fn app() -> App {
         App::new(tables(), SortOrder::Asc)
@@ -148,11 +160,63 @@ mod tests {
     fn toggle_sort_reverses_rows_and_direction() {
         let mut app = app();
         let first_before = app.rows().first().unwrap().date.clone();
-        let descending_before = app.descending();
+        let descending_before = app.sort().descending;
         update(&mut app, Action::ToggleSort);
         assert_eq!(app.rows().last().unwrap().date, first_before);
-        assert_ne!(app.descending(), descending_before);
+        assert_ne!(app.sort().descending, descending_before);
         assert_eq!(app.states[0].selected(), Some(0));
+    }
+
+    #[test]
+    fn sort_by_column_starts_at_its_natural_direction_then_flips() {
+        let mut app = app();
+        update(&mut app, Action::SortBy(SortColumn::Cost));
+        assert_eq!(app.sort().column, SortColumn::Cost);
+        assert!(app.sort().descending);
+        assert_eq!(app.rows()[0].total_cost, 3.0);
+        update(&mut app, Action::SortBy(SortColumn::Cost));
+        assert!(!app.sort().descending);
+        assert_eq!(app.rows()[0].total_cost, 1.0);
+    }
+
+    #[test]
+    fn cycle_sort_column_steps_through_the_view_columns() {
+        let mut app = app();
+        assert_eq!(app.sort().column, SortColumn::Key);
+        update(&mut app, Action::CycleSortColumn);
+        assert_eq!(app.sort().column, SortColumn::Input);
+        assert!(app.sort().descending);
+        assert_eq!(app.rows()[0].input_tokens, 300);
+    }
+
+    #[test]
+    fn sorts_are_independent_per_view() {
+        let mut app = app();
+        update(&mut app, Action::SortBy(SortColumn::Output));
+        update(&mut app, Action::SwitchTab(Tab::Sessions));
+        assert_eq!(app.sort().column, SortColumn::Cost);
+        update(&mut app, Action::SwitchTab(Tab::Usage));
+        assert_eq!(app.sort().column, SortColumn::Output);
+    }
+
+    #[test]
+    fn help_overlay_toggles() {
+        let mut app = app();
+        update(&mut app, Action::ToggleHelp);
+        assert!(app.show_help);
+        update(&mut app, Action::ToggleHelp);
+        assert!(!app.show_help);
+    }
+
+    #[test]
+    fn select_row_selects_without_drilling_in() {
+        let mut app = app();
+        update(&mut app, Action::SelectRow(1));
+        update(&mut app, Action::SelectRow(1));
+        assert_eq!(app.state_selected(), Some(1));
+        assert!(!app.show_breakdown);
+        update(&mut app, Action::SelectRow(999));
+        assert_eq!(app.state_selected(), Some(1));
     }
 
     #[test]

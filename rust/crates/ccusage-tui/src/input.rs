@@ -14,6 +14,9 @@ pub(crate) fn key_action(app: &App, key: KeyEvent) -> Option<Action> {
     if key.modifiers.contains(KeyModifiers::CONTROL) && key.code == KeyCode::Char('c') {
         return Some(Action::Quit);
     }
+    if app.show_help {
+        return Some(Action::ToggleHelp);
+    }
     if app.show_breakdown {
         return matches!(
             key.code,
@@ -42,6 +45,8 @@ pub(crate) fn key_action(app: &App, key: KeyEvent) -> Option<Action> {
         KeyCode::Home | KeyCode::Char('g') => Action::SelectFirst,
         KeyCode::End | KeyCode::Char('G') => Action::SelectLast,
         KeyCode::Char('s') => Action::ToggleSort,
+        KeyCode::Char('o') => Action::CycleSortColumn,
+        KeyCode::Char('?') => Action::ToggleHelp,
         KeyCode::Char('d') => Action::SetGranularity(Granularity::Daily),
         KeyCode::Char('w') => Action::SetGranularity(Granularity::Weekly),
         KeyCode::Char('m') => Action::SetGranularity(Granularity::Monthly),
@@ -52,6 +57,9 @@ pub(crate) fn key_action(app: &App, key: KeyEvent) -> Option<Action> {
 
 pub(crate) fn mouse_action(app: &App, hits: &HitMap, mouse: MouseEvent) -> Option<Action> {
     let (x, y) = (mouse.column, mouse.row);
+    if app.show_help {
+        return matches!(mouse.kind, MouseEventKind::Down(_)).then_some(Action::ToggleHelp);
+    }
     if hits.popup_active() {
         return match mouse.kind {
             MouseEventKind::Down(MouseButton::Left) if hits.popup_contains(x, y) => {
@@ -62,7 +70,10 @@ pub(crate) fn mouse_action(app: &App, hits: &HitMap, mouse: MouseEvent) -> Optio
         };
     }
     match mouse.kind {
-        MouseEventKind::Down(MouseButton::Left) => hits.hit(x, y),
+        MouseEventKind::Down(MouseButton::Left) => {
+            hits.scrollbar_jump(x, y).or_else(|| hits.hit(x, y))
+        }
+        MouseEventKind::Drag(MouseButton::Left) => hits.scrollbar_jump(x, y),
         MouseEventKind::Down(MouseButton::Right) => Some(Action::Back),
         MouseEventKind::ScrollDown => Some(Action::MoveBy(1)),
         MouseEventKind::ScrollUp => Some(Action::MoveBy(-1)),
