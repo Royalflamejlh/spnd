@@ -16,7 +16,7 @@ use ratatui::{
 
 use crate::{
     action::Action,
-    app::{App, Tab},
+    app::{App, Granularity, Tab},
     data,
     hit::HitMap,
 };
@@ -39,9 +39,10 @@ pub(crate) fn draw(frame: &mut Frame, app: &mut App, hits: &mut HitMap) {
 }
 
 fn draw_header(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect) {
-    let [title_area, tabs_area, sort_area] = Layout::horizontal([
+    let [title_area, tabs_area, granularity_area, sort_area] = Layout::horizontal([
         Constraint::Length(10),
         Constraint::Min(0),
+        Constraint::Length(10),
         Constraint::Length(7),
     ])
     .areas(area);
@@ -67,17 +68,45 @@ fn draw_header(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect) {
     }
     frame.render_widget(Line::from(spans), tabs_area);
 
+    draw_granularity(frame, app, hits, granularity_area);
+
     let direction = if app.descending() { "desc" } else { "asc" };
     hits.register(sort_area, Action::ToggleSort);
     frame.render_widget(Line::from(format!("[{direction}]").dim()), sort_area);
+}
+
+/// The [D][W][M] segmented control; clicking a segment always lands on the
+/// Usage tab with that bucketing.
+fn draw_granularity(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect) {
+    let mut spans = Vec::new();
+    let mut x = area.x;
+    for granularity in Granularity::ALL {
+        let label = format!("[{}]", granularity.label());
+        let width = label.len() as u16;
+        hits.register(
+            Rect::new(x, area.y, width, 1),
+            Action::SetGranularity(granularity),
+        );
+        spans.push(if app.tab == Tab::Usage && granularity == app.granularity {
+            label.bold().cyan()
+        } else {
+            label.dim()
+        });
+        x += width;
+    }
+    frame.render_widget(Line::from(spans), area);
 }
 
 fn draw_table(frame: &mut Frame, app: &mut App, hits: &mut HitMap, area: Rect) {
     let rows = app.rows();
     let row_count = rows.len();
     let plural = if row_count == 1 { "row" } else { "rows" };
+    let title = match app.tab {
+        Tab::Usage => app.granularity.title(),
+        Tab::Sessions => app.tab.title(),
+    };
     let block = Block::bordered()
-        .title(format!(" {} — {row_count} {plural} ", app.tab.title()))
+        .title(format!(" {title} — {row_count} {plural} "))
         .dim();
     if rows.is_empty() {
         frame.render_widget(
@@ -88,12 +117,16 @@ fn draw_table(frame: &mut Frame, app: &mut App, hits: &mut HitMap, area: Rect) {
     }
 
     let (header, widths, body_rows) = match app.tab {
-        Tab::Daily => period_table("Date", rows, app.hovered_row, |row| {
-            row.date.clone().unwrap_or_default()
-        }),
-        Tab::Monthly => period_table("Month", rows, app.hovered_row, |row| {
-            row.month.clone().unwrap_or_default()
-        }),
+        Tab::Usage => {
+            let granularity = app.granularity;
+            period_table(granularity.key_title(), rows, app.hovered_row, move |row| {
+                match granularity {
+                    Granularity::Daily => row.date.clone().unwrap_or_default(),
+                    Granularity::Weekly => row.week.clone().unwrap_or_default(),
+                    Granularity::Monthly => row.month.clone().unwrap_or_default(),
+                }
+            })
+        }
         Tab::Sessions => session_table(rows, app.hovered_row),
     };
     let table = Table::new(body_rows, widths)
@@ -238,7 +271,7 @@ fn draw_footer(frame: &mut Frame, app: &App, area: Rect) {
     frame.render_widget(line, totals_area);
     frame.render_widget(
         Line::from(
-            " q quit · tab/←→ switch · ↑↓/jk move · g/G ends · s sort · enter breakdown · mouse: click/scroll",
+            " q quit · tab/←→ switch · d/w/m bucket · ↑↓/jk move · s sort · enter breakdown · mouse: click/scroll",
         )
         .dim(),
         hints_area,
@@ -295,6 +328,7 @@ fn draw_breakdown(frame: &mut Frame, app: &App, hits: &mut HitMap, area: Rect) {
 fn row_key(row: &UsageSummary) -> String {
     row.date
         .clone()
+        .or_else(|| row.week.clone())
         .or_else(|| row.month.clone())
         .or_else(|| row.session_id.clone())
         .unwrap_or_default()

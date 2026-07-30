@@ -1,6 +1,6 @@
 //! The single action vocabulary every input source maps into, and the update
 //! function that applies one action to the application state.
-use crate::app::{App, Tab};
+use crate::app::{App, Granularity, Tab};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum Action {
@@ -8,6 +8,7 @@ pub(crate) enum Action {
     NextTab,
     PrevTab,
     SwitchTab(Tab),
+    SetGranularity(Granularity),
     MoveBy(isize),
     SelectFirst,
     SelectLast,
@@ -26,6 +27,7 @@ pub(crate) fn update(app: &mut App, action: Action) {
         Action::NextTab => app.next_tab(),
         Action::PrevTab => app.prev_tab(),
         Action::SwitchTab(tab) => app.switch_tab(tab),
+        Action::SetGranularity(granularity) => app.set_granularity(granularity),
         Action::MoveBy(delta) => app.move_by(delta),
         Action::SelectFirst => app.select_first(),
         Action::SelectLast => app.select_last(),
@@ -68,14 +70,44 @@ mod tests {
     #[test]
     fn tab_cycling_wraps_both_directions() {
         let mut app = app();
-        assert_eq!(app.tab, Tab::Daily);
+        assert_eq!(app.tab, Tab::Usage);
         update(&mut app, Action::NextTab);
-        assert_eq!(app.tab, Tab::Monthly);
-        update(&mut app, Action::PrevTab);
-        update(&mut app, Action::PrevTab);
         assert_eq!(app.tab, Tab::Sessions);
         update(&mut app, Action::NextTab);
-        assert_eq!(app.tab, Tab::Daily);
+        assert_eq!(app.tab, Tab::Usage);
+        update(&mut app, Action::PrevTab);
+        assert_eq!(app.tab, Tab::Sessions);
+    }
+
+    #[test]
+    fn granularity_switches_the_usage_rows() {
+        let mut app = app();
+        assert_eq!(app.rows().len(), 3);
+        update(&mut app, Action::SetGranularity(Granularity::Weekly));
+        assert_eq!(app.rows().len(), 1);
+        assert_eq!(app.rows()[0].week.as_deref(), Some("2026-06-28"));
+        update(&mut app, Action::SetGranularity(Granularity::Monthly));
+        assert_eq!(app.rows()[0].month.as_deref(), Some("2026-07"));
+    }
+
+    #[test]
+    fn granularity_shortcut_jumps_back_to_the_usage_tab() {
+        let mut app = app();
+        update(&mut app, Action::SwitchTab(Tab::Sessions));
+        update(&mut app, Action::SetGranularity(Granularity::Monthly));
+        assert_eq!(app.tab, Tab::Usage);
+        assert_eq!(app.granularity, Granularity::Monthly);
+    }
+
+    #[test]
+    fn each_view_keeps_its_own_selection() {
+        let mut app = app();
+        update(&mut app, Action::MoveBy(2));
+        assert_eq!(app.state_selected(), Some(2));
+        update(&mut app, Action::SetGranularity(Granularity::Weekly));
+        assert_eq!(app.state_selected(), Some(0));
+        update(&mut app, Action::SetGranularity(Granularity::Daily));
+        assert_eq!(app.state_selected(), Some(2));
     }
 
     #[test]

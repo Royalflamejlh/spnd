@@ -4,7 +4,11 @@ use ratatui::crossterm::event::{
     KeyCode, KeyEvent, KeyModifiers, MouseButton, MouseEvent, MouseEventKind,
 };
 
-use crate::{action::Action, app::App, hit::HitMap};
+use crate::{
+    action::Action,
+    app::{App, Granularity},
+    hit::HitMap,
+};
 
 pub(crate) fn key_action(app: &App, key: KeyEvent) -> Option<Action> {
     if key.modifiers.contains(KeyModifiers::CONTROL) && key.code == KeyCode::Char('c') {
@@ -28,6 +32,9 @@ pub(crate) fn key_action(app: &App, key: KeyEvent) -> Option<Action> {
         KeyCode::Home | KeyCode::Char('g') => Action::SelectFirst,
         KeyCode::End | KeyCode::Char('G') => Action::SelectLast,
         KeyCode::Char('s') => Action::ToggleSort,
+        KeyCode::Char('d') => Action::SetGranularity(Granularity::Daily),
+        KeyCode::Char('w') => Action::SetGranularity(Granularity::Weekly),
+        KeyCode::Char('m') => Action::SetGranularity(Granularity::Monthly),
         KeyCode::Enter | KeyCode::Char('b') => Action::OpenBreakdown,
         _ => return None,
     })

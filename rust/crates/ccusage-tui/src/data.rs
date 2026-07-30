@@ -10,13 +10,14 @@ use ccusage_core::{
 
 pub(crate) struct Tables {
     pub(crate) daily: Vec<UsageSummary>,
+    pub(crate) weekly: Vec<UsageSummary>,
     pub(crate) monthly: Vec<UsageSummary>,
     pub(crate) sessions: Vec<UsageSummary>,
 }
 
 impl Tables {
     pub(crate) fn is_empty(&self) -> bool {
-        self.daily.is_empty() && self.monthly.is_empty() && self.sessions.is_empty()
+        self.daily.is_empty() && self.sessions.is_empty()
     }
 }
 
@@ -31,6 +32,11 @@ pub(crate) fn load(shared: &SharedArgs) -> Result<Tables> {
         row.date.as_deref().unwrap_or_default()
     });
 
+    let mut weekly = summarize_summaries_by_bucket(&daily, BucketKind::Weekly, WeekDay::Sunday);
+    sort_summaries(&mut weekly, &shared.order, |row| {
+        row.week.as_deref().unwrap_or_default()
+    });
+
     let mut monthly = summarize_summaries_by_bucket(&daily, BucketKind::Monthly, WeekDay::Sunday);
     sort_summaries(&mut monthly, &shared.order, |row| {
         row.month.as_deref().unwrap_or_default()
@@ -39,6 +45,7 @@ pub(crate) fn load(shared: &SharedArgs) -> Result<Tables> {
     let sessions = session_summaries(&entries, shared)?;
     Ok(Tables {
         daily,
+        weekly,
         monthly,
         sessions,
     })
@@ -178,13 +185,28 @@ pub(crate) mod fixtures {
                     cost: 3.0,
                 }),
             ],
-            monthly: vec![row(RowFixture {
-                date: None,
-                session: None,
-                model: "claude-sonnet-5",
-                input_tokens: 600,
-                cost: 6.0,
-            })],
+            weekly: vec![{
+                let mut weekly = row(RowFixture {
+                    date: None,
+                    session: None,
+                    model: "claude-sonnet-5",
+                    input_tokens: 600,
+                    cost: 6.0,
+                });
+                weekly.week = Some("2026-06-28".to_string());
+                weekly
+            }],
+            monthly: vec![{
+                let mut monthly = row(RowFixture {
+                    date: None,
+                    session: None,
+                    model: "claude-sonnet-5",
+                    input_tokens: 600,
+                    cost: 6.0,
+                });
+                monthly.month = Some("2026-07".to_string());
+                monthly
+            }],
             sessions: vec![
                 row(RowFixture {
                     date: Some("2026-07-03"),
@@ -207,6 +229,7 @@ pub(crate) mod fixtures {
     pub(crate) fn empty_tables() -> Tables {
         Tables {
             daily: Vec::new(),
+            weekly: Vec::new(),
             monthly: Vec::new(),
             sessions: Vec::new(),
         }
