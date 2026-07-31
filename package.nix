@@ -42,7 +42,7 @@ let
     inherit version src;
     strictDeps = true;
     doCheck = false;
-    cargoExtraArgs = "-p ccusage --bin spnd";
+    cargoExtraArgs = "-p spnd --bin spnd";
     CCUSAGE_PRICING_JSON_PATH = "${inputs.litellm}/model_prices_and_context_window.json";
     CCUSAGE_VERSION = version;
     RUSTFLAGS =

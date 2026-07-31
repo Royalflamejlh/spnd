@@ -1,5 +1,5 @@
 [package]
-name = "ccusage"
+name = "spnd"
 version.workspace = true
 edition.workspace = true
 build = "build.rs"

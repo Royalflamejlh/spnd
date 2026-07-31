@@ -188,39 +188,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "ccusage"
-version = "0.0.0"
-dependencies = [
- "ccusage-adapter-all",
- "ccusage-adapter-amp",
- "ccusage-adapter-claude",
- "ccusage-adapter-codebuff",
- "ccusage-adapter-codex",
- "ccusage-adapter-common",
- "ccusage-adapter-copilot",
- "ccusage-adapter-droid",
- "ccusage-adapter-gemini",
- "ccusage-adapter-goose",
- "ccusage-adapter-hermes",
- "ccusage-adapter-kilo",
- "ccusage-adapter-kimi",
- "ccusage-adapter-openclaw",
- "ccusage-adapter-opencode",
- "ccusage-adapter-pi",
- "ccusage-adapter-qwen",
- "ccusage-cli",
- "ccusage-cli-parser",
- "ccusage-config",
- "ccusage-core",
- "ccusage-test-support",
- "ccusage-tui",
- "mimalloc",
- "serde",
- "serde_json",
- "ureq",
-]
-
-[[package]]
 name = "ccusage-adapter-all"
 version = "0.0.0"
 dependencies = [
@@ -2073,6 +2040,39 @@ name = "smallvec"
 version = "1.15.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8ed6a63f02c8539c91a8685a86f4099661ba3da017932f6ebbea6de3f0fa7c90"
+
+[[package]]
+name = "spnd"
+version = "0.0.0"
+dependencies = [
+ "ccusage-adapter-all",
+ "ccusage-adapter-amp",
+ "ccusage-adapter-claude",
+ "ccusage-adapter-codebuff",
+ "ccusage-adapter-codex",
+ "ccusage-adapter-common",
+ "ccusage-adapter-copilot",
+ "ccusage-adapter-droid",
+ "ccusage-adapter-gemini",
+ "ccusage-adapter-goose",
+ "ccusage-adapter-hermes",
+ "ccusage-adapter-kilo",
+ "ccusage-adapter-kimi",
+ "ccusage-adapter-openclaw",
+ "ccusage-adapter-opencode",
+ "ccusage-adapter-pi",
+ "ccusage-adapter-qwen",
+ "ccusage-cli",
+ "ccusage-cli-parser",
+ "ccusage-config",
+ "ccusage-core",
+ "ccusage-test-support",
+ "ccusage-tui",
+ "mimalloc",
+ "serde",
+ "serde_json",
+ "ureq",
+]
 
 [[package]]
 name = "sqlite"
