@@ -39,7 +39,7 @@ This workspace should keep stable release settings aligned with
 Prefer measurement before changing code or dependencies:
 
 ```sh
-direnv exec . cargo build --manifest-path rust/Cargo.toml --release --bin ccusage
+direnv exec . cargo build --manifest-path rust/Cargo.toml --release --bin spnd
 ls -lh rust/target/release/ccusage
 ```
 
@@ -48,7 +48,7 @@ dependency features and large symbols before editing:
 
 ```sh
 direnv exec . cargo tree --manifest-path rust/Cargo.toml -e features -p ccusage
-direnv exec . cargo bloat --manifest-path rust/Cargo.toml --release --bin ccusage --crates
+direnv exec . cargo bloat --manifest-path rust/Cargo.toml --release --bin spnd --crates
 ```
 
 If `cargo bloat` is unavailable, use the `missing-tools` skill or run it through

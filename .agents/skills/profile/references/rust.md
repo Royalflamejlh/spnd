@@ -22,7 +22,7 @@ If there is no local clone, use the hosted Rust Performance Book as fallback:
 Build release binaries before timing:
 
 ```sh
-direnv exec . cargo build --manifest-path rust/Cargo.toml --release --bin ccusage
+direnv exec . cargo build --manifest-path rust/Cargo.toml --release --bin spnd
 ```
 
 ## Branch Comparison
@@ -32,9 +32,9 @@ Create a separate main worktree for branch-vs-main comparisons:
 ```sh
 command git fetch origin main
 command git worktree add /tmp/ccusage-main origin/main
-direnv exec . cargo build --manifest-path rust/Cargo.toml --release --bin ccusage
+direnv exec . cargo build --manifest-path rust/Cargo.toml --release --bin spnd
 cd /tmp/ccusage-main
-direnv exec . cargo build --manifest-path rust/Cargo.toml --release --bin ccusage
+direnv exec . cargo build --manifest-path rust/Cargo.toml --release --bin spnd
 ```
 
 Measure real commands with deterministic output settings:
