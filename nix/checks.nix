@@ -174,7 +174,7 @@ in
           gitleaks detect --source . --config .gitleaks.toml --no-git
         '';
         config-example = mkRepoCheck "config-example-check" [ pkgs.check-jsonschema ] ''
-          check-jsonschema --schemafile apps/spnd/config-schema.json ccusage.example.json
+          check-jsonschema --schemafile apps/spnd/config-schema.json spnd.example.json
         '';
         publint =
           mkRepoCheck "publint-check"

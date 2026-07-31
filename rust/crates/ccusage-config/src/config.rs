@@ -217,15 +217,21 @@ fn load_config_value(path: Option<&Path>) -> Option<Value> {
 }
 
 fn discover_config_paths() -> Vec<PathBuf> {
+    config_paths(env::current_dir().ok(), claude_config_dirs())
+}
+
+/// spnd.json is preferred at every location; ccusage.json stays readable so
+/// configs written for upstream keep working.
+fn config_paths(cwd: Option<PathBuf>, config_dirs: Vec<PathBuf>) -> Vec<PathBuf> {
     let mut paths = Vec::new();
-    if let Ok(cwd) = env::current_dir() {
+    if let Some(cwd) = cwd {
+        paths.push(cwd.join(".spnd").join("spnd.json"));
         paths.push(cwd.join(".ccusage").join("ccusage.json"));
     }
-    paths.extend(
-        claude_config_dirs()
-            .into_iter()
-            .map(|dir| dir.join("ccusage.json")),
-    );
+    for dir in config_dirs {
+        paths.push(dir.join("spnd.json"));
+        paths.push(dir.join("ccusage.json"));
+    }
     paths
 }
 
@@ -726,6 +732,23 @@ mod tests {
     };
     use ccusage_core::DEFAULT_SESSION_DURATION_HOURS;
     use ccusage_test_support::fs_fixture;
+
+    #[test]
+    fn config_discovery_prefers_spnd_over_ccusage_at_every_location() {
+        let paths = config_paths(
+            Some(PathBuf::from("/work")),
+            vec![PathBuf::from("/home/user/.claude")],
+        );
+        assert_eq!(
+            paths,
+            vec![
+                PathBuf::from("/work/.spnd/spnd.json"),
+                PathBuf::from("/work/.ccusage/ccusage.json"),
+                PathBuf::from("/home/user/.claude/spnd.json"),
+                PathBuf::from("/home/user/.claude/ccusage.json"),
+            ]
+        );
+    }
 
     #[test]
     fn applies_schema_backed_shared_options() {

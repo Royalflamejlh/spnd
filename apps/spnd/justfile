@@ -16,7 +16,7 @@ prepack:
     just build-package
 
 build-rust:
-    cargo build --manifest-path ../../rust/Cargo.toml --release --bin ccusage
+    cargo build --manifest-path ../../rust/Cargo.toml --release --bin spnd
 
 ensure-native-binary:
     scripts/ensure-native-binary.nu
@@ -27,7 +27,7 @@ generate-schema:
     cp config-schema.json ../../docs/public/config-schema.json
 
 start *args:
-    cargo run --manifest-path ../../rust/Cargo.toml --bin ccusage -- {{args}}
+    cargo run --manifest-path ../../rust/Cargo.toml --bin spnd -- {{args}}
 
 test-statusline:
     just test-statusline-file test/statusline-test.json
@@ -59,7 +59,7 @@ test-statusline-fable5:
     just test-statusline-file test/statusline-test-fable5.json --offline
 
 test-statusline-file file *args:
-    cargo run --manifest-path ../../rust/Cargo.toml --bin ccusage -- statusline {{args}} < {{file}}
+    cargo run --manifest-path ../../rust/Cargo.toml --bin spnd -- statusline {{args}} < {{file}}
 
 # Type-check the package through the root oxlint type-aware checker.
 typecheck:

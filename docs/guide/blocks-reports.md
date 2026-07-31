@@ -5,7 +5,7 @@ Blocks reports show your Claude Code usage grouped by 5-hour billing windows, he
 ## Basic Usage
 
 ```bash
-ccusage blocks
+spnd blocks
 ```
 
 ## Example Output
@@ -62,7 +62,7 @@ Claude Code uses **5-hour billing windows** for session tracking:
 Focus on your current session with detailed projections:
 
 ```bash
-ccusage blocks --active
+spnd blocks --active
 ```
 
 This shows only the currently active block with:
@@ -76,7 +76,7 @@ This shows only the currently active block with:
 Display blocks from the last 3 days (including active):
 
 ```bash
-ccusage blocks --recent
+spnd blocks --recent
 ```
 
 Perfect for understanding recent usage patterns without scrolling through all historical data.
@@ -87,12 +87,12 @@ Set token limits to monitor quota usage:
 
 ```bash
 # Set explicit token limit
-ccusage blocks --token-limit 500000
+spnd blocks --token-limit 500000
 
 # Use highest previous block as limit
-ccusage blocks --token-limit max
+spnd blocks --token-limit max
 # or short form:
-ccusage blocks -t max
+spnd blocks -t max
 ```
 
 When limits are set, blocks display:
@@ -111,13 +111,13 @@ Previously available options (v17.x only):
 
 ```bash
 # Basic live monitoring (uses -t max automatically)
-ccusage blocks --live
+spnd blocks --live
 
 # Live monitoring with explicit token limit
-ccusage blocks --live --token-limit 500000
+spnd blocks --live --token-limit 500000
 
 # Custom refresh interval (1-60 seconds)
-ccusage blocks --live --refresh-interval 5
+spnd blocks --live --refresh-interval 5
 ```
 
 ### Custom Session Duration
@@ -126,10 +126,10 @@ Change the block duration (default is 5 hours):
 
 ```bash
 # 3-hour blocks
-ccusage blocks --session-length 3
+spnd blocks --session-length 3
 
 # 8-hour blocks
-ccusage blocks --session-length 8
+spnd blocks --session-length 8
 ```
 
 ### Date Filtering
@@ -138,33 +138,33 @@ Filter blocks by date range:
 
 ```bash
 # Show blocks from specific date range
-ccusage blocks --since 20260515 --until 20260516
+spnd blocks --since 20260515 --until 20260516
 
 # Show blocks from last week
-ccusage blocks --since $(date -d '7 days ago' +%Y%m%d)
+spnd blocks --since $(date -d '7 days ago' +%Y%m%d)
 ```
 
 ### Sort Order
 
 ```bash
 # Show newest blocks first (default)
-ccusage blocks --order desc
+spnd blocks --order desc
 
 # Show oldest blocks first
-ccusage blocks --order asc
+spnd blocks --order asc
 ```
 
 ### Cost Calculation Modes
 
 ```bash
 # Use pre-calculated costs when available (default)
-ccusage blocks --mode auto
+spnd blocks --mode auto
 
 # Always calculate costs from tokens
-ccusage blocks --mode calculate
+spnd blocks --mode calculate
 
 # Only show pre-calculated costs
-ccusage blocks --mode display
+spnd blocks --mode display
 ```
 
 ### JSON Output
@@ -172,7 +172,7 @@ ccusage blocks --mode display
 Export block data for analysis:
 
 ```bash
-ccusage blocks --json
+spnd blocks --json
 ```
 
 ```json
@@ -202,9 +202,9 @@ ccusage blocks --json
 Use cached pricing data without network access:
 
 ```bash
-ccusage blocks --offline
+spnd blocks --offline
 # or short form:
-ccusage blocks -O
+spnd blocks -O
 ```
 
 ## Analysis Use Cases
@@ -215,7 +215,7 @@ Understanding 5-hour windows helps with:
 
 ```bash
 # Check current active block
-ccusage blocks --active
+spnd blocks --active
 ```
 
 - **Time Management**: Know how much time remains in current session
@@ -226,7 +226,7 @@ ccusage blocks --active
 
 ```bash
 # Find your highest usage patterns
-ccusage blocks -t max --recent
+spnd blocks -t max --recent
 ```
 
 - **Peak Usage Identification**: Which blocks consumed the most tokens
@@ -237,7 +237,7 @@ ccusage blocks -t max --recent
 
 ```bash
 # Monitor active sessions in real-time
-ccusage statusline
+spnd statusline
 ```
 
 Perfect for:
@@ -250,10 +250,10 @@ Perfect for:
 
 ```bash
 # Export data for detailed analysis
-ccusage blocks --json > blocks-history.json
+spnd blocks --json > blocks-history.json
 
 # Analyze patterns over time
-ccusage blocks --since 20260501 --until 20260531
+spnd blocks --since 20260501 --until 20260531
 ```
 
 ## Block Analysis Tips

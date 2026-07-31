@@ -1,10 +1,10 @@
 # Configuration Overview
 
-ccusage provides multiple ways to configure its behavior, allowing you to customize it for your specific needs. Configuration can be done through command-line options, environment variables, configuration files, or a combination of all three.
+spnd provides multiple ways to configure its behavior, allowing you to customize it for your specific needs. Configuration can be done through command-line options, environment variables, configuration files, or a combination of all three.
 
 ## Configuration Methods
 
-ccusage supports four configuration methods, each with its own use case:
+spnd supports four configuration methods, each with its own use case:
 
 1. **[Command-Line Options](/guide/cli-options)** - Direct control for individual commands
 2. **[Environment Variables](/guide/environment-variables)** - System-wide or session settings
@@ -18,16 +18,16 @@ Settings are applied in this priority order (highest to lowest):
 1. **Command-line arguments** (e.g., `--json`, `--offline`)
 2. **Custom config file** (via `--config` flag)
 3. **Environment variables** (e.g., `CODEX_HOME`, `LOG_LEVEL`)
-4. **Local project config** (`.ccusage/ccusage.json`)
-5. **User config** (`~/.config/claude/ccusage.json`)
-6. **Legacy user config** (`~/.claude/ccusage.json`)
+4. **Local project config** (`.spnd/spnd.json`)
+5. **User config** (`~/.config/claude/spnd.json`)
+6. **Legacy user config** (`~/.claude/spnd.json`)
 7. **Built-in defaults**
 
 ### Priority Example
 
 ```bash
 # Configuration file sets mode to "calculate"
-# .ccusage/ccusage.json
+# .spnd/spnd.json
 {
   "defaults": {
     "mode": "calculate"
@@ -38,7 +38,7 @@ Settings are applied in this priority order (highest to lowest):
 export CCUSAGE_TIMEZONE="Asia/Tokyo"
 
 # Command-line argument takes highest priority
-ccusage daily --mode display --timezone UTC
+spnd daily --mode display --timezone UTC
 # Result: mode=display (CLI), timezone=UTC (CLI)
 ```
 
@@ -82,7 +82,7 @@ export KILO_DATA_DIR="$HOME/.local/share/kilo,/backup/kilo"
 3. **Use command-line options** for one-off changes:
 
 ```bash
-ccusage daily --since 20260101 --json
+spnd daily --since 20260101 --json
 ```
 
 ## Common Configuration Scenarios
@@ -92,7 +92,7 @@ ccusage daily --since 20260101 --json
 For individual developers working on multiple projects:
 
 ```json
-// ~/.config/claude/ccusage.json
+// ~/.config/claude/spnd.json
 {
 	"$schema": "https://ccusage.com/config-schema.json",
 	"defaults": {
@@ -112,7 +112,7 @@ For individual developers working on multiple projects:
 Configure Claude Code, Codex, OpenCode, Amp, Droid, Codebuff, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, GitHub Copilot CLI, and Gemini CLI separately with data source namespaces:
 
 ```json
-// ~/.config/claude/ccusage.json
+// ~/.config/claude/spnd.json
 {
 	"$schema": "https://ccusage.com/config-schema.json",
 	"defaults": {
@@ -140,14 +140,14 @@ Configure Claude Code, Codex, OpenCode, Amp, Droid, Codebuff, Hermes Agent, pi-a
 }
 ```
 
-Source sections apply to focused commands such as `ccusage codex daily` and `ccusage amp session`. They are also used by unified reports such as `ccusage daily`, where each source receives its own merged options before data is loaded.
+Source sections apply to focused commands such as `spnd codex daily` and `spnd amp session`. They are also used by unified reports such as `spnd daily`, where each source receives its own merged options before data is loaded.
 
 ### Team Collaboration
 
 For teams sharing configuration:
 
 ```json
-// .ccusage/ccusage.json (committed to repo)
+// .spnd/spnd.json (committed to repo)
 {
 	"$schema": "https://ccusage.com/config-schema.json",
 	"defaults": {
@@ -167,7 +167,7 @@ export CODEX_HOME="/ci/codex-data"
 export LOG_LEVEL=1  # Warnings only
 
 # Run with specific options
-ccusage daily --offline --json > report.json
+spnd daily --offline --json > report.json
 ```
 
 ## Configuration by Feature
@@ -181,7 +181,7 @@ Control how costs are calculated:
 - **Breakdown**: Show per-model costs
 
 ```bash
-ccusage daily --mode calculate --breakdown --offline
+spnd daily --mode calculate --breakdown --offline
 ```
 
 ### Date and Time
@@ -192,7 +192,7 @@ Customize date/time handling:
 - **Date Range**: Filter with `--since` and `--until`
 
 ```bash
-ccusage daily --timezone UTC --since 20260101
+spnd daily --timezone UTC --since 20260101
 ```
 
 ### Output Format
@@ -203,7 +203,7 @@ Control output presentation:
 - **Debug**: Show detailed information with `--debug`
 
 ```bash
-ccusage daily --json | jq ".data[] | select(.cost > 10)"
+spnd daily --json | jq ".data[] | select(.cost > 10)"
 ```
 
 ### Project Analysis
@@ -215,7 +215,7 @@ Analyze usage by project:
 - **Aliases**: Set custom names via configuration file
 
 ```json
-// .ccusage/ccusage.json
+// .spnd/spnd.json
 {
 	"commands": {
 		"daily": {
@@ -226,7 +226,7 @@ Analyze usage by project:
 ```
 
 ```bash
-ccusage daily --instances --project "My App"
+spnd daily --instances --project "My App"
 ```
 
 ## Debugging Configuration
@@ -235,13 +235,13 @@ Use debug mode to understand configuration loading:
 
 ```bash
 # See which config files are loaded
-ccusage daily --debug
+spnd daily --debug
 
 # Check environment variables
 env | grep -E "CLAUDE|CCUSAGE|LOG_LEVEL"
 
 # Verbose logging
-LOG_LEVEL=5 ccusage daily
+LOG_LEVEL=5 spnd daily
 ```
 
 ### Debug Output
@@ -270,8 +270,8 @@ Share consistent settings across team members:
 
 ```bash
 # Commit to version control
-git add .ccusage/ccusage.json
-git commit -m "Add team ccusage configuration"
+git add .spnd/spnd.json
+git commit -m "Add team spnd configuration"
 ```
 
 ### 3. Document Your Configuration
@@ -279,7 +279,7 @@ git commit -m "Add team ccusage configuration"
 Add comments or README files explaining configuration choices:
 
 ```markdown
-# ccusage Configuration
+# spnd Configuration
 
 Our team uses:
 
@@ -323,7 +323,7 @@ Convert repeated commands to configuration:
 
 ```bash
 # Before: Repeated commands
-ccusage daily --breakdown --instances --timezone UTC
+spnd daily --breakdown --instances --timezone UTC
 
 # After: Configuration file
 {
@@ -339,7 +339,7 @@ ccusage daily --breakdown --instances --timezone UTC
 }
 
 # Simplified command
-ccusage daily
+spnd daily
 ```
 
 ## Troubleshooting
@@ -355,10 +355,10 @@ ccusage daily
 
 If configuration issues persist:
 
-1. Run with debug mode: `ccusage daily --debug`
-2. Check verbose logs: `LOG_LEVEL=5 ccusage daily`
-3. Validate JSON config: `jq . < ccusage.json`
-4. Report issues on [GitHub](https://github.com/ccusage/ccusage/issues)
+1. Run with debug mode: `spnd daily --debug`
+2. Check verbose logs: `LOG_LEVEL=5 spnd daily`
+3. Validate JSON config: `jq . < spnd.json`
+4. Report issues on [GitHub](https://github.com/Royalflamejlh/spnd/issues)
 
 ## Next Steps
 

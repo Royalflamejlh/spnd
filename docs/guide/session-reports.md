@@ -1,16 +1,16 @@
 # Session Usage
 
-Session usage shows usage grouped by individual conversations, threads, or sessions. `ccusage session` combines all detected supported sources; use `ccusage <source> session` to inspect one source's session format.
+Session usage shows usage grouped by individual conversations, threads, or sessions. `spnd session` combines all detected supported sources; use `spnd <source> session` to inspect one source's session format.
 
 ## Basic Usage
 
 ```bash
-ccusage session
-ccusage codex session
-ccusage opencode session
-ccusage amp session
-ccusage pi session
-ccusage qwen session
+spnd session
+spnd codex session
+spnd opencode session
+spnd amp session
+spnd pi session
+spnd qwen session
 ```
 
 ## Specific Session Lookup
@@ -18,7 +18,7 @@ ccusage qwen session
 Query individual session details by providing a session ID:
 
 ```bash
-ccusage session --id <session-id>
+spnd session --id <session-id>
 ```
 
 This is particularly useful for:
@@ -31,16 +31,16 @@ This is particularly useful for:
 
 ```bash
 # Get session data in table format
-ccusage session --id session-abc123-def456
+spnd session --id session-abc123-def456
 
 # Get session data as JSON for scripting
-ccusage session --id session-abc123-def456 --json
+spnd session --id session-abc123-def456 --json
 
 # Extract just the cost using jq
-ccusage session --id session-abc123-def456 --json | jq '.totalCost'
+spnd session --id session-abc123-def456 --json | jq '.totalCost'
 
 # Use in a custom statusline script
-COST=$(ccusage session --id "$SESSION_ID" --json | jq '.totalCost')
+COST=$(spnd session --id "$SESSION_ID" --json | jq '.totalCost')
 echo "Current session: \$${COST}"
 ```
 
@@ -51,7 +51,7 @@ For Claude Code, session IDs are the actual filenames (without `.jsonl` extensio
 - `session-20260516-abc123-def456`
 - `project-conversation-xyz789`
 
-You can find Claude session IDs by running `ccusage claude session` and looking for the files in your Claude data directory. Other sources expose their own session or thread identifiers in focused session reports.
+You can find Claude session IDs by running `spnd claude session` and looking for the files in your Claude data directory. Other sources expose their own session or thread identifiers in focused session reports.
 
 ## Example Output
 
@@ -102,13 +102,13 @@ Get detailed information about a specific session:
 
 ```bash
 # Query a specific session by ID
-ccusage session --id <session-id>
+spnd session --id <session-id>
 
 # Get JSON output for a specific session
-ccusage session --id <session-id> --json
+spnd session --id <session-id> --json
 
 # Short form using -i flag
-ccusage session -i <session-id>
+spnd session -i <session-id>
 ```
 
 **Use cases:**
@@ -124,26 +124,26 @@ Filter sessions by their last activity date:
 
 ```bash
 # Show sessions active since May 10th
-ccusage session --since 20260510
+spnd session --since 20260510
 
 # Show sessions active in a specific date range
-ccusage session --since 20260501 --until 20260516
+spnd session --since 20260501 --until 20260516
 
 # Show only recent sessions (last week)
-ccusage session --since $(date -d '7 days ago' +%Y%m%d)
+spnd session --since $(date -d '7 days ago' +%Y%m%d)
 ```
 
 ### Cost Calculation Modes
 
 ```bash
 # Use pre-calculated costs when available (default)
-ccusage session --mode auto
+spnd session --mode auto
 
 # Always calculate costs from tokens
-ccusage session --mode calculate
+spnd session --mode calculate
 
 # Only show pre-calculated costs
-ccusage session --mode display
+spnd session --mode display
 ```
 
 ### Model Breakdown
@@ -151,7 +151,7 @@ ccusage session --mode display
 See per-model cost breakdown within each session:
 
 ```bash
-ccusage session --breakdown
+spnd session --breakdown
 ```
 
 Example with breakdown:
@@ -173,7 +173,7 @@ Example with breakdown:
 Export session data as JSON for further analysis:
 
 ```bash
-ccusage session --json
+spnd session --json
 ```
 
 ```json
@@ -213,9 +213,9 @@ ccusage session --json
 Use cached pricing data without network access:
 
 ```bash
-ccusage session --offline
+spnd session --offline
 # or short form:
-ccusage session -O
+spnd session -O
 ```
 
 ## Analysis Use Cases
@@ -225,7 +225,7 @@ ccusage session -O
 Session reports help you understand which conversations are most costly:
 
 ```bash
-ccusage session
+spnd session
 ```
 
 Look at the top sessions to understand:
@@ -238,18 +238,18 @@ Look at the top sessions to understand:
 
 ```bash
 # See recent conversation activity
-ccusage session --since 20260510
+spnd session --since 20260510
 
 # Compare different time periods
-ccusage session --since 20260501 --until 20260515  # First half of month
-ccusage session --since 20260516 --until 20260531  # Second half of month
+spnd session --since 20260501 --until 20260515  # First half of month
+spnd session --since 20260516 --until 20260531  # Second half of month
 ```
 
 ### Model Usage Analysis
 
 ```bash
 # See which models you use in different conversations
-ccusage session --breakdown
+spnd session --breakdown
 ```
 
 This helps understand:
@@ -262,10 +262,10 @@ This helps understand:
 
 ```bash
 # Export data for spreadsheet analysis
-ccusage session --json > sessions.json
+spnd session --json > sessions.json
 
 # Find sessions above a certain cost threshold
-ccusage session --json | jq '.sessions[] | select(.totalCost > 50)'
+spnd session --json | jq '.sessions[] | select(.totalCost > 50)'
 ```
 
 ## Tips for Session Analysis
@@ -309,7 +309,7 @@ Session reports adapt to your terminal width:
 - **Wide terminals (≥100 chars)**: Shows all columns including cache metrics
 - **Narrow terminals (<100 chars)**: Compact mode with essential columns (Session, Models, Input, Output, Cost, Last Activity)
 
-When in compact mode, ccusage displays a message explaining how to see the full data.
+When in compact mode, spnd displays a message explaining how to see the full data.
 
 ## Related Commands
 

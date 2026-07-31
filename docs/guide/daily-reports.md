@@ -2,26 +2,26 @@
 
 ![Daily usage report showing token usage and costs by date with model breakdown](/screenshot.png)
 
-Daily usage shows token usage and estimated costs aggregated by calendar date. By default, `ccusage daily` combines every detected supported data source; use `ccusage <source> daily` when you want one source.
+Daily usage shows token usage and estimated costs aggregated by calendar date. By default, `spnd daily` combines every detected supported data source; use `spnd <source> daily` when you want one source.
 
 ## Basic Usage
 
 Show all daily usage:
 
 ```bash
-ccusage daily
+spnd daily
 # or simply:
-ccusage
+spnd
 
 # Focus on one source:
-ccusage codex daily
-ccusage opencode daily
-ccusage amp daily
-ccusage pi daily
-ccusage qwen daily
+spnd codex daily
+spnd opencode daily
+spnd amp daily
+spnd pi daily
+spnd qwen daily
 ```
 
-The daily command is the default, so you can omit it when running ccusage.
+The daily command is the default, so you can omit it when running spnd.
 
 ## Example Output
 
@@ -45,7 +45,7 @@ The daily command is the default, so you can omit it when running ccusage.
 
 ### Responsive Display
 
-ccusage automatically adapts to your terminal width:
+spnd automatically adapts to your terminal width:
 
 - **Wide terminals (≥100 chars)**: Shows all columns
 - **Narrow terminals (<100 chars)**: Compact mode with essential columns only
@@ -58,13 +58,13 @@ Filter reports by date range:
 
 ```bash
 # Show usage from May 2026
-ccusage daily --since 20260501 --until 20260516
+spnd daily --since 20260501 --until 20260516
 
 # Show last week
-ccusage daily --since 20260510 --until 20260516
+spnd daily --since 20260510 --until 20260516
 
 # Show usage since a specific date
-ccusage daily --since 20260501
+spnd daily --since 20260501
 ```
 
 ### Recent Days
@@ -73,10 +73,10 @@ Skip the date arithmetic when you only want the days just gone:
 
 ```bash
 # Today
-ccusage daily --last 1
+spnd daily --last 1
 
 # The last seven days, including today
-ccusage daily --last 7
+spnd daily --last 7
 ```
 
 `--last` cannot be combined with `--since` or `--until`. See [Command-Line Options](/guide/cli-options#recent-periods) for how it behaves on the other reports.
@@ -87,10 +87,10 @@ Control the order of dates:
 
 ```bash
 # Newest dates first (default)
-ccusage daily --order desc
+spnd daily --order desc
 
 # Oldest dates first
-ccusage daily --order asc
+spnd daily --order asc
 ```
 
 ### Cost Calculation Modes
@@ -99,13 +99,13 @@ Control how costs are calculated:
 
 ```bash
 # Use pre-calculated costs when available (default)
-ccusage daily --mode auto
+spnd daily --mode auto
 
 # Always calculate costs from tokens
-ccusage daily --mode calculate
+spnd daily --mode calculate
 
 # Only show pre-calculated costs
-ccusage daily --mode display
+spnd daily --mode display
 ```
 
 ### Model Breakdown
@@ -113,7 +113,7 @@ ccusage daily --mode display
 See per-model cost breakdown:
 
 ```bash
-ccusage daily --breakdown
+spnd daily --breakdown
 ```
 
 This shows costs split by individual models:
@@ -135,7 +135,7 @@ This shows costs split by individual models:
 Export data as JSON for further analysis:
 
 ```bash
-ccusage daily --json
+spnd daily --json
 ```
 
 ```json
@@ -169,9 +169,9 @@ ccusage daily --json
 Use cached pricing data without network access:
 
 ```bash
-ccusage daily --offline
+spnd daily --offline
 # or short form:
-ccusage daily -O
+spnd daily -O
 ```
 
 ### Project Analysis
@@ -180,8 +180,8 @@ Group usage by project instead of aggregating across all projects:
 
 ```bash
 # Group daily usage by project
-ccusage daily --instances
-ccusage daily -i
+spnd daily --instances
+spnd daily -i
 ```
 
 When using `--instances`, the report shows usage for each project separately:
@@ -208,11 +208,11 @@ Filter to a specific project:
 
 ```bash
 # Show only usage from "my-project"
-ccusage daily --project my-project
-ccusage daily -p my-project
+spnd daily --project my-project
+spnd daily -p my-project
 
 # Combine with instances flag
-ccusage daily --instances --project my-project
+spnd daily --instances --project my-project
 ```
 
 ## Common Use Cases
@@ -221,47 +221,47 @@ ccusage daily --instances --project my-project
 
 ```bash
 # See May 2026 usage
-ccusage daily --since 20260501 --until 20260516
+spnd daily --since 20260501 --until 20260516
 ```
 
 ### Find Expensive Days
 
 ```bash
 # Sort by cost (highest first)
-ccusage daily --order desc
+spnd daily --order desc
 ```
 
 ### Export for Spreadsheet Analysis
 
 ```bash
-ccusage daily --json > may-usage.json
+spnd daily --json > may-usage.json
 ```
 
 ### Compare Model Usage
 
 ```bash
 # See which models you use most
-ccusage daily --breakdown
+spnd daily --breakdown
 ```
 
 ### Check Recent Activity
 
 ```bash
 # Last 7 days
-ccusage daily --since $(date -d '7 days ago' +%Y%m%d)
+spnd daily --since $(date -d '7 days ago' +%Y%m%d)
 ```
 
 ### Analyze Project Usage
 
 ```bash
 # See usage breakdown by project
-ccusage daily --instances
+spnd daily --instances
 
 # Track specific project costs
-ccusage daily --project my-important-project --since 20260501
+spnd daily --project my-important-project --since 20260501
 
 # Compare project usage with JSON export
-ccusage daily --instances --json > project-analysis.json
+spnd daily --instances --json > project-analysis.json
 ```
 
 ### Team Usage Analysis
@@ -269,7 +269,7 @@ ccusage daily --instances --json > project-analysis.json
 Use project aliases to replace cryptic or long project directory names with readable labels:
 
 ```json
-// .ccusage/ccusage.json - Set custom project names for better reporting
+// .spnd/spnd.json - Set custom project names for better reporting
 {
 	"commands": {
 		"daily": {
@@ -287,7 +287,7 @@ The `projectAliases` setting uses a comma-separated format of `original-name=dis
 
 ```bash
 # Generate team report with readable project names
-ccusage daily --instances --since 20260501
+spnd daily --instances --since 20260501
 # Now shows "Frontend App" instead of "uuid-project"
 ```
 

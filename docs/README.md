@@ -1,6 +1,6 @@
 # Documentation Site
 
-This directory contains the VitePress documentation website for ccusage.
+This directory contains the VitePress documentation website for spnd.
 
 The public site is hosted on Cloudflare at https://ccusage.com.
 

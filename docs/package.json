@@ -2,7 +2,7 @@
 	"name": "@ccusage/docs",
 	"version": "20.0.19",
 	"private": true,
-	"description": "Documentation for coding (agent) CLI usage analysis with ccusage",
+	"description": "Documentation for coding (agent) CLI usage analysis with spnd",
 	"type": "module",
 	"scripts": {
 		"build": "cp ../apps/spnd/config-schema.json public/config-schema.json && vitepress build",

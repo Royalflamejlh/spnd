@@ -1286,8 +1286,7 @@ mod tests {
     fn schema_allows_repository_example_config() {
         let schema = generated_schema();
         let config =
-            serde_json::from_str::<Value>(include_str!("../../../../ccusage.example.json"))
-                .unwrap();
+            serde_json::from_str::<Value>(include_str!("../../../../spnd.example.json")).unwrap();
 
         assert_value_keys_allowed_by_schema(&config, &schema, &schema);
     }

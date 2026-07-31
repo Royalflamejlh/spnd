@@ -1,10 +1,10 @@
 # Command-Line Options
 
-ccusage provides extensive command-line options to customize its behavior. These options take precedence over configuration files and environment variables.
+spnd provides extensive command-line options to customize its behavior. These options take precedence over configuration files and environment variables.
 
 ## Global Options
 
-All ccusage commands support these global options:
+All spnd commands support these global options:
 
 ### Date Filtering
 
@@ -12,13 +12,13 @@ Filter usage data by date range:
 
 ```bash
 # Filter by date range
-ccusage daily --since 20260101 --until 20260531
+spnd daily --since 20260101 --until 20260531
 
 # Show data from a specific date
-ccusage monthly --since 20260101
+spnd monthly --since 20260101
 
 # Show data up to a specific date
-ccusage session --until 20260531
+spnd session --until 20260531
 ```
 
 ### Recent Periods
@@ -27,22 +27,22 @@ Instead of working out dates, ask for the most recent periods of whatever the re
 
 ```bash
 # Today
-ccusage daily --last 1
+spnd daily --last 1
 
 # This week
-ccusage weekly --last 1
+spnd weekly --last 1
 
 # This month
-ccusage monthly --last 1
+spnd monthly --last 1
 
 # The last seven days, and the last three months
-ccusage daily --last 7
-ccusage monthly --last 3
+spnd daily --last 7
+spnd monthly --last 3
 ```
 
-The count is inclusive of the current period, so `--last 2` on a daily report covers yesterday and today. Weeks start on the same day the report buckets by, which is Monday everywhere except `ccusage claude weekly`, where `--start-of-week` decides.
+The count is inclusive of the current period, so `--last 2` on a daily report covers yesterday and today. Weeks start on the same day the report buckets by, which is Monday everywhere except `spnd claude weekly`, where `--start-of-week` decides.
 
-`--last` works on every daily, weekly, and monthly report, including the per-agent ones such as `ccusage codex daily --last 1`. It is not available on `session`, `blocks`, `statusline`, or `tui`, which have no calendar period, and it cannot be combined with `--since`, `--until`, or `--sections`.
+`--last` works on every daily, weekly, and monthly report, including the per-agent ones such as `spnd codex daily --last 1`. It is not available on `session`, `blocks`, `statusline`, or `tui`, which have no calendar period, and it cannot be combined with `--since`, `--until`, or `--sections`.
 
 ### Output Format
 
@@ -50,19 +50,19 @@ Control how data is displayed:
 
 ```bash
 # JSON output for programmatic use
-ccusage daily --json
-ccusage daily -j
+spnd daily --json
+spnd daily -j
 
 # Show per-model breakdown
-ccusage daily --breakdown
-ccusage daily -b
+spnd daily --breakdown
+spnd daily -b
 
 # Hide cost columns and JSON cost fields
-ccusage daily --no-cost
-ccusage daily --json --no-cost
+spnd daily --no-cost
+spnd daily --json --no-cost
 
 # Combine options
-ccusage daily --json --breakdown
+spnd daily --json --breakdown
 ```
 
 `--no-cost` removes cost columns from table output and removes cost fields such as `totalCost`, `costUSD`, and `cost` from JSON output.
@@ -73,13 +73,13 @@ Choose how costs are calculated:
 
 ```bash
 # Auto mode (default) - use costUSD when available
-ccusage daily --mode auto
+spnd daily --mode auto
 
 # Calculate mode - always calculate from tokens
-ccusage daily --mode calculate
+spnd daily --mode calculate
 
 # Display mode - only show pre-calculated costUSD
-ccusage daily --mode display
+spnd daily --mode display
 ```
 
 ### Sort Order
@@ -88,10 +88,10 @@ Control the ordering of results:
 
 ```bash
 # Newest first (default)
-ccusage daily --order desc
+spnd daily --order desc
 
 # Oldest first
-ccusage daily --order asc
+spnd daily --order asc
 ```
 
 ### Offline Mode
@@ -100,8 +100,8 @@ Run without network connectivity:
 
 ```bash
 # Use cached pricing data
-ccusage daily --offline
-ccusage daily -O
+spnd daily --offline
+spnd daily -O
 ```
 
 ### Timezone
@@ -110,14 +110,14 @@ Set the timezone for date calculations:
 
 ```bash
 # Use UTC timezone
-ccusage daily --timezone UTC
+spnd daily --timezone UTC
 
 # Use specific timezone
-ccusage daily --timezone America/New_York
-ccusage daily -z Asia/Tokyo
+spnd daily --timezone America/New_York
+spnd daily -z Asia/Tokyo
 
 # Short alias
-ccusage monthly -z Europe/London
+spnd monthly -z Europe/London
 ```
 
 #### Timezone Effect
@@ -134,10 +134,10 @@ Get detailed debugging information:
 
 ```bash
 # Debug mode - show pricing mismatches and config loading
-ccusage daily --debug
+spnd daily --debug
 
 # Show sample discrepancies
-ccusage daily --debug --debug-samples 10
+spnd daily --debug --debug-samples 10
 ```
 
 ### Configuration File
@@ -146,22 +146,22 @@ Use a custom configuration file:
 
 ```bash
 # Specify custom config file
-ccusage daily --config ./my-config.json
-ccusage monthly --config /path/to/team-config.json
+spnd daily --config ./my-config.json
+spnd monthly --config /path/to/team-config.json
 ```
 
 ## Command-Specific Options
 
 ### Unified Report Options
 
-These options apply to `ccusage daily`, `ccusage weekly`, `ccusage monthly`, and `ccusage session` when they are aggregating all detected sources:
+These options apply to `spnd daily`, `spnd weekly`, `spnd monthly`, and `spnd session` when they are aggregating all detected sources:
 
 ```bash
 # Emit several JSON report sections from one source load
-ccusage daily --sections daily,monthly,session --json
+spnd daily --sections daily,monthly,session --json
 
 # Add per-agent breakdowns to daily, weekly, and monthly JSON rows
-ccusage daily --by-agent --json
+spnd daily --by-agent --json
 ```
 
 `--sections` accepts a comma-separated list of `daily`, `weekly`, `monthly`, and `session`. The invoked report section is always included. For table output, each requested section is printed as a separate table. `--by-agent` is JSON-only; session rows are already per-agent.
@@ -172,15 +172,15 @@ Additional options for daily reports:
 
 ```bash
 # Group by project
-ccusage daily --instances
-ccusage daily -i
+spnd daily --instances
+spnd daily -i
 
 # Filter to specific project
-ccusage daily --project myproject
-ccusage daily -p myproject
+spnd daily --project myproject
+spnd daily -p myproject
 
 # Combine project filtering
-ccusage daily --instances --project myproject
+spnd daily --instances --project myproject
 ```
 
 ### Weekly Command
@@ -189,8 +189,8 @@ Options for weekly reports:
 
 ```bash
 # Set week start day
-ccusage weekly --start-of-week monday
-ccusage weekly --start-of-week sunday
+spnd weekly --start-of-week monday
+spnd weekly --start-of-week sunday
 ```
 
 ### Session Command
@@ -199,10 +199,10 @@ Options for session reports:
 
 ```bash
 # Filter by session ID
-ccusage session --id abc123-session
+spnd session --id abc123-session
 
 # Filter by project
-ccusage session --project myproject
+spnd session --project myproject
 ```
 
 ### Blocks Command
@@ -211,23 +211,23 @@ Options for 5-hour billing blocks:
 
 ```bash
 # Show only active block
-ccusage blocks --active
-ccusage blocks -a
+spnd blocks --active
+spnd blocks -a
 
 # Show recent blocks (last 3 days)
-ccusage blocks --recent
-ccusage blocks -r
+spnd blocks --recent
+spnd blocks -r
 
 # Set token limit for warnings
-ccusage blocks --token-limit 500000
-ccusage blocks --token-limit max
+spnd blocks --token-limit 500000
+spnd blocks --token-limit max
 
 # Live monitoring mode
-ccusage blocks --live
-ccusage blocks --live --refresh-interval 2
+spnd blocks --live
+spnd blocks --live --refresh-interval 2
 
 # Customize session length
-ccusage blocks --session-length 5
+spnd blocks --session-length 5
 ```
 
 ### Statusline
@@ -236,32 +236,32 @@ Options for statusline display:
 
 ```bash
 # Basic statusline
-ccusage statusline
+spnd statusline
 
 # Force offline mode
-ccusage statusline --offline
+spnd statusline --offline
 
 # Enable caching
-ccusage statusline --cache
+spnd statusline --cache
 
 # Custom refresh interval
-ccusage statusline --refresh-interval 5
+spnd statusline --refresh-interval 5
 ```
 
 ## JSON Output
 
 ```bash
 # Print JSON output
-ccusage daily --json
+spnd daily --json
 
 # Print JSON without cost fields
-ccusage daily --json --no-cost
+spnd daily --json --no-cost
 
 # Pipe JSON output to jq
-ccusage daily --json | jq ".data[]"
+spnd daily --json | jq ".data[]"
 
 # Extract specific fields
-ccusage session --json | jq ".data[] | {date, cost}"
+spnd session --json | jq ".data[] | {date, cost}"
 ```
 
 ## Option Precedence
@@ -270,9 +270,9 @@ Options are applied in this order (highest to lowest priority):
 
 1. **Command-line arguments** - Direct CLI options
 2. **Custom config file** - Via `--config` flag
-3. **Local project config** - `.ccusage/ccusage.json`
-4. **User config** - `~/.config/claude/ccusage.json`
-5. **Legacy config** - `~/.claude/ccusage.json`
+3. **Local project config** - `.spnd/spnd.json`
+4. **User config** - `~/.config/claude/spnd.json`
+5. **Legacy config** - `~/.claude/spnd.json`
 6. **Built-in defaults**
 
 ## Examples
@@ -281,52 +281,52 @@ Options are applied in this order (highest to lowest priority):
 
 ```bash
 # Daily development check
-ccusage daily --instances --breakdown
+spnd daily --instances --breakdown
 
 # Check specific project costs
-ccusage daily --project myapp --since 20260101
+spnd daily --project myapp --since 20260101
 
 # Export for reporting
-ccusage monthly --json > monthly-report.json
+spnd monthly --json > monthly-report.json
 ```
 
 ### Team Collaboration
 
 ```bash
 # Use team configuration
-ccusage daily --config ./team-config.json
+spnd daily --config ./team-config.json
 
 # Consistent timezone for remote team
-ccusage daily --timezone UTC
+spnd daily --timezone UTC
 
 # Generate shareable report
-ccusage weekly --json
+spnd weekly --json
 ```
 
 ### Cost Monitoring
 
 ```bash
 # Monitor active usage
-ccusage blocks --active --live
+spnd blocks --active --live
 
 # Check if approaching limits
-ccusage blocks --token-limit 500000
+spnd blocks --token-limit 500000
 
 # Historical analysis
-ccusage monthly --mode calculate --breakdown
+spnd monthly --mode calculate --breakdown
 ```
 
 ### Debugging Issues
 
 ```bash
 # Debug configuration loading
-ccusage daily --debug --config ./test-config.json
+spnd daily --debug --config ./test-config.json
 
 # Check pricing discrepancies
-ccusage daily --debug --debug-samples 20
+spnd daily --debug --debug-samples 20
 
 # Silent mode for scripts
-LOG_LEVEL=0 ccusage daily --json
+LOG_LEVEL=0 spnd daily --json
 ```
 
 ## Short Aliases

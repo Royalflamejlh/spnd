@@ -33,12 +33,12 @@ can be built and profiled without switching the active checkout.
 
 ```sh
 git fetch origin main
-git worktree add /tmp/ccusage-main origin/main
+git worktree add /tmp/spnd-main origin/main
 pnpm install
-pnpm --filter ccusage build
-cd /tmp/ccusage-main
+pnpm --filter spnd build
+cd /tmp/spnd-main
 pnpm install
-pnpm --filter ccusage build
+pnpm --filter spnd build
 ```
 
 Run the same command against both builds. Prefer the published package entry
@@ -46,7 +46,7 @@ shape when profiling package startup or launcher behavior.
 
 ```sh
 LOG_LEVEL=0 COLUMNS=200 node apps/spnd/dist/cli.js daily --offline --json >/tmp/head.json
-LOG_LEVEL=0 COLUMNS=200 node /tmp/ccusage-main/apps/spnd/dist/cli.js daily --offline --json >/tmp/main.json
+LOG_LEVEL=0 COLUMNS=200 node /tmp/spnd-main/apps/spnd/dist/cli.js daily --offline --json >/tmp/main.json
 jq -e . /tmp/head.json >/dev/null
 jq -e . /tmp/main.json >/dev/null
 ```
@@ -57,7 +57,7 @@ change:
 ```sh
 hyperfine --warmup 4 --runs 10 --shell none \
 	"node apps/spnd/dist/cli.js daily --offline --json" \
-	"node /tmp/ccusage-main/apps/spnd/dist/cli.js daily --offline --json" \
+	"node /tmp/spnd-main/apps/spnd/dist/cli.js daily --offline --json" \
 	--export-json /tmp/ccusage-hyperfine.json
 ```
 
@@ -88,9 +88,9 @@ rg -n "Map#set|JSON.parse|Intl|postMessage|write|data-loader|table" profiles/*.m
 For `.cpuprofile`, open Chrome DevTools Performance tab or VS Code's CPU
 profiler and inspect both bottom-up self time and call tree context.
 
-## ccusage Lessons
+## spnd Lessons
 
-- Past ccusage performance work found wins by profiling the real bundled CLI on
+- Past spnd performance work found wins by profiling the real bundled CLI on
   real Claude logs, then validating with hyperfine and JSON parity.
 - Avoid adopting a profile-inspired prototype unless hyperfine shows an
   end-to-end win.

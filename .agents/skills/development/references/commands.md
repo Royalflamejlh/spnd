@@ -1,4 +1,4 @@
-# ccusage Commands
+# spnd Commands
 
 `just` is the single entry point for repo-wide tasks. Run `just --list` to see
 every recipe. Use these unless a narrower package command is more appropriate:
@@ -19,15 +19,15 @@ workflow. The bump is patch by default; label merged PRs with `minor` or
 Useful main CLI commands:
 
 ```sh
-pnpm --filter ccusage run start daily
-pnpm --filter ccusage run start monthly
-pnpm --filter ccusage run start session
-pnpm --filter ccusage run start blocks
-pnpm --filter ccusage run start daily --json
-pnpm --filter ccusage run start daily --mode auto
-pnpm --filter ccusage run start blocks --active
-pnpm --filter ccusage run start blocks --recent
-pnpm --filter ccusage run start blocks --token-limit max
-pnpm --filter ccusage run test:statusline
-cat apps/spnd/test/statusline-test.json | pnpm --filter ccusage run start statusline
+pnpm --filter spnd run start daily
+pnpm --filter spnd run start monthly
+pnpm --filter spnd run start session
+pnpm --filter spnd run start blocks
+pnpm --filter spnd run start daily --json
+pnpm --filter spnd run start daily --mode auto
+pnpm --filter spnd run start blocks --active
+pnpm --filter spnd run start blocks --recent
+pnpm --filter spnd run start blocks --token-limit max
+pnpm --filter spnd run test:statusline
+cat apps/spnd/test/statusline-test.json | pnpm --filter spnd run start statusline
 ```

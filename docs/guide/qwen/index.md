@@ -1,23 +1,23 @@
 # Qwen Data Source (Experimental)
 
-> Qwen support is experimental. Expect breaking changes while both ccusage and [Qwen Code](https://github.com/QwenLM/qwen-code) continue to evolve.
+> Qwen support is experimental. Expect breaking changes while both spnd and [Qwen Code](https://github.com/QwenLM/qwen-code) continue to evolve.
 
-ccusage can read Qwen Code chat JSONL files as one of its supported local data sources, using the same focused and all-source report views as the rest of ccusage.
+spnd can read Qwen Code chat JSONL files as one of its supported local data sources, using the same focused and all-source report views as the rest of spnd.
 
 ## Focused Views
 
 ::: code-group
 
 ```bash [bunx (Recommended)]
-bunx ccusage qwen --help
+bunx @spnd/spnd qwen --help
 ```
 
 ```bash [npx]
-npx ccusage@latest qwen --help
+npx @spnd/spnd@latest qwen --help
 ```
 
 ```bash [pnpm]
-pnpm dlx ccusage qwen --help
+pnpm dlx @spnd/spnd qwen --help
 ```
 
 :::
@@ -27,7 +27,7 @@ pnpm dlx ccusage qwen --help
 The CLI reads Qwen chat JSONL files from `QWEN_DATA_DIR` (defaults to `~/.qwen`). `QWEN_DATA_DIR` can be one directory or a comma-separated list of directories.
 
 ```bash
-QWEN_DATA_DIR="$HOME/.qwen,/backup/qwen" ccusage qwen daily
+QWEN_DATA_DIR="$HOME/.qwen,/backup/qwen" spnd qwen daily
 ```
 
 ```text
@@ -40,11 +40,11 @@ QWEN_DATA_DIR="$HOME/.qwen,/backup/qwen" ccusage qwen daily
 
 ## Report Views
 
-| Focused view           | Description                 | See also                                |
-| ---------------------- | --------------------------- | --------------------------------------- |
-| `ccusage qwen daily`   | Aggregate usage by date     | [Daily Usage](/guide/daily-reports)     |
-| `ccusage qwen monthly` | Aggregate usage by month    | [Monthly Usage](/guide/monthly-reports) |
-| `ccusage qwen session` | Group usage by Qwen session | [Session Usage](/guide/session-reports) |
+| Focused view        | Description                 | See also                                |
+| ------------------- | --------------------------- | --------------------------------------- |
+| `spnd qwen daily`   | Aggregate usage by date     | [Daily Usage](/guide/daily-reports)     |
+| `spnd qwen monthly` | Aggregate usage by month    | [Monthly Usage](/guide/monthly-reports) |
+| `spnd qwen session` | Group usage by Qwen session | [Session Usage](/guide/session-reports) |
 
 These views support `--json` for structured output, `--compact` for narrow terminals, and `--offline` for cached pricing data.
 

@@ -11,7 +11,7 @@
 #
 # Run `just --list` (or `just <module>::--list`) to see everything.
 
-mod ccusage 'apps/spnd'
+mod spnd 'apps/spnd'
 mod docs
 mod rust
 
@@ -33,7 +33,7 @@ install:
     done
 
 # Build every workspace package
-build: ccusage::build docs::build
+build: spnd::build docs::build
 
 # Type-check and lint TypeScript with oxlint's type-aware checker
 typecheck:

@@ -1,9 +1,9 @@
 ---
 name: agent-sources
-description: Guides ccusage agent source formats. Use when checking agent log locations, raw record structure, token mappings, model names, precomputed costs, or source-specific CLI behavior.
+description: Guides spnd agent source formats. Use when checking agent log locations, raw record structure, token mappings, model names, precomputed costs, or source-specific CLI behavior.
 ---
 
-# ccusage Agent Sources
+# spnd Agent Sources
 
 Use this skill when inspecting source data formats, log paths, token
 normalization, precomputed cost semantics, or source-specific command behavior
@@ -13,17 +13,17 @@ for any supported agent.
 
 Reports aggregate raw usage into daily, monthly, session, or billing-block summaries and output either tables or JSON.
 
-The canonical command surface is the unified `ccusage` CLI:
+The canonical command surface is the unified `spnd` CLI:
 
 ```sh
-ccusage daily
-ccusage codex daily
-ccusage opencode daily
-ccusage amp daily
-ccusage pi daily
+spnd daily
+spnd codex daily
+spnd opencode daily
+spnd amp daily
+spnd pi daily
 ```
 
-Standalone agent wrapper packages have been removed. Use the unified `ccusage <agent> ...` commands in docs, tests, and examples, and do not reintroduce wrapper commands such as `ccusage-codex`, `ccusage-opencode`, `ccusage-amp`, or `ccusage-pi`.
+Standalone agent wrapper packages have been removed. Use the unified `spnd <agent> ...` commands in docs, tests, and examples, and do not reintroduce wrapper commands such as `ccusage-codex`, `ccusage-opencode`, `ccusage-amp`, or `ccusage-pi`.
 
 Cost modes:
 
@@ -48,7 +48,7 @@ flags:
 ## Implementation Notes
 
 Agent adapter architecture lives in
-`rust/crates/ccusage/src/adapter/AGENTS.md`. Read that local architecture file
+`rust/crates/spnd/src/adapter/AGENTS.md`. Read that local architecture file
 when changing adapter module layout, shared implementation boundaries, migration
 strategy, tests, docs, terminal output, or benchmark expectations.
 

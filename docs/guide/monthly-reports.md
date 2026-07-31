@@ -1,15 +1,15 @@
 # Monthly Usage
 
-Monthly usage aggregates coding (agent) CLI usage by calendar month, providing a high-level view of usage patterns and estimated costs over longer periods. `ccusage monthly` combines all detected supported sources; use `ccusage <source> monthly` for a single source.
+Monthly usage aggregates coding (agent) CLI usage by calendar month, providing a high-level view of usage patterns and estimated costs over longer periods. `spnd monthly` combines all detected supported sources; use `spnd <source> monthly` for a single source.
 
 ## Basic Usage
 
 ```bash
-ccusage monthly
-ccusage codex monthly
-ccusage amp monthly
-ccusage pi monthly
-ccusage qwen monthly
+spnd monthly
+spnd codex monthly
+spnd amp monthly
+spnd pi monthly
+spnd qwen monthly
 ```
 
 ## Example Output
@@ -58,13 +58,13 @@ Filter by month range:
 
 ```bash
 # Show specific months
-ccusage monthly --since 20260101 --until 20260531
+spnd monthly --since 20260101 --until 20260531
 
 # Show usage from Jan-May 2026
-ccusage monthly --since 20260101 --until 20260531
+spnd monthly --since 20260101 --until 20260531
 
 # Show last 6 months
-ccusage monthly --since $(date -d '6 months ago' +%Y%m%d)
+spnd monthly --since $(date -d '6 months ago' +%Y%m%d)
 ```
 
 ::: tip Date Filtering
@@ -77,10 +77,10 @@ Even though you specify full dates (YYYYMMDD), monthly reports group by month. T
 
 ```bash
 # This month so far
-ccusage monthly --last 1
+spnd monthly --last 1
 
 # This month and the five before it
-ccusage monthly --last 6
+spnd monthly --last 6
 ```
 
 `--last` cannot be combined with `--since` or `--until`.
@@ -89,23 +89,23 @@ ccusage monthly --last 6
 
 ```bash
 # Newest months first (default)
-ccusage monthly --order desc
+spnd monthly --order desc
 
 # Oldest months first
-ccusage monthly --order asc
+spnd monthly --order asc
 ```
 
 ### Cost Calculation Modes
 
 ```bash
 # Use pre-calculated costs when available (default)
-ccusage monthly --mode auto
+spnd monthly --mode auto
 
 # Always calculate costs from tokens
-ccusage monthly --mode calculate
+spnd monthly --mode calculate
 
 # Only show pre-calculated costs
-ccusage monthly --mode display
+spnd monthly --mode display
 ```
 
 ### Model Breakdown
@@ -113,7 +113,7 @@ ccusage monthly --mode display
 See costs broken down by model:
 
 ```bash
-ccusage monthly --breakdown
+spnd monthly --breakdown
 ```
 
 Example with breakdown:
@@ -133,7 +133,7 @@ Example with breakdown:
 ### JSON Output
 
 ```bash
-ccusage monthly --json
+spnd monthly --json
 ```
 
 ```json
@@ -154,7 +154,7 @@ ccusage monthly --json
 ### Offline Mode
 
 ```bash
-ccusage monthly --offline
+spnd monthly --offline
 ```
 
 ## Analysis Use Cases
@@ -165,7 +165,7 @@ Monthly reports help with subscription planning:
 
 ```bash
 # Check last year's usage
-ccusage monthly --since 20250101 --until 20251231
+spnd monthly --since 20250101 --until 20251231
 ```
 
 Look at the total cost to understand what you'd pay on usage-based pricing.
@@ -176,8 +176,8 @@ Track how your usage changes over time:
 
 ```bash
 # Compare year over year
-ccusage monthly --since 20240101 --until 20241231  # 2024
-ccusage monthly --since 20250101 --until 20251231  # 2025
+spnd monthly --since 20240101 --until 20241231  # 2024
+spnd monthly --since 20250101 --until 20251231  # 2025
 ```
 
 ### Model Migration Analysis
@@ -185,7 +185,7 @@ ccusage monthly --since 20250101 --until 20251231  # 2025
 See how your model usage evolves:
 
 ```bash
-ccusage monthly --breakdown
+spnd monthly --breakdown
 ```
 
 This helps track transitions between Opus 4.1, Sonnet 4.5, and other models.
@@ -196,14 +196,14 @@ Identify busy/slow periods:
 
 ```bash
 # Academic year analysis
-ccusage monthly --since 20250901 --until 20260531
+spnd monthly --since 20250901 --until 20260531
 ```
 
 ### Export for Business Analysis
 
 ```bash
 # Create quarterly reports
-ccusage monthly --since 20260101 --until 20260331 --json > q1-2026.json
+spnd monthly --since 20260101 --until 20260331 --json > q1-2026.json
 ```
 
 ## Tips for Monthly Analysis

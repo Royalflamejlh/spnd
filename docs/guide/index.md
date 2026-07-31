@@ -1,10 +1,10 @@
 # Introduction
 
-![ccusage daily report showing token usage and costs by date](/screenshot.png)
+![spnd daily report showing token usage and costs by date](/screenshot.png)
 
-**ccusage** is a local CLI for understanding coding (agent) CLI token usage and estimated costs across Claude Code, Codex, OpenCode, Amp, Droid, Codebuff, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, GitHub Copilot CLI, and Gemini CLI.
+**spnd** is a local CLI for understanding coding (agent) CLI token usage and estimated costs across Claude Code, Codex, OpenCode, Amp, Droid, Codebuff, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, GitHub Copilot CLI, and Gemini CLI.
 
-The original **“cc”** came from **C**laude **C**ode usage and now also fits **C**odex **C**LI usage. As OpenCode, Amp, Droid, Codebuff, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, Gemini CLI, and other coding (agent) CLIs became part of the same workflow, ccusage expanded into a general name for local coding CLI usage analysis.
+The original **“cc”** came from **C**laude **C**ode usage and now also fits **C**odex **C**LI usage. As OpenCode, Amp, Droid, Codebuff, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, Gemini CLI, and other coding (agent) CLIs became part of the same workflow, spnd expanded into a general name for local coding CLI usage analysis.
 
 ## The Problem
 
@@ -17,7 +17,7 @@ Modern coding (agent) CLI usage is split across several local data formats. That
 
 ## The Solution
 
-ccusage reads the local usage files that coding CLIs already generate and provides:
+spnd reads the local usage files that coding CLIs already generate and provides:
 
 - **All Sources by Default** - Claude Code, Codex, OpenCode, Amp, Droid, Codebuff, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, GitHub Copilot CLI, and Gemini CLI in one CLI
 - **Usage Views** - Daily, weekly, monthly, and session-based breakdowns
@@ -29,7 +29,7 @@ ccusage reads the local usage files that coding CLIs already generate and provid
 ## How It Works
 
 1. **Coding CLIs generate local usage files** containing usage data
-2. **ccusage reads these files** from your local machine
+2. **spnd reads these files** from your local machine
 3. **Analyzes and aggregates** the data by date, session, or time blocks
 4. **Calculates estimated costs** using model pricing information
 5. **Presents results** in beautiful tables or JSON format
@@ -38,7 +38,7 @@ ccusage reads the local usage files that coding CLIs already generate and provid
 
 ### 🚀 Direct Execution
 
-You can run ccusage without a global install using `bunx ccusage` (recommended), `pnpm dlx ccusage`, or `npx ccusage@latest`.
+You can run spnd without a global install using `bunx @spnd/spnd` (recommended), `pnpm dlx @spnd/spnd`, or `npx @spnd/spnd@latest`.
 
 ### 📊 Usage Views
 
@@ -70,7 +70,7 @@ Each data source page covers the details that only apply to that source, includi
 
 ## Data Sources
 
-ccusage reads from local coding CLI data directories:
+spnd reads from local coding CLI data directories:
 
 | Agent        | ID         | Default data location                             |
 | ------------ | ---------- | ------------------------------------------------- |
@@ -97,36 +97,36 @@ Some coding agents have been investigated but are not supported because their lo
 
 ## Report Shape
 
-Run ccusage without a source name to aggregate all detected sources:
+Run spnd without a source name to aggregate all detected sources:
 
 ```bash
-ccusage daily
-ccusage weekly
-ccusage monthly
-ccusage session
+spnd daily
+spnd weekly
+spnd monthly
+spnd session
 ```
 
 Add a data source namespace when you want the same report focused on one source:
 
 ```bash
-ccusage claude daily
-ccusage codex daily --speed fast
-ccusage opencode weekly
-ccusage amp session
-ccusage droid daily
-ccusage codebuff daily
-ccusage hermes daily
-ccusage pi monthly
-ccusage goose daily
-ccusage openclaw daily
-ccusage kilo daily
-ccusage kimi daily
-ccusage qwen daily
-ccusage copilot daily
-ccusage gemini daily
+spnd claude daily
+spnd codex daily --speed fast
+spnd opencode weekly
+spnd amp session
+spnd droid daily
+spnd codebuff daily
+spnd hermes daily
+spnd pi monthly
+spnd goose daily
+spnd openclaw daily
+spnd kilo daily
+spnd kimi daily
+spnd qwen daily
+spnd copilot daily
+spnd gemini daily
 ```
 
-Use `ccusage <source> <report>` only when you want to narrow a report to one source.
+Use `spnd <source> <report>` only when you want to narrow a report to one source.
 
 For Claude Code-specific setup and features, start from the [Claude Code data source](/guide/claude/) page.
 
@@ -134,7 +134,7 @@ For Claude Code-specific setup and features, start from the [Claude Code data so
 
 - **100% Local** - All analysis happens on your machine
 - **No Data Transmission** - Your usage data never leaves your computer
-- **Read-Only** - ccusage only reads files, never modifies them
+- **Read-Only** - spnd only reads files, never modifies them
 - **Open Source** - Full transparency in how your data is processed
 
 ## Limitations

@@ -1,23 +1,23 @@
 # Kimi Data Source (Experimental)
 
-> Kimi support is experimental. Expect breaking changes while both ccusage and [Kimi CLI](https://github.com/MoonshotAI/kimi-cli) continue to evolve.
+> Kimi support is experimental. Expect breaking changes while both spnd and [Kimi CLI](https://github.com/MoonshotAI/kimi-cli) continue to evolve.
 
-ccusage can read Kimi CLI wire logs as one of its supported local data sources. Kimi uses the same unified and focused report model as Claude Code, Codex, OpenCode, Amp, pi-agent, GitHub Copilot CLI, and Gemini CLI.
+spnd can read Kimi CLI wire logs as one of its supported local data sources. Kimi uses the same unified and focused report model as Claude Code, Codex, OpenCode, Amp, pi-agent, GitHub Copilot CLI, and Gemini CLI.
 
 ## Usage
 
 ```sh
 # Daily Kimi usage
-ccusage kimi daily
+spnd kimi daily
 
 # Monthly Kimi usage
-ccusage kimi monthly
+spnd kimi monthly
 
 # Kimi sessions
-ccusage kimi session
+spnd kimi session
 
 # Include Kimi in the default all-source report
-ccusage daily
+spnd daily
 ```
 
 ## Data Location
@@ -25,7 +25,7 @@ ccusage daily
 The CLI reads Kimi wire JSONL files from `KIMI_DATA_DIR` (defaults to `~/.kimi` and `~/.kimi-code`). `KIMI_DATA_DIR` can be one directory or a comma-separated list of directories.
 
 ```sh
-KIMI_DATA_DIR="$HOME/.kimi,/backup/kimi" ccusage kimi daily
+KIMI_DATA_DIR="$HOME/.kimi,/backup/kimi" spnd kimi daily
 ```
 
 Expected files are discovered under:
@@ -37,11 +37,11 @@ Expected files are discovered under:
 
 ## Supported Reports
 
-| Command                | Description                 | Related Report                          |
-| ---------------------- | --------------------------- | --------------------------------------- |
-| `ccusage kimi daily`   | Group usage by day          | [Daily Usage](/guide/daily-reports)     |
-| `ccusage kimi monthly` | Group usage by month        | [Monthly Usage](/guide/monthly-reports) |
-| `ccusage kimi session` | Group usage by Kimi session | [Session Usage](/guide/session-reports) |
+| Command             | Description                 | Related Report                          |
+| ------------------- | --------------------------- | --------------------------------------- |
+| `spnd kimi daily`   | Group usage by day          | [Daily Usage](/guide/daily-reports)     |
+| `spnd kimi monthly` | Group usage by month        | [Monthly Usage](/guide/monthly-reports) |
+| `spnd kimi session` | Group usage by Kimi session | [Session Usage](/guide/session-reports) |
 
 ## Token Mapping
 
@@ -54,7 +54,7 @@ Only `StatusUpdate` messages with non-zero token usage are included. Kimi Code l
 
 ## Cost Calculation
 
-Kimi rows do not store recorded USD cost, so ccusage estimates cost from token counts and LiteLLM pricing. The default `kimi-for-coding` model is kept as the displayed model name, but pricing resolves to Moonshot K2.5 before `2026-04-20T15:28:10.072Z` and Moonshot K2.6 at or after that timestamp.
+Kimi rows do not store recorded USD cost, so spnd estimates cost from token counts and LiteLLM pricing. The default `kimi-for-coding` model is kept as the displayed model name, but pricing resolves to Moonshot K2.5 before `2026-04-20T15:28:10.072Z` and Moonshot K2.6 at or after that timestamp.
 
 ## Environment Variables
 

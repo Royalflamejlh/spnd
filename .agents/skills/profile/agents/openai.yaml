@@ -1,4 +1,4 @@
 interface:
-  display_name: ccusage Profile
+  display_name: spnd Profile
   short_description: Profile Rust and TypeScript performance and inspect hot paths.
-  default_prompt: Profile a slow ccusage command or package script.
+  default_prompt: Profile a slow spnd command or package script.

@@ -1,4 +1,4 @@
-# ccusage TypeScript Style
+# spnd TypeScript Style
 
 Use this reference for TypeScript and JavaScript code, tests, fixtures, mocks,
 configuration objects, and suppressions.

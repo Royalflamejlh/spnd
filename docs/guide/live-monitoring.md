@@ -13,7 +13,7 @@ The following documentation is preserved for users on v17.x.
 ### Quick Start
 
 ```bash
-ccusage blocks --live
+spnd blocks --live
 ```
 
 This starts live monitoring with automatic token limit detection based on your usage history.
@@ -38,10 +38,10 @@ Set custom token limits for quota warnings:
 
 ```bash
 # Use specific token limit
-ccusage blocks --live -t 500000
+spnd blocks --live -t 500000
 
 # Use highest previous session as limit (default)
-ccusage blocks --live -t max
+spnd blocks --live -t max
 ```
 
 #### Refresh Interval
@@ -50,10 +50,10 @@ Control update frequency:
 
 ```bash
 # Update every 5 seconds
-ccusage blocks --live --refresh-interval 5
+spnd blocks --live --refresh-interval 5
 
 # Update every 10 seconds (lighter on CPU)
-ccusage blocks --live --refresh-interval 10
+spnd blocks --live --refresh-interval 10
 ```
 
 ### Keyboard Controls

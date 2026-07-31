@@ -1,23 +1,23 @@
 # Amp Data Source (Beta)
 
-> Amp support is experimental. Expect breaking changes while both ccusage and [Amp](https://ampcode.com/) continue to evolve.
+> Amp support is experimental. Expect breaking changes while both spnd and [Amp](https://ampcode.com/) continue to evolve.
 
-ccusage can read Amp thread files as one of its supported local data sources, using the same reporting experience as the rest of ccusage: responsive tables, JSON output, LiteLLM-based pricing, cache token accounting, and credit totals where Amp records them.
+spnd can read Amp thread files as one of its supported local data sources, using the same reporting experience as the rest of spnd: responsive tables, JSON output, LiteLLM-based pricing, cache token accounting, and credit totals where Amp records them.
 
 ## Focused Views
 
 ::: code-group
 
 ```bash [bunx (Recommended)]
-bunx ccusage amp --help
+bunx @spnd/spnd amp --help
 ```
 
 ```bash [npx]
-npx ccusage@latest amp --help
+npx @spnd/spnd@latest amp --help
 ```
 
 ```bash [pnpm]
-pnpm dlx ccusage amp --help
+pnpm dlx @spnd/spnd amp --help
 ```
 
 :::
@@ -27,7 +27,7 @@ pnpm dlx ccusage amp --help
 The CLI reads Amp thread JSON files from `AMP_DATA_DIR` (defaults to `~/.local/share/amp`). `AMP_DATA_DIR` can be one directory or a comma-separated list of directories.
 
 ```bash
-AMP_DATA_DIR="$HOME/.local/share/amp,/backup/amp" ccusage amp session
+AMP_DATA_DIR="$HOME/.local/share/amp,/backup/amp" spnd amp session
 ```
 
 ```text
@@ -38,11 +38,11 @@ AMP_DATA_DIR="$HOME/.local/share/amp,/backup/amp" ccusage amp session
 
 ## Report Views
 
-| Focused view          | Description               | See also                                |
-| --------------------- | ------------------------- | --------------------------------------- |
-| `ccusage amp daily`   | Aggregate usage by date   | [Daily Usage](/guide/daily-reports)     |
-| `ccusage amp monthly` | Aggregate usage by month  | [Monthly Usage](/guide/monthly-reports) |
-| `ccusage amp session` | Group usage by Amp thread | [Session Usage](/guide/session-reports) |
+| Focused view       | Description               | See also                                |
+| ------------------ | ------------------------- | --------------------------------------- |
+| `spnd amp daily`   | Aggregate usage by date   | [Daily Usage](/guide/daily-reports)     |
+| `spnd amp monthly` | Aggregate usage by month  | [Monthly Usage](/guide/monthly-reports) |
+| `spnd amp session` | Group usage by Amp thread | [Session Usage](/guide/session-reports) |
 
 These views support `--json` for structured output, `--compact` for narrow terminals, and `--offline` for cached pricing data.
 

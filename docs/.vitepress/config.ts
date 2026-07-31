@@ -4,7 +4,7 @@ import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-i
 import llmstxt from 'vitepress-plugin-llms';
 
 export default defineConfig({
-	title: 'ccusage',
+	title: 'spnd',
 	description: 'Usage analysis tool for coding (agent) CLIs',
 	base: '/',
 	cleanUrls: true,
@@ -15,16 +15,16 @@ export default defineConfig({
 		['meta', { name: 'theme-color', content: '#646cff' }],
 		['meta', { property: 'og:type', content: 'website' }],
 		['meta', { property: 'og:locale', content: 'en' }],
-		['meta', { property: 'og:title', content: 'ccusage | Coding (Agent) CLI Usage Analysis' }],
-		['meta', { property: 'og:site_name', content: 'ccusage' }],
+		['meta', { property: 'og:title', content: 'spnd | Coding (Agent) CLI Usage Analysis' }],
+		['meta', { property: 'og:site_name', content: 'spnd' }],
 		[
 			'meta',
 			{
 				property: 'og:image',
-				content: 'https://cdn.jsdelivr.net/gh/ryoppippi/ccusage@main/docs/public/logo.png',
+				content: 'https://cdn.jsdelivr.net/gh/ryoppippi/spnd@main/docs/public/logo.png',
 			},
 		],
-		['meta', { property: 'og:url', content: 'https://github.com/ryoppippi/ccusage' }],
+		['meta', { property: 'og:url', content: 'https://github.com/ryoppippi/spnd' }],
 	],
 
 	themeConfig: {
@@ -35,11 +35,11 @@ export default defineConfig({
 			{
 				text: 'Links',
 				items: [
-					{ text: 'GitHub', link: 'https://github.com/ryoppippi/ccusage' },
-					{ text: 'npm', link: 'https://www.npmjs.com/package/ccusage' },
-					{ text: 'Changelog', link: 'https://github.com/ryoppippi/ccusage/releases' },
-					{ text: 'DeepWiki', link: 'https://deepwiki.com/ryoppippi/ccusage' },
-					{ text: 'Package Stats', link: 'https://tanstack.com/ccusage?npmPackage=ccusage' },
+					{ text: 'GitHub', link: 'https://github.com/ryoppippi/spnd' },
+					{ text: 'npm', link: 'https://www.npmjs.com/package/spnd' },
+					{ text: 'Changelog', link: 'https://github.com/ryoppippi/spnd/releases' },
+					{ text: 'DeepWiki', link: 'https://deepwiki.com/ryoppippi/spnd' },
+					{ text: 'Package Stats', link: 'https://tanstack.com/spnd?npmPackage=spnd' },
 					{ text: 'Sponsor', link: 'https://github.com/sponsors/ryoppippi' },
 				],
 			},
@@ -112,8 +112,8 @@ export default defineConfig({
 		},
 
 		socialLinks: [
-			{ icon: 'github', link: 'https://github.com/ryoppippi/ccusage' },
-			{ icon: 'npm', link: 'https://www.npmjs.com/package/ccusage' },
+			{ icon: 'github', link: 'https://github.com/ryoppippi/spnd' },
+			{ icon: 'npm', link: 'https://www.npmjs.com/package/spnd' },
 			{ icon: 'twitter', link: 'https://x.com/cc_usage' },
 		],
 
@@ -127,7 +127,7 @@ export default defineConfig({
 		},
 
 		editLink: {
-			pattern: 'https://github.com/ryoppippi/ccusage/edit/main/docs/:path',
+			pattern: 'https://github.com/ryoppippi/spnd/edit/main/docs/:path',
 			text: 'Edit this page on GitHub',
 		},
 
@@ -150,10 +150,10 @@ export default defineConfig({
 			cloudflareRedirect({
 				mode: 'generate',
 				entries: [
-					{ from: '/raycast', to: 'https://www.raycast.com/nyatinte/ccusage', status: 302 },
-					{ from: '/gh', to: 'https://github.com/ryoppippi/ccusage', status: 302 },
-					{ from: '/npm', to: 'https://www.npmjs.com/package/ccusage', status: 302 },
-					{ from: '/deepwiki', to: 'https://deepwiki.com/ryoppippi/ccusage', status: 302 },
+					{ from: '/raycast', to: 'https://www.raycast.com/nyatinte/spnd', status: 302 },
+					{ from: '/gh', to: 'https://github.com/ryoppippi/spnd', status: 302 },
+					{ from: '/npm', to: 'https://www.npmjs.com/package/spnd', status: 302 },
+					{ from: '/deepwiki', to: 'https://deepwiki.com/ryoppippi/spnd', status: 302 },
 					{ from: '/sponsor', to: 'https://github.com/sponsors/ryoppippi', status: 302 },
 					{ from: '/guide/custom-paths', to: '/guide/claude/', status: 301 },
 					{ from: '/guide/directory-detection', to: '/guide/claude/', status: 301 },

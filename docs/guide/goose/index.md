@@ -1,24 +1,24 @@
 # Goose Data Source (Experimental)
 
-Goose support is experimental. ccusage can read Goose session usage from its local SQLite database. Goose is a local AI agent, and ccusage only opens the database read-only.
+Goose support is experimental. spnd can read Goose session usage from its local SQLite database. Goose is a local AI agent, and spnd only opens the database read-only.
 
 ## Quick Start
 
 ```bash
-ccusage goose daily
-ccusage goose monthly
-ccusage goose session
+spnd goose daily
+spnd goose monthly
+spnd goose session
 ```
 
 Goose is also included in unified reports when a supported database is detected:
 
 ```bash
-ccusage daily
+spnd daily
 ```
 
 ## Data Locations
 
-By default, ccusage checks these Goose database locations:
+By default, spnd checks these Goose database locations:
 
 ```text
 ~/.local/share/goose/sessions/sessions.db
@@ -29,10 +29,10 @@ By default, ccusage checks these Goose database locations:
 Set `GOOSE_PATH_ROOT` when Goose is stored somewhere else:
 
 ```bash
-GOOSE_PATH_ROOT="/path/to/goose" ccusage goose daily
+GOOSE_PATH_ROOT="/path/to/goose" spnd goose daily
 ```
 
-With `GOOSE_PATH_ROOT` set, ccusage reads:
+With `GOOSE_PATH_ROOT` set, spnd reads:
 
 ```text
 $GOOSE_PATH_ROOT/data/sessions/sessions.db
@@ -40,9 +40,9 @@ $GOOSE_PATH_ROOT/data/sessions/sessions.db
 
 ## Token Mapping
 
-ccusage reads Goose session rows with model configuration and token columns:
+spnd reads Goose session rows with model configuration and token columns:
 
-| Goose column                                        | ccusage field       |
+| Goose column                                        | spnd field          |
 | --------------------------------------------------- | ------------------- |
 | `accumulated_input_tokens` or `input_tokens`        | Input tokens        |
 | `accumulated_output_tokens` or `output_tokens`      | Output tokens       |
@@ -55,12 +55,12 @@ Goose does not expose cache read/write token columns in this database, so cache 
 
 ## Cost Calculation
 
-Goose rows do not store recorded USD cost, so ccusage estimates cost from token counts and LiteLLM pricing. Any positive total-token remainder beyond input and output is treated as output-priced usage for cost estimation.
+Goose rows do not store recorded USD cost, so spnd estimates cost from token counts and LiteLLM pricing. Any positive total-token remainder beyond input and output is treated as output-priced usage for cost estimation.
 
 Use `--offline` to rely on cached pricing data:
 
 ```bash
-ccusage goose daily --offline
+spnd goose daily --offline
 ```
 
 ## Troubleshooting
@@ -68,5 +68,5 @@ ccusage goose daily --offline
 If no Goose data appears, check that the SQLite database exists at one of the default paths or set `GOOSE_PATH_ROOT`.
 
 ```bash
-GOOSE_PATH_ROOT="/path/to/goose" ccusage goose session --json
+GOOSE_PATH_ROOT="/path/to/goose" spnd goose session --json
 ```

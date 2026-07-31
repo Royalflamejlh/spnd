@@ -1,21 +1,21 @@
 # pi-agent Data Source (Beta)
 
-ccusage can read [pi-agent](https://github.com/badlogic/pi-mono) usage data as one of its supported local data sources. pi-agent is an alternative Claude coding (agent) CLI from [shittycodingagent.ai](https://shittycodingagent.ai).
+spnd can read [pi-agent](https://github.com/badlogic/pi-mono) usage data as one of its supported local data sources. pi-agent is an alternative Claude coding (agent) CLI from [shittycodingagent.ai](https://shittycodingagent.ai).
 
 ## What is Pi-Agent?
 
-Pi-agent is a third-party Claude coding (agent) CLI that stores usage data in JSONL format. ccusage analyzes this data alongside its other supported sources.
+Pi-agent is a third-party Claude coding (agent) CLI that stores usage data in JSONL format. spnd analyzes this data alongside its other supported sources.
 
 ## Focused Views
 
 ```bash
 # Recommended
-bunx ccusage pi --help
+bunx @spnd/spnd pi --help
 
 # Alternative package runners
-npx ccusage@latest pi --help
-pnpm dlx ccusage pi --help
-pnpx ccusage pi --help
+npx @spnd/spnd@latest pi --help
+pnpm dlx @spnd/spnd pi --help
+pnpx @spnd/spnd pi --help
 ```
 
 ## Data Source
@@ -44,34 +44,34 @@ Tools built on the pi session format can also be declared as named stores in the
 }
 ```
 
-Named stores are loaded in addition to the default `pi` agent when running `ccusage daily`, `ccusage monthly`, `ccusage weekly`, or `ccusage session`. The example above appears as agent `omp` in unified report metadata and prefixes model labels with `[omp]` followed by a space. A named store path can also be a comma-separated list of sessions directories; missing paths are treated as empty, while paths that overlap the default `pi` store or another named store — including one path nested inside another — are rejected to avoid double-counting. It does not add a `ccusage omp` command; use `ccusage pi ...` for the default pi-agent store.
+Named stores are loaded in addition to the default `pi` agent when running `spnd daily`, `spnd monthly`, `spnd weekly`, or `spnd session`. The example above appears as agent `omp` in unified report metadata and prefixes model labels with `[omp]` followed by a space. A named store path can also be a comma-separated list of sessions directories; missing paths are treated as empty, while paths that overlap the default `pi` store or another named store — including one path nested inside another — are rejected to avoid double-counting. It does not add a `spnd omp` command; use `spnd pi ...` for the default pi-agent store.
 
 ## Report Views
 
 ```bash
 # Show daily pi-agent usage
-ccusage pi daily
+spnd pi daily
 
 # Show monthly pi-agent usage
-ccusage pi monthly
+spnd pi monthly
 
 # Show session-based pi-agent usage
-ccusage pi session
+spnd pi session
 
 # JSON output for automation
-ccusage pi daily --json
+spnd pi daily --json
 
 # Custom pi-agent path
-ccusage pi daily --pi-path /path/to/sessions
+spnd pi daily --pi-path /path/to/sessions
 
 # Multiple pi-agent paths
-ccusage pi daily --pi-path /path/to/sessions,/archive/pi/sessions
+spnd pi daily --pi-path /path/to/sessions,/archive/pi/sessions
 
 # Filter by date range
-ccusage pi daily --since 2026-05-01 --until 2026-05-16
+spnd pi daily --since 2026-05-01 --until 2026-05-16
 
 # Show model breakdown
-ccusage pi daily --breakdown
+spnd pi daily --breakdown
 ```
 
 ## Environment Variables
@@ -87,10 +87,10 @@ This view shows daily usage from pi-agent.
 
 ```bash
 # Recommended (fastest)
-bunx ccusage pi daily
+bunx @spnd/spnd pi daily
 
 # Using npx
-npx ccusage@latest pi daily
+npx @spnd/spnd@latest pi daily
 ```
 
 ### Options
@@ -122,7 +122,7 @@ npx ccusage@latest pi daily
 Use `--json` for automation and scripting:
 
 ```bash
-ccusage pi daily --json
+spnd pi daily --json
 ```
 
 Returns structured data:
@@ -160,10 +160,10 @@ Filter to a specific date range:
 
 ```bash
 # Last week
-ccusage pi daily --since 2026-05-09 --until 2026-05-16
+spnd pi daily --since 2026-05-09 --until 2026-05-16
 
 # Single day
-ccusage pi daily --since 2026-05-16 --until 2026-05-16
+spnd pi daily --since 2026-05-16 --until 2026-05-16
 ```
 
 ## Monthly View
@@ -172,10 +172,10 @@ This view shows monthly usage from pi-agent.
 
 ```bash
 # Recommended (fastest)
-bunx ccusage pi monthly
+bunx @spnd/spnd pi monthly
 
 # Using npx
-npx ccusage@latest pi monthly
+npx @spnd/spnd@latest pi monthly
 ```
 
 ### Options
@@ -207,7 +207,7 @@ npx ccusage@latest pi monthly
 Use `--json` for automation and scripting:
 
 ```bash
-ccusage pi monthly --json
+spnd pi monthly --json
 ```
 
 Returns structured data:
@@ -245,10 +245,10 @@ You can filter the data to specific months:
 
 ```bash
 # Current year only
-ccusage pi monthly --since 2026-05-01
+spnd pi monthly --since 2026-05-01
 
 # Specific quarter
-ccusage pi monthly --since 2026-01-01 --until 2026-03-31
+spnd pi monthly --since 2026-01-01 --until 2026-03-31
 ```
 
 ## Session View
@@ -257,10 +257,10 @@ This view shows usage grouped by individual pi-agent sessions.
 
 ```bash
 # Recommended (fastest)
-bunx ccusage pi session
+bunx @spnd/spnd pi session
 
 # Using npx
-npx ccusage@latest pi session
+npx @spnd/spnd@latest pi session
 ```
 
 ### Options
@@ -301,7 +301,7 @@ Long project names are truncated to 25 characters with `...` suffix for readabil
 Use `--json` for detailed session data:
 
 ```bash
-ccusage pi session --json
+spnd pi session --json
 ```
 
 Returns structured data including full paths:
@@ -342,13 +342,13 @@ Filter sessions by their last activity date:
 
 ```bash
 # Sessions active today
-ccusage pi session --since 2026-05-16 --until 2026-05-16
+spnd pi session --since 2026-05-16 --until 2026-05-16
 
 # Sessions from the past week
-ccusage pi session --since 2026-05-09
+spnd pi session --since 2026-05-09
 ```
 
 ## Related
 
-- [ccusage](https://github.com/ccusage/ccusage) - Main usage analysis tool for coding (agent) CLIs
+- [spnd](https://github.com/ccusage/ccusage) - Main usage analysis tool for coding (agent) CLIs
 - [pi-agent](https://github.com/badlogic/pi-mono) - Alternative Claude coding (agent) CLI
