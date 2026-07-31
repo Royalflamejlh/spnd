@@ -14,7 +14,7 @@ def configured_binary_path [] {
     open package.json
     | get --optional files
     | default []
-    | where {|file| $file | str starts-with 'bin/ccusage' }
+    | where {|file| $file | str starts-with 'bin/spnd' }
     | get --optional 0
 }
 def binary_issue [binary_path: string, resolved: path] {

@@ -72,18 +72,18 @@ When CI performance comments are relevant, inspect options with `--help`, but do
 not treat help output as a profiling workload:
 
 ```sh
-apps/ccusage/scripts/compare-pr-performance.bb --head-runtime rust --help
+apps/spnd/scripts/compare-pr-performance.bb --head-runtime rust --help
 ```
 
 To reproduce the workflow shape locally, pass real fixture and worktree inputs:
 
 ```sh
-apps/ccusage/scripts/compare-pr-performance.bb \
+apps/spnd/scripts/compare-pr-performance.bb \
 	--base-dir /tmp/ccusage-main \
 	--head-dir "$PWD" \
 	--head-runtime rust \
-	--fixture-dir apps/ccusage/test/fixtures/claude \
-	--codex-fixture-dir apps/ccusage/test/fixtures/codex \
+	--fixture-dir apps/spnd/test/fixtures/claude \
+	--codex-fixture-dir apps/spnd/test/fixtures/codex \
 	--runs 1 \
 	--warmup 0 \
 	--output /tmp/rust-perf-comment.md

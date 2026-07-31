@@ -626,8 +626,8 @@ fn root_help_lists_command_descriptions_and_follow_up_help_commands() {
 
     assert!(help.contains("codex                      Show Codex token usage commands"));
     assert!(help.contains("For more info, run any command with the `--help` flag:"));
-    assert!(help.contains("ccusage codex --help"));
-    assert!(!help.contains("ccusage codex daily --help"));
+    assert!(help.contains("spnd codex --help"));
+    assert!(!help.contains("spnd codex daily --help"));
 }
 
 #[test]
@@ -640,7 +640,7 @@ fn contextual_codex_help_lists_speed_choices() {
     ]);
 
     assert!(help.contains("Show Codex token usage grouped by day"));
-    assert!(help.contains("USAGE:\n  ccusage codex daily <OPTIONS>"));
+    assert!(help.contains("USAGE:\n  spnd codex daily <OPTIONS>"));
     assert!(help.contains("choices: auto | standard | fast"));
 }
 
@@ -652,7 +652,7 @@ fn contextual_help_strips_path_like_program_name() {
         "daily".to_string(),
     ]);
 
-    assert!(help.contains("USAGE:\n  ccusage codex daily <OPTIONS>"));
+    assert!(help.contains("USAGE:\n  spnd codex daily <OPTIONS>"));
 }
 
 #[test]
@@ -663,18 +663,18 @@ fn contextual_help_strips_windows_program_name() {
         "daily".to_string(),
     ]);
 
-    assert!(help.contains("USAGE:\n  ccusage codex daily <OPTIONS>"));
+    assert!(help.contains("USAGE:\n  spnd codex daily <OPTIONS>"));
 }
 
 #[test]
 fn contextual_agent_help_lists_agent_subcommands() {
     let help = help_text_for_args(&["ccusage".to_string(), "claude".to_string()]);
 
-    assert!(help.contains("USAGE:\n  ccusage claude <COMMANDS>"));
+    assert!(help.contains("USAGE:\n  spnd claude <COMMANDS>"));
     assert!(help.contains("daily       Show usage report grouped by date"));
     assert!(help.contains("statusline  Display compact status line for Claude Code hooks"));
-    assert!(help.contains("ccusage claude statusline --help"));
-    assert!(!help.contains("ccusage claude daily <OPTIONS>"));
+    assert!(help.contains("spnd claude statusline --help"));
+    assert!(!help.contains("spnd claude daily <OPTIONS>"));
 }
 
 #[test]

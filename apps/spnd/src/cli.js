@@ -24,30 +24,30 @@ const require = createRequire(import.meta.url);
 function getNativePackageName(platform = process.platform, arch = process.arch) {
 	if (platform === 'darwin') {
 		if (arch === 'arm64') {
-			return '@ccusage/ccusage-darwin-arm64';
+			return '@spnd/spnd-darwin-arm64';
 		}
 		if (arch === 'x64') {
-			return '@ccusage/ccusage-darwin-x64';
+			return '@spnd/spnd-darwin-x64';
 		}
 		return undefined;
 	}
 
 	if (platform === 'linux') {
 		if (arch === 'arm64') {
-			return '@ccusage/ccusage-linux-arm64';
+			return '@spnd/spnd-linux-arm64';
 		}
 		if (arch === 'x64') {
-			return '@ccusage/ccusage-linux-x64';
+			return '@spnd/spnd-linux-x64';
 		}
 		return undefined;
 	}
 
 	if (platform === 'win32') {
 		if (arch === 'arm64') {
-			return '@ccusage/ccusage-win32-arm64';
+			return '@spnd/spnd-win32-arm64';
 		}
 		if (arch === 'x64') {
-			return '@ccusage/ccusage-win32-x64';
+			return '@spnd/spnd-win32-x64';
 		}
 	}
 
@@ -59,7 +59,7 @@ function getNativePackageName(platform = process.platform, arch = process.arch) 
  * @returns {string}
  */
 function getNativeBinarySubpath(platform = process.platform) {
-	return platform === 'win32' ? 'bin/ccusage.exe' : 'bin/ccusage';
+	return platform === 'win32' ? 'bin/spnd.exe' : 'bin/spnd';
 }
 
 /**
@@ -101,7 +101,7 @@ function resolveCliRuntime({
 	}
 
 	return {
-		errorMessage: `ccusage native binary is not available for ${platform}-${arch}. Reinstall ccusage so optional native dependencies are installed.\n`,
+		errorMessage: `spnd native binary is not available for ${platform}-${arch}. Reinstall spnd so optional native dependencies are installed.\n`,
 	};
 }
 
@@ -135,7 +135,7 @@ function ensureNativeBinaryExecutable({
 		chmodPath(binaryPath, 0o755);
 		return undefined;
 	} catch (error) {
-		return `ccusage native binary is not executable: ${errorMessage(error)}\n`;
+		return `spnd native binary is not executable: ${errorMessage(error)}\n`;
 	}
 }
 

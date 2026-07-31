@@ -4,8 +4,8 @@
 # The file name npm expects for a Node platform identifier.
 export def binary-name [platform: string]: nothing -> string {
     match $platform {
-        'win32' => 'ccusage.exe'
-        _ => 'ccusage'
+        'win32' => 'spnd.exe'
+        _ => 'spnd'
     }
 }
 

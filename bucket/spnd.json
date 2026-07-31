@@ -1,0 +1,17 @@
+{
+	"version": "0.0.0",
+	"description": "Interactive terminal UI for coding-agent token usage and spend",
+	"homepage": "https://github.com/Royalflamejlh/spnd",
+	"license": "MIT",
+	"architecture": {
+		"64bit": {
+			"url": "https://github.com/Royalflamejlh/spnd/releases/download/v0.0.0/spnd-win32-x64.zip",
+			"hash": "ef033748beb8d4ff58881d35f897edb2ce5aae66aec4872df73e0644465219fa"
+		},
+		"arm64": {
+			"url": "https://github.com/Royalflamejlh/spnd/releases/download/v0.0.0/spnd-win32-arm64.zip",
+			"hash": "ef033748beb8d4ff58881d35f897edb2ce5aae66aec4872df73e0644465219fa"
+		}
+	},
+	"bin": "spnd.exe"
+}

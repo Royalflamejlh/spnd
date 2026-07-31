@@ -1,15 +1,15 @@
 {
-	"name": "@ccusage/ccusage-linux-x64",
+	"name": "@spnd/spnd-linux-x64",
 	"version": "20.0.19",
-	"description": "Static native ccusage binary for Linux x64",
+	"description": "Static native spnd binary for Linux x64",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/ccusage/ccusage.git",
+		"url": "git+https://github.com/Royalflamejlh/spnd.git",
 		"directory": "packages/ccusage-linux-x64"
 	},
 	"files": [
-		"bin/ccusage"
+		"bin/spnd"
 	],
 	"os": [
 		"linux"
@@ -22,6 +22,6 @@
 		"access": "public"
 	},
 	"scripts": {
-		"prepack": "../../apps/ccusage/scripts/verify-native-package.nu && publint"
+		"prepack": "../../apps/spnd/scripts/verify-native-package.nu && publint"
 	}
 }

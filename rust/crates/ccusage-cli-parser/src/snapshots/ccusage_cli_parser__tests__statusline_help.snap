@@ -1,12 +1,11 @@
 ---
-source: crates/ccusage/src/cli.rs
-assertion_line: 2062
+source: crates/ccusage-cli-parser/src/tests.rs
 expression: "help_text_for_args(&[\"ccusage\".to_string(), \"statusline\".to_string()])"
 ---
 Display compact status line for Claude Code hooks with hybrid time+file caching (Beta)
 
 USAGE:
-  ccusage statusline <OPTIONS>
+  spnd statusline <OPTIONS>
 
 OPTIONS:
   -O, --offline                                         Use cached pricing data for Claude models instead of fetching from API (default: true)

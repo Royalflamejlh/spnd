@@ -9,7 +9,7 @@ globs: '*.nu'
 # ccusage Nushell
 
 Use this skill for repository scripts written in Nushell, especially under
-`.github/scripts/` and `apps/ccusage/scripts/`.
+`.github/scripts/` and `apps/spnd/scripts/`.
 
 ## Runtime Shape
 

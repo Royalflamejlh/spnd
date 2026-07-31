@@ -17,7 +17,7 @@ let
   inherit (lib.importJSON (root + /package.json)) version;
   # The published npm manifest owns the name and the user-facing metadata, so
   # `meta` below derives from it instead of restating it in Nix.
-  cliPackageJson = lib.importJSON (root + /apps/ccusage/package.json);
+  cliPackageJson = lib.importJSON (root + /apps/spnd/package.json);
   src = lib.cleanSourceWith {
     src = root + /rust;
     filter =
@@ -36,11 +36,13 @@ let
   # duplicated.
   cargoConfigEnv = (builtins.fromTOML (builtins.readFile (root + /.cargo/config.toml))).env;
   commonArgs = {
-    pname = cliPackageJson.name;
+    # The npm name is scoped (@spnd/spnd), which is not a valid derivation
+    # name, so the Nix pname comes from the bin entry like mainProgram does.
+    pname = builtins.head (builtins.attrNames cliPackageJson.bin);
     inherit version src;
     strictDeps = true;
     doCheck = false;
-    cargoExtraArgs = "-p ccusage --bin ccusage";
+    cargoExtraArgs = "-p spnd --bin spnd";
     CCUSAGE_PRICING_JSON_PATH = "${inputs.litellm}/model_prices_and_context_window.json";
     CCUSAGE_VERSION = version;
     RUSTFLAGS =
@@ -117,13 +119,13 @@ craneLib.buildPackage (
       # arrive after the linker has resolved dead_strip_dylibs.  Rewrite the
       # install name as a robust fallback so the safety gate below doesn't fail
       # on a dylib that carries no referenced symbols.
-      for lib in $(otool -L "$out/bin/ccusage" | tail -n +2 | awk '{print $1}' | grep -E '^/nix/store/[^/]+-libiconv-'); do
-        install_name_tool -change "$lib" /usr/lib/libiconv.2.dylib "$out/bin/ccusage"
+      for lib in $(otool -L "$out/bin/spnd" | tail -n +2 | awk '{print $1}' | grep -E '^/nix/store/[^/]+-libiconv-'); do
+        install_name_tool -change "$lib" /usr/lib/libiconv.2.dylib "$out/bin/spnd"
       done
       # Every remaining dylib MUST be a macOS system path.  grep prints the
       # offending entries when it matches — fail the build for any matches.
-      if otool -L "$out/bin/ccusage" | tail -n +2 | awk '{print $1}' | grep -Ev '^(/usr/lib/|/System/Library/)'; then
-        echo "error: ccusage links dylibs that do not exist on end-user machines" >&2
+      if otool -L "$out/bin/spnd" | tail -n +2 | awk '{print $1}' | grep -Ev '^(/usr/lib/|/System/Library/)'; then
+        echo "error: spnd links dylibs that do not exist on end-user machines" >&2
         exit 1
       fi
     '';

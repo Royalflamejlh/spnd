@@ -1,0 +1,13 @@
+# Template for the .deb/.rpm release assets; scripts/package-release-assets.nu
+# fills the placeholders and hands nfpm the rendered copy.
+name: spnd
+arch: '@ARCH@'
+platform: linux
+version: '@VERSION@'
+maintainer: John Howard <claude@johnlhoward.me>
+description: Interactive terminal UI for coding-agent token usage and spend
+homepage: https://github.com/Royalflamejlh/spnd
+license: MIT
+contents:
+  - src: '@BINARY@'
+    dst: /usr/bin/spnd

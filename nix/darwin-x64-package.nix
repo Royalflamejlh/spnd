@@ -47,11 +47,11 @@ in
             dep: dep != pkgs.libiconv
           ) config.packages.ccusage.passthru.commonArgs.buildInputs;
           crossCommonArgs = config.packages.ccusage.passthru.commonArgs // {
-            cargoExtraArgs = "-p ccusage --bin ccusage --target ${target}";
+            cargoExtraArgs = "-p spnd --bin spnd --target ${target}";
             buildInputs = crossBuildInputs;
           };
           crossDepsOnlyArgs = config.packages.ccusage.passthru.depsOnlyArgs // {
-            cargoExtraArgs = "-p ccusage --bin ccusage --target ${target}";
+            cargoExtraArgs = "-p spnd --bin spnd --target ${target}";
             buildInputs = crossBuildInputs;
           };
           crossDependencyArtifacts = crossCraneLib.buildDepsOnly crossDepsOnlyArgs;

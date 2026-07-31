@@ -1,15 +1,15 @@
 {
-	"name": "@ccusage/ccusage-darwin-arm64",
+	"name": "@spnd/spnd-darwin-arm64",
 	"version": "20.0.19",
-	"description": "Native ccusage binary for macOS arm64",
+	"description": "Native spnd binary for macOS arm64",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/ccusage/ccusage.git",
+		"url": "git+https://github.com/Royalflamejlh/spnd.git",
 		"directory": "packages/ccusage-darwin-arm64"
 	},
 	"files": [
-		"bin/ccusage"
+		"bin/spnd"
 	],
 	"os": [
 		"darwin"
@@ -22,6 +22,6 @@
 		"access": "public"
 	},
 	"scripts": {
-		"prepack": "../../apps/ccusage/scripts/verify-native-package.nu && publint"
+		"prepack": "../../apps/spnd/scripts/verify-native-package.nu && publint"
 	}
 }

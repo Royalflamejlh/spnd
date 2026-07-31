@@ -16,7 +16,7 @@ concurrency:
 jobs:
   update-pricing:
     name: ${{ matrix.name }}
-    runs-on: blacksmith-32vcpu-ubuntu-2404
+    runs-on: ubuntu-24.04
     timeout-minutes: 60
     permissions:
       contents: write
@@ -70,7 +70,7 @@ jobs:
           - name: Babashka performance harness test
             run: |
               git diff --quiet && exit 0
-              apps/ccusage/scripts/compare-pr-performance_test.clj
+              apps/spnd/scripts/compare-pr-performance_test.clj
       - uses: ./.github/actions/commit-and-push-main
         if: steps.update.outputs.changed == 'true'
         with:

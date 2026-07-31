@@ -29,5 +29,5 @@ pnpm --filter ccusage run start blocks --active
 pnpm --filter ccusage run start blocks --recent
 pnpm --filter ccusage run start blocks --token-limit max
 pnpm --filter ccusage run test:statusline
-cat apps/ccusage/test/statusline-test.json | pnpm --filter ccusage run start statusline
+cat apps/spnd/test/statusline-test.json | pnpm --filter ccusage run start statusline
 ```

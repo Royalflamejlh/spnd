@@ -14,7 +14,7 @@ When adding or changing a user-facing agent, command, option, report mode,
 configuration shape, JSON field, screenshot-visible output, or example, audit:
 
 - root `README.md`
-- `apps/ccusage/README.md`
+- `apps/spnd/README.md`
 - relevant `docs/guide/` pages
 - related cross-links
 - VitePress navigation
@@ -27,7 +27,7 @@ documentation audit and point to the right local docs guidance.
 - Read `docs/README.md` for docs site structure and commands.
 - Read `docs/AGENTS.md` for docs writing conventions, screenshot placement,
   accessibility, schema-copy behavior, and markdown linting notes.
-- Read `apps/ccusage/AGENTS.md` before changing package README content tied to
+- Read `apps/spnd/AGENTS.md` before changing package README content tied to
   the published npm package.
 
 ## Scope

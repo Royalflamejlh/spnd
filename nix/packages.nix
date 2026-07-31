@@ -26,7 +26,7 @@ in
           root
           ;
       };
-      ccusageProgram = pkgs.lib.getExe' ccusage "ccusage";
+      ccusageProgram = pkgs.lib.getExe' ccusage "spnd";
       # Shared builders for the `nix/tools/*` dependency manifests; see
       # nix/bun-node-modules.nix and nix/bun-cli.nix.
       bunNodeModules = pkgs.callPackage ../nix/bun-node-modules.nix {

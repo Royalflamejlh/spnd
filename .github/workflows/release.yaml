@@ -20,7 +20,7 @@ jobs:
     # Label events only matter on tagpr's own release PR; skip the rest so
     # ordinary PR labeling doesn't spend runner time.
     if: github.event_name != 'pull_request' || startsWith(github.head_ref, 'tagpr-from-')
-    runs-on: blacksmith-32vcpu-ubuntu-2404
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
       contents: write
@@ -57,35 +57,35 @@ jobs:
       matrix:
         include:
           - name: build-linux-arm64
-            os: blacksmith-32vcpu-ubuntu-2404-arm
+            os: ubuntu-24.04-arm
             platform: linux
             arch: arm64
-            binary: result/bin/ccusage
+            binary: result/bin/spnd
           - name: build-linux-x64
-            os: blacksmith-32vcpu-ubuntu-2404
+            os: ubuntu-24.04
             platform: linux
             arch: x64
-            binary: result/bin/ccusage
+            binary: result/bin/spnd
           - name: build-mac-arm64
-            os: blacksmith-12vcpu-macos-26
+            os: macos-15
             platform: darwin
             arch: arm64
-            binary: result/bin/ccusage
+            binary: result/bin/spnd
           - name: build-mac-x64
-            os: blacksmith-12vcpu-macos-26
+            os: macos-15
             platform: darwin
             arch: x64
-            binary: result/bin/ccusage
+            binary: result/bin/spnd
           - name: build-windows-arm64
             os: windows-11-arm
             platform: win32
             arch: arm64
-            binary: rust/target/release/ccusage.exe
+            binary: rust/target/release/spnd.exe
           - name: build-windows-x64
-            os: blacksmith-32vcpu-windows-2025
+            os: windows-2025
             platform: win32
             arch: x64
-            binary: rust/target/release/ccusage.exe
+            binary: rust/target/release/spnd.exe
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -148,25 +148,87 @@ jobs:
           for archive in "$RUNNER_TEMP"/native-packages/*.tar; do
             tar -xf "$archive"
           done
-      - run: pnpm --filter='./apps/ccusage' --filter='./packages/ccusage-*' publish --provenance --no-git-checks --access public
+      # First-time publishes of the spnd packages authenticate with the
+      # NPM_TOKEN repository secret; --provenance additionally signs the
+      # packages via the job's OIDC identity.
+      - run: pnpm --filter='./apps/spnd' --filter='./packages/ccusage-*' publish --provenance --no-git-checks --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  # Publishes the crates.io pointer crate via OIDC trusted publishing; the
+  # crate's trusted publisher on crates.io must reference this workflow file.
+  crates-io:
+    needs: tagpr
+    if: needs.tagpr.outputs.tag != ''
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.tagpr.outputs.tag }}
+          persist-credentials: false
+      - id: auth
+        uses: rust-lang/crates-io-auth-action@c6f97d42243bad5fab37ca0427f495c86d5b1a18 # v1.0.5
+      - name: Publish the crates.io pointer crate at the release version
+        working-directory: packaging/crates/spnd
+        env:
+          TAG: ${{ needs.tagpr.outputs.tag }}
+          CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
+        run: |
+          sed -i "s/^version = \"0.0.0\"$/version = \"${TAG#v}\"/" Cargo.toml
+          cargo publish --allow-dirty
 
   release:
     needs:
       - tagpr
       - npm
     if: needs.tagpr.outputs.tag != ''
-    runs-on: blacksmith-32vcpu-ubuntu-2404
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
     steps:
       # changelogithub resolves the release tag with `git tag --points-at HEAD`,
-      # so checking out the tag is what makes it pick the right release
+      # so checking out the tag is what makes it pick the right release.
+      # persist-credentials stays off; commit-and-push-main authenticates with
+      # the job token through gh.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ needs.tagpr.outputs.tag }}
           fetch-depth: 0
           persist-credentials: false
       - uses: ./.github/actions/setup-nix-cache
+      # zip and nfpm are used by scripts/package-release-assets.nu.
+      - run: nix profile install --inputs-from . nixpkgs#zip nixpkgs#nfpm
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          pattern: ccusage-native-*
+          path: ${{ runner.temp }}/native-packages
+          merge-multiple: true
+      - name: Restore native package binaries
+        run: |
+          for archive in "$RUNNER_TEMP"/native-packages/*.tar; do
+            tar -xf "$archive"
+          done
+      - name: Package release assets
+        env:
+          TAG: ${{ needs.tagpr.outputs.tag }}
+        run: scripts/package-release-assets.nu --version "${TAG#v}"
       - run: nix run .#changelogithub
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Upload release assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.tagpr.outputs.tag }}
+        run: gh release upload "$TAG" dist/* --clobber
+      - name: Update Homebrew formula and Scoop manifest
+        env:
+          TAG: ${{ needs.tagpr.outputs.tag }}
+        run: scripts/update-packaging-manifests.nu --version "${TAG#v}"
+      - uses: ./.github/actions/commit-and-push-main
+        with:
+          message: 'chore(packaging): point brew and scoop at ${{ needs.tagpr.outputs.tag }}'
+          paths: Formula/spnd.rb bucket/spnd.json

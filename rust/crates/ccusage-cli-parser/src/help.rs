@@ -13,7 +13,7 @@ struct HelpPage {
 include!(concat!(env!("OUT_DIR"), "/cli-help.rs"));
 
 pub(crate) fn print_version_and_exit(version: &str) -> ! {
-    println!("ccusage {version}");
+    println!("spnd {version}");
     process::exit(0);
 }
 
@@ -49,7 +49,9 @@ fn is_program_name(arg: &str) -> bool {
         .rsplit('\\')
         .next()
         .unwrap_or(arg);
-    matches!(name, "ccusage" | "ccusage.exe")
+    // The ccusage aliases keep argv0 stripping working for symlinks to the
+    // upstream name.
+    matches!(name, "spnd" | "spnd.exe" | "ccusage" | "ccusage.exe")
 }
 
 fn help_text_for_tokens(tokens: &[String]) -> String {
@@ -78,7 +80,7 @@ fn root_help_text() -> String {
     lines.push(String::new());
     lines.push("For more info, run any command with the `--help` flag:".to_string());
     for (command, _) in ROOT_COMMANDS {
-        lines.push(format!("  ccusage {command} --help"));
+        lines.push(format!("  spnd {command} --help"));
     }
     lines.push(String::new());
     lines.push(all_agent_options().to_string());

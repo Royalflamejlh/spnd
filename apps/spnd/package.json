@@ -1,0 +1,40 @@
+{
+	"name": "@spnd/spnd",
+	"version": "20.0.19",
+	"description": "Interactive TUI and reports for coding-agent token usage and costs (fork of ccusage)",
+	"homepage": "https://github.com/Royalflamejlh/spnd#readme",
+	"bugs": {
+		"url": "https://github.com/Royalflamejlh/spnd/issues"
+	},
+	"license": "MIT",
+	"author": "ryoppippi",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Royalflamejlh/spnd.git",
+		"directory": "apps/spnd"
+	},
+	"funding": "https://github.com/sponsors/ryoppippi",
+	"bin": {
+		"spnd": "./src/cli.js"
+	},
+	"files": [
+		"config-schema.json",
+		"src/cli.js"
+	],
+	"type": "module",
+	"scripts": {
+		"build": "scripts/ensure-native-binary.nu && publint",
+		"prepack": "pnpm run build"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:types"
+	},
+	"optionalDependencies": {
+		"@spnd/spnd-darwin-arm64": "workspace:*",
+		"@spnd/spnd-darwin-x64": "workspace:*",
+		"@spnd/spnd-linux-arm64": "workspace:*",
+		"@spnd/spnd-linux-x64": "workspace:*",
+		"@spnd/spnd-win32-arm64": "workspace:*",
+		"@spnd/spnd-win32-x64": "workspace:*"
+	}
+}

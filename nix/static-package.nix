@@ -51,7 +51,7 @@ in
             }
           );
           staticCommonArgs = config.packages.ccusage.passthru.commonArgs // {
-            cargoExtraArgs = "-p ccusage --bin ccusage --target ${linuxStaticTarget}";
+            cargoExtraArgs = "-p spnd --bin spnd --target ${linuxStaticTarget}";
             nativeBuildInputs = with staticPkgs; [
               mold
               pkg-config
@@ -60,7 +60,7 @@ in
           };
           # Share the same deps-only cache key, then add static target settings.
           staticDepsOnlyArgs = config.packages.ccusage.passthru.depsOnlyArgs // {
-            cargoExtraArgs = "-p ccusage --bin ccusage --target ${linuxStaticTarget}";
+            cargoExtraArgs = "-p spnd --bin spnd --target ${linuxStaticTarget}";
             nativeBuildInputs = with staticPkgs; [
               mold
               pkg-config
