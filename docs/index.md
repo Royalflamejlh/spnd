@@ -2,19 +2,19 @@
 layout: home
 
 hero:
-  name: ccusage
+  name: spnd
   text: Coding (Agent) CLI Usage Analysis
   tagline: A fast local CLI for tracking tokens and estimated costs across Claude Code, Codex, OpenCode, Amp, Droid, Codebuff, Hermes Agent, pi-agent, Goose, OpenClaw, Kilo, Kimi, Qwen, GitHub Copilot CLI, and Gemini CLI
   image:
     src: /logo.svg
-    alt: ccusage logo
+    alt: spnd logo
   actions:
     - theme: brand
       text: Get Started
       link: /guide/
     - theme: alt
       text: View on GitHub
-      link: https://github.com/ccusage/ccusage
+      link: https://github.com/Royalflamejlh/spnd
 
 features:
   - icon: 📊
@@ -53,7 +53,7 @@ features:
 ---
 
 <div style="text-align: center; margin: 2rem 0;">
-  <h2 style="margin-bottom: 1rem;">Support ccusage</h2>
+  <h2 style="margin-bottom: 1rem;">Support spnd</h2>
   <p style="margin-bottom: 1rem;">Sponsored by</p>
 
   <div style="display: flex; justify-content: center; margin-top: 1rem;">

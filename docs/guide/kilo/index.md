@@ -1,17 +1,17 @@
 # Kilo Data Source (Beta)
 
-ccusage can read Kilo CLI usage data as one of its supported local data sources. Kilo stores local session data in a SQLite database with model, token, cache, and cost fields.
+spnd can read Kilo CLI usage data as one of its supported local data sources. Kilo stores local session data in a SQLite database with model, token, cache, and cost fields.
 
 ## Focused Views
 
 ```bash
 # Recommended
-bunx ccusage kilo --help
+bunx @spnd/spnd kilo --help
 
 # Alternative package runners
-npx ccusage@latest kilo --help
-pnpm dlx ccusage kilo --help
-pnpx ccusage kilo --help
+npx @spnd/spnd@latest kilo --help
+pnpm dlx @spnd/spnd kilo --help
+pnpx @spnd/spnd kilo --help
 ```
 
 ## Data Source
@@ -19,7 +19,7 @@ pnpx ccusage kilo --help
 The CLI reads Kilo messages from `KILO_DATA_DIR` (defaults to `~/.local/share/kilo`). `KILO_DATA_DIR` can be one directory or a comma-separated list of directories.
 
 ```bash
-KILO_DATA_DIR="$HOME/.local/share/kilo,/backup/kilo" ccusage kilo daily
+KILO_DATA_DIR="$HOME/.local/share/kilo,/backup/kilo" spnd kilo daily
 ```
 
 <!-- eslint-skip -->
@@ -31,13 +31,13 @@ KILO_DATA_DIR="$HOME/.local/share/kilo,/backup/kilo" ccusage kilo daily
 
 ## Report Views
 
-| Focused view           | Description                          | See also                                |
-| ---------------------- | ------------------------------------ | --------------------------------------- |
-| `ccusage kilo daily`   | Aggregate usage by date (YYYY-MM-DD) | [Daily Usage](/guide/daily-reports)     |
-| `ccusage kilo monthly` | Aggregate usage by month (YYYY-MM)   | [Monthly Usage](/guide/monthly-reports) |
-| `ccusage kilo session` | Per-session breakdown                | [Session Usage](/guide/session-reports) |
+| Focused view        | Description                          | See also                                |
+| ------------------- | ------------------------------------ | --------------------------------------- |
+| `spnd kilo daily`   | Aggregate usage by date (YYYY-MM-DD) | [Daily Usage](/guide/daily-reports)     |
+| `spnd kilo monthly` | Aggregate usage by month (YYYY-MM)   | [Monthly Usage](/guide/monthly-reports) |
+| `spnd kilo session` | Per-session breakdown                | [Session Usage](/guide/session-reports) |
 
-These views support `--json` for structured output and `--compact` for narrow terminals. See the linked ccusage documentation for detailed flag descriptions.
+These views support `--json` for structured output and `--compact` for narrow terminals. See the linked spnd documentation for detailed flag descriptions.
 
 ## Environment Variables
 
@@ -48,7 +48,7 @@ These views support `--json` for structured output and `--compact` for narrow te
 
 ## Cost Calculation
 
-When Kilo records a cost (including `0`), ccusage uses that value. Otherwise, costs are calculated from token counts using LiteLLM pricing.
+When Kilo records a cost (including `0`), spnd uses that value. Otherwise, costs are calculated from token counts using LiteLLM pricing.
 
 ## Troubleshooting
 

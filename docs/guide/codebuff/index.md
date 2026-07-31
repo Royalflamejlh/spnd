@@ -2,22 +2,22 @@
 
 > Codebuff support is experimental. Expect adjustments while the local data format continues to evolve.
 
-ccusage can read Codebuff chat history files as one of its supported local data sources, using the same reporting experience as the rest of ccusage: responsive tables, JSON output, LiteLLM-based pricing, cache token accounting, and credit totals where Codebuff records them.
+spnd can read Codebuff chat history files as one of its supported local data sources, using the same reporting experience as the rest of spnd: responsive tables, JSON output, LiteLLM-based pricing, cache token accounting, and credit totals where Codebuff records them.
 
 ## Focused Views
 
 ::: code-group
 
 ```bash [bunx (Recommended)]
-bunx ccusage codebuff --help
+bunx @spnd/spnd codebuff --help
 ```
 
 ```bash [npx]
-npx ccusage@latest codebuff --help
+npx @spnd/spnd@latest codebuff --help
 ```
 
 ```bash [pnpm]
-pnpm dlx ccusage codebuff --help
+pnpm dlx @spnd/spnd codebuff --help
 ```
 
 :::
@@ -26,7 +26,7 @@ pnpm dlx ccusage codebuff --help
 
 The CLI reads Codebuff chat JSON files from `CODEBUFF_DATA_DIR`. Set `CODEBUFF_DATA_DIR` to one channel root or a comma-separated list of channel roots when your data lives outside the standard locations.
 
-When `CODEBUFF_DATA_DIR` is not set, ccusage checks the stable, dev, and staging channel roots:
+When `CODEBUFF_DATA_DIR` is not set, spnd checks the stable, dev, and staging channel roots:
 
 ```text
 ~/.config/manicode/
@@ -48,16 +48,16 @@ Each root is expected to contain project chat histories:
 Use a custom root when your Codebuff data lives elsewhere:
 
 ```bash
-CODEBUFF_DATA_DIR="$HOME/.config/manicode,/backup/codebuff" ccusage codebuff session
+CODEBUFF_DATA_DIR="$HOME/.config/manicode,/backup/codebuff" spnd codebuff session
 ```
 
 ## Report Views
 
-| Focused view               | Description                          | See also                                |
-| -------------------------- | ------------------------------------ | --------------------------------------- |
-| `ccusage codebuff daily`   | Aggregate usage by date              | [Daily Usage](/guide/daily-reports)     |
-| `ccusage codebuff monthly` | Aggregate usage by month             | [Monthly Usage](/guide/monthly-reports) |
-| `ccusage codebuff session` | Group usage by Codebuff chat session | [Session Usage](/guide/session-reports) |
+| Focused view            | Description                          | See also                                |
+| ----------------------- | ------------------------------------ | --------------------------------------- |
+| `spnd codebuff daily`   | Aggregate usage by date              | [Daily Usage](/guide/daily-reports)     |
+| `spnd codebuff monthly` | Aggregate usage by month             | [Monthly Usage](/guide/monthly-reports) |
+| `spnd codebuff session` | Group usage by Codebuff chat session | [Session Usage](/guide/session-reports) |
 
 These views support `--json` for structured output, `--compact` for narrow terminals, and `--offline` for cached pricing data.
 

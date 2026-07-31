@@ -1,9 +1,9 @@
 ---
 name: docs
-description: Routes ccusage documentation impact work. Use when code or behavior changes affect README files, docs guides, VitePress navigation, screenshots, schema docs, or user-facing commands/options.
+description: Routes spnd documentation impact work. Use when code or behavior changes affect README files, docs guides, VitePress navigation, screenshots, schema docs, or user-facing commands/options.
 ---
 
-# ccusage Docs
+# spnd Docs
 
 Use this skill when a change may affect user-facing documentation, even when the
 edited files are outside `docs/`.

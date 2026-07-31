@@ -1,15 +1,15 @@
 # Weekly Usage
 
-Weekly usage aggregates usage by week, providing a mid-range view between daily and monthly usage. `ccusage weekly` covers all detected sources that support weekly aggregation; `ccusage claude weekly` and `ccusage opencode weekly` focus the same view on one source.
+Weekly usage aggregates usage by week, providing a mid-range view between daily and monthly usage. `spnd weekly` covers all detected sources that support weekly aggregation; `spnd claude weekly` and `spnd opencode weekly` focus the same view on one source.
 
 ## Basic Usage
 
 Show all weekly usage:
 
 ```bash
-ccusage weekly
-ccusage claude weekly
-ccusage opencode weekly
+spnd weekly
+spnd claude weekly
+spnd opencode weekly
 ```
 
 ## Example Output
@@ -48,11 +48,11 @@ Configure which day starts the week:
 
 ```bash
 # Start week on Sunday (default)
-ccusage weekly --start-of-week sunday
+spnd weekly --start-of-week sunday
 
 # Start week on Monday
-ccusage weekly --start-of-week monday
-ccusage weekly -w monday
+spnd weekly --start-of-week monday
+spnd weekly -w monday
 
 # Other options: tuesday, wednesday, thursday, friday, saturday
 ```
@@ -63,10 +63,10 @@ Filter by date range:
 
 ```bash
 # Show specific period
-ccusage weekly --since 20260501 --until 20260531
+spnd weekly --since 20260501 --until 20260531
 
 # Show last 4 weeks
-ccusage weekly --since 20260420
+spnd weekly --since 20260420
 ```
 
 ### Recent Weeks
@@ -75,13 +75,13 @@ Count back in whole weeks instead of dates:
 
 ```bash
 # This week so far
-ccusage weekly --last 1
+spnd weekly --last 1
 
 # This week and the three before it
-ccusage weekly --last 4
+spnd weekly --last 4
 ```
 
-The window starts on the same weekday the report buckets by, so `ccusage claude weekly --last 1 -w monday` starts on Monday. `--last` cannot be combined with `--since` or `--until`.
+The window starts on the same weekday the report buckets by, so `spnd claude weekly --last 1 -w monday` starts on Monday. `--last` cannot be combined with `--since` or `--until`.
 
 ### Sort Order
 
@@ -89,10 +89,10 @@ Control the order of weeks:
 
 ```bash
 # Newest weeks first (default)
-ccusage weekly --order desc
+spnd weekly --order desc
 
 # Oldest weeks first
-ccusage weekly --order asc
+spnd weekly --order asc
 ```
 
 ### Model Breakdown
@@ -100,7 +100,7 @@ ccusage weekly --order asc
 See per-model weekly costs:
 
 ```bash
-ccusage weekly --breakdown
+spnd weekly --breakdown
 ```
 
 ```text
@@ -120,7 +120,7 @@ ccusage weekly --breakdown
 Export weekly data as JSON:
 
 ```bash
-ccusage weekly --json
+spnd weekly --json
 ```
 
 ```json
@@ -166,10 +166,10 @@ Group weekly usage by project:
 
 ```bash
 # Show weekly usage per project
-ccusage weekly --instances
+spnd weekly --instances
 
 # Filter to specific project
-ccusage weekly --project my-project
+spnd weekly --project my-project
 ```
 
 ### Cost Calculation Modes
@@ -178,13 +178,13 @@ Control cost calculation:
 
 ```bash
 # Auto mode (default)
-ccusage weekly --mode auto
+spnd weekly --mode auto
 
 # Always calculate from tokens
-ccusage weekly --mode calculate
+spnd weekly --mode calculate
 
 # Only use pre-calculated costs
-ccusage weekly --mode display
+spnd weekly --mode display
 ```
 
 ### Offline Mode
@@ -192,7 +192,7 @@ ccusage weekly --mode display
 Use cached pricing data:
 
 ```bash
-ccusage weekly --offline
+spnd weekly --offline
 ```
 
 ## Common Use Cases
@@ -201,35 +201,35 @@ ccusage weekly --offline
 
 ```bash
 # See usage trends over past months
-ccusage weekly --since 20260401
+spnd weekly --since 20260401
 ```
 
 ### Sprint Analysis
 
 ```bash
 # Track usage during 2-week sprints (Monday start)
-ccusage weekly --start-of-week monday --since 20260501
+spnd weekly --start-of-week monday --since 20260501
 ```
 
 ### Budget Planning
 
 ```bash
 # Export for weekly budget tracking
-ccusage weekly --json > weekly-budget.json
+spnd weekly --json > weekly-budget.json
 ```
 
 ### Compare Workweeks
 
 ```bash
 # Monday-Friday work pattern analysis
-ccusage weekly --start-of-week monday --breakdown
+spnd weekly --start-of-week monday --breakdown
 ```
 
 ### Team Reporting
 
 ```bash
 # Weekly team usage report
-ccusage weekly --instances --start-of-week monday
+spnd weekly --instances --start-of-week monday
 ```
 
 ## Tips

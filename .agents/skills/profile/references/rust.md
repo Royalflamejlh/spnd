@@ -31,9 +31,9 @@ Create a separate main worktree for branch-vs-main comparisons:
 
 ```sh
 command git fetch origin main
-command git worktree add /tmp/ccusage-main origin/main
+command git worktree add /tmp/spnd-main origin/main
 direnv exec . cargo build --manifest-path rust/Cargo.toml --release --bin spnd
-cd /tmp/ccusage-main
+cd /tmp/spnd-main
 direnv exec . cargo build --manifest-path rust/Cargo.toml --release --bin spnd
 ```
 
@@ -41,16 +41,16 @@ Measure real commands with deterministic output settings:
 
 ```sh
 hyperfine --warmup 4 --runs 10 --shell none \
-	"env LOG_LEVEL=0 COLUMNS=200 NO_COLOR=1 TZ=UTC rust/target/release/ccusage daily --offline --json" \
-	"env LOG_LEVEL=0 COLUMNS=200 NO_COLOR=1 TZ=UTC /tmp/ccusage-main/rust/target/release/ccusage daily --offline --json" \
+	"env LOG_LEVEL=0 COLUMNS=200 NO_COLOR=1 TZ=UTC rust/target/release/spnd daily --offline --json" \
+	"env LOG_LEVEL=0 COLUMNS=200 NO_COLOR=1 TZ=UTC /tmp/spnd-main/rust/target/release/spnd daily --offline --json" \
 	--export-json /tmp/rust-hyperfine.json
 ```
 
 For JSON parity, write both outputs and validate with `jq`:
 
 ```sh
-env LOG_LEVEL=0 COLUMNS=200 NO_COLOR=1 TZ=UTC rust/target/release/ccusage daily --offline --json >/tmp/head.json
-env LOG_LEVEL=0 COLUMNS=200 NO_COLOR=1 TZ=UTC /tmp/ccusage-main/rust/target/release/ccusage daily --offline --json >/tmp/main.json
+env LOG_LEVEL=0 COLUMNS=200 NO_COLOR=1 TZ=UTC rust/target/release/spnd daily --offline --json >/tmp/head.json
+env LOG_LEVEL=0 COLUMNS=200 NO_COLOR=1 TZ=UTC /tmp/spnd-main/rust/target/release/spnd daily --offline --json >/tmp/main.json
 jq -e . /tmp/head.json >/dev/null
 jq -e . /tmp/main.json >/dev/null
 ```
@@ -79,7 +79,7 @@ To reproduce the workflow shape locally, pass real fixture and worktree inputs:
 
 ```sh
 apps/spnd/scripts/compare-pr-performance.bb \
-	--base-dir /tmp/ccusage-main \
+	--base-dir /tmp/spnd-main \
 	--head-dir "$PWD" \
 	--head-runtime rust \
 	--fixture-dir apps/spnd/test/fixtures/claude \

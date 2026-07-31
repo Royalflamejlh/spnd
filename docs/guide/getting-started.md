@@ -1,6 +1,6 @@
 # Getting Started
 
-Welcome to ccusage! This guide will help you get up and running with analyzing your coding (agent) CLI usage data.
+Welcome to spnd! This guide will help you get up and running with analyzing your coding (agent) CLI usage data.
 
 ## Prerequisites
 
@@ -9,28 +9,28 @@ Welcome to ccusage! This guide will help you get up and running with analyzing y
 
 ## Quick Start
 
-The fastest way to try ccusage is to run it directly without installation:
+The fastest way to try spnd is to run it directly without installation:
 
 ::: code-group
 
 ```bash [bunx (Recommended)]
-bunx ccusage
+bunx @spnd/spnd
 ```
 
 ```bash [Nix]
-nix run github:ccusage/ccusage -- daily
+nix run github:Royalflamejlh/spnd -- daily
 ```
 
 ```bash [npx]
-npx ccusage@latest
+npx @spnd/spnd@latest
 ```
 
 ```bash [pnpm]
-pnpm dlx ccusage
+pnpm dlx @spnd/spnd
 ```
 
 ```bash [pkg.pr.new preview]
-bunx -p https://pkg.pr.new/ccusage/ccusage@<pr-number> ccusage --offline
+bunx -p https://pkg.pr.new/Royalflamejlh/spnd@<pr-number> spnd --offline
 ```
 
 :::
@@ -44,19 +44,19 @@ This will show your daily usage report for all detected supported coding CLIs by
 Use a data source namespace when you want the same report focused on one source:
 
 ```bash
-ccusage claude daily
-ccusage codex daily
-ccusage opencode weekly
-ccusage amp session
-ccusage pi monthly
-ccusage kilo daily
-ccusage kimi daily
-ccusage qwen daily
+spnd claude daily
+spnd codex daily
+spnd opencode weekly
+spnd amp session
+spnd pi monthly
+spnd kilo daily
+spnd kimi daily
+spnd qwen daily
 ```
 
 ## Your First Report
 
-When you run ccusage for the first time, you'll see a table showing detected coding CLI usage by date:
+When you run spnd for the first time, you'll see a table showing detected coding CLI usage by date:
 
 ```text
 ╭──────────────────────────────────────────╮
@@ -99,7 +99,7 @@ Now that you have your first unified view, explore these features:
 2. **[Weekly Usage](/guide/weekly-reports)** - Track usage patterns by week
 3. **[Monthly Usage](/guide/monthly-reports)** - See usage aggregated by month
 4. **[Session Usage](/guide/session-reports)** - Analyze individual conversations
-5. **[Configuration](/guide/configuration)** - Customize ccusage behavior
+5. **[Configuration](/guide/configuration)** - Customize spnd behavior
 6. **[Claude Code](/guide/claude/)** - Claude Code-specific setup and features
 
 ## Common Use Cases
@@ -107,34 +107,34 @@ Now that you have your first unified view, explore these features:
 ### Monitor Daily Usage
 
 ```bash
-ccusage daily --since 2026-05-01 --until 2026-05-16
+spnd daily --since 2026-05-01 --until 2026-05-16
 ```
 
 ### Focus on One Source
 
 ```bash
-ccusage codex daily
-ccusage claude monthly
+spnd codex daily
+spnd claude monthly
 ```
 
 ### Use Source-Specific Options
 
 ```bash
-ccusage claude daily --mode display
-ccusage codex daily --speed fast
-ccusage opencode weekly
+spnd claude daily --mode display
+spnd codex daily --speed fast
+spnd opencode weekly
 ```
 
 ### Analyze Sessions
 
 ```bash
-ccusage session
+spnd session
 ```
 
 ### Export for Analysis
 
 ```bash
-ccusage monthly --json > usage-data.json
+spnd monthly --json > usage-data.json
 ```
 
 ### Claude Code Features
@@ -143,11 +143,11 @@ See [Claude Code](/guide/claude/) for Claude-specific features such as blocks an
 
 ## Colors
 
-ccusage automatically colors the output based on the terminal's capabilities. If you want to disable colors, you can use the `--no-color` flag. Or you can use the `--color` flag to force colors on.
+spnd automatically colors the output based on the terminal's capabilities. If you want to disable colors, you can use the `--no-color` flag. Or you can use the `--color` flag to force colors on.
 
 ## Automatic Table Adjustment
 
-ccusage automatically adjusts its table layout based on terminal width:
+spnd automatically adjusts its table layout based on terminal width:
 
 - **Wide terminals (≥100 characters)**: Full table with all columns including cache metrics, model names, and detailed breakdowns
 - **Narrow terminals (<100 characters)**: Compact view with essential columns only (Date, Models, Input, Output, Cost)
@@ -158,9 +158,9 @@ The layout adjusts automatically based on your terminal width - no configuration
 
 ### No Data Found
 
-If ccusage shows no data, check:
+If spnd shows no data, check:
 
-1. **A supported coding CLI is installed and used** - ccusage reads from local usage files
+1. **A supported coding CLI is installed and used** - spnd reads from local usage files
 2. **Data directory exists** - Common locations:
    - Claude Code: `~/.config/claude/projects/` or `~/.claude/projects/`
    - Codex: `${CODEX_HOME:-~/.codex}`
@@ -217,6 +217,6 @@ export QWEN_DATA_DIR="/path/to/qwen,/archive/qwen"
 
 ## Getting Help
 
-- Use `ccusage --help` for command options
-- Visit our [GitHub repository](https://github.com/ccusage/ccusage) for issues
+- Use `spnd --help` for command options
+- Visit our [GitHub repository](https://github.com/Royalflamejlh/spnd) for issues
 - Use [JSON Output](/guide/json-output) for programmatic usage

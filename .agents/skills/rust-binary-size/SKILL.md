@@ -1,6 +1,6 @@
 ---
 name: rust-binary-size
-description: Guides Rust binary size reduction for ccusage. Use when changing release profiles, dependency features, native packaging size, or investigating Rust executable bloat.
+description: Guides Rust binary size reduction for spnd. Use when changing release profiles, dependency features, native packaging size, or investigating Rust executable bloat.
 paths:
   - 'rust/Cargo.toml'
   - 'rust/**/*.rs'
@@ -11,7 +11,7 @@ globs: 'rust/**/*.rs,rust/**/*.toml,apps/spnd/scripts/**'
 
 # Rust Binary Size
 
-Use this skill when applying binary-size guidance to the Rust-first `ccusage`
+Use this skill when applying binary-size guidance to the Rust-first `spnd`
 CLI, release profiles, native package binaries, dependency features, or size
 regression investigations.
 
@@ -40,14 +40,14 @@ Prefer measurement before changing code or dependencies:
 
 ```sh
 direnv exec . cargo build --manifest-path rust/Cargo.toml --release --bin spnd
-ls -lh rust/target/release/ccusage
+ls -lh rust/target/release/spnd
 ```
 
 When a size regression is not explained by the release profile, inspect
 dependency features and large symbols before editing:
 
 ```sh
-direnv exec . cargo tree --manifest-path rust/Cargo.toml -e features -p ccusage
+direnv exec . cargo tree --manifest-path rust/Cargo.toml -e features -p spnd
 direnv exec . cargo bloat --manifest-path rust/Cargo.toml --release --bin spnd --crates
 ```
 
@@ -64,7 +64,7 @@ Prefer stable, low-risk changes first:
 - Narrow optional dependency features instead of replacing a well-fitting crate.
 - Remove unused code paths, generated assets, or format-heavy diagnostics from
   release-only paths only when behavior remains correct.
-- Keep `ccusage` functionality, JSON output, table output, and packaging
+- Keep `spnd` functionality, JSON output, table output, and packaging
   semantics unchanged unless the user explicitly asks for a behavior change.
 
 ## Risky Changes

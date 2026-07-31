@@ -1,9 +1,9 @@
 ---
 name: development
-description: Guides ccusage monorepo development. Use when editing packages, docs, shared configuration, bundled CLI packaging, dependencies, exports, or validation commands.
+description: Guides spnd monorepo development. Use when editing packages, docs, shared configuration, bundled CLI packaging, dependencies, exports, or validation commands.
 ---
 
-# ccusage Development
+# spnd Development
 
 ## Repository Shape
 
@@ -12,21 +12,21 @@ This is a monorepo. Check the nearest package-specific `AGENTS.md` before editin
 - `apps/spnd/AGENTS.md` - main Claude Code usage CLI and library
 - `docs/AGENTS.md` - VitePress documentation site
 
-The production CLI implementation is Rust-first under `rust/crates/ccusage`.
+The production CLI implementation is Rust-first under `rust/crates/spnd`.
 The `apps/spnd` package now mainly provides npm metadata, a TypeScript bin
 launcher, generated schema artifacts, benchmarks, and release packaging.
 
-The canonical user-facing command is `ccusage` with agent subcommands:
+The canonical user-facing command is `spnd` with agent subcommands:
 
 ```sh
-ccusage daily
-ccusage codex daily
-ccusage opencode daily
-ccusage amp daily
-ccusage pi daily
+spnd daily
+spnd codex daily
+spnd opencode daily
+spnd amp daily
+spnd pi daily
 ```
 
-Standalone agent wrapper packages have been removed. Prefer `ccusage <agent> ...` in docs, tests, examples, and new behavior, and do not reintroduce wrapper commands such as `ccusage-codex`, `ccusage-opencode`, `ccusage-amp`, or `ccusage-pi`.
+Standalone agent wrapper packages have been removed. Prefer `spnd <agent> ...` in docs, tests, examples, and new behavior, and do not reintroduce wrapper commands such as `ccusage-codex`, `ccusage-opencode`, `ccusage-amp`, or `ccusage-pi`.
 
 Agent implementations live in the Rust CLI unless the work is specifically about
 the remaining TypeScript package surface. Treat package runtime libraries as

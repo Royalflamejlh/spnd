@@ -1,6 +1,6 @@
 ---
 name: rust
-description: Guides ccusage Rust implementation work. Use when editing rust/crates, native packaging, parser/module layout, pricing embedding, or Rust/TypeScript parity.
+description: Guides spnd Rust implementation work. Use when editing rust/crates, native packaging, parser/module layout, pricing embedding, or Rust/TypeScript parity.
 paths:
   - 'rust/**/*.rs'
   - 'rust/**/*.toml'
@@ -8,7 +8,7 @@ paths:
 globs: 'rust/**/*.rs,rust/**/*.toml,rust/**/build.rs'
 ---
 
-# ccusage Rust
+# spnd Rust
 
 Use this skill for the native Rust CLI: `rust/adapters/<agent>` holds one crate per
 usage source, `rust/crates` everything that is not tied to a single source. Every crate has a
@@ -16,7 +16,7 @@ usage source, `rust/crates` everything that is not tied to a single source. Ever
 the one for the crate you are about to touch, because that layer determines how
 much a change to it costs:
 
-- `ccusage` - the binary; thin dispatch only.
+- `spnd` - the binary; thin dispatch only.
 - `ccusage-core` - pricing, cost, report shaping, config, dates, progress.
 - `ccusage-cli` - the plain argument types; `ccusage-cli-parser` - the parser,
   help renderer, and embedded help JSON, which only the binary depends on.

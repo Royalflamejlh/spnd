@@ -1,6 +1,6 @@
 ---
 name: typescript
-description: Guides ccusage TypeScript and JavaScript work. Use before reading or editing .ts, .tsx, .js, or .jsx files, including package launchers, Node tests, schemas, mocks, and typed fixtures.
+description: Guides spnd TypeScript and JavaScript work. Use before reading or editing .ts, .tsx, .js, or .jsx files, including package launchers, Node tests, schemas, mocks, and typed fixtures.
 paths:
   - '**/*.ts'
   - '**/*.tsx'
@@ -9,7 +9,7 @@ paths:
 globs: '*.ts,*.tsx,*.js,*.jsx'
 ---
 
-# ccusage TypeScript
+# spnd TypeScript
 
 Use this skill for the remaining TypeScript and JavaScript package surface:
 
@@ -18,7 +18,7 @@ Use this skill for the remaining TypeScript and JavaScript package surface:
 - Node test coverage for TypeScript package/tooling behavior.
 - VitePress and root TypeScript configuration or scripts when the change is not docs-content-only.
 
-Runtime CLI behavior belongs in Rust under `rust/crates/ccusage`. Do not add new
+Runtime CLI behavior belongs in Rust under `rust/crates/spnd`. Do not add new
 TypeScript adapter logic unless the user explicitly scopes work to the package
 layer.
 
@@ -37,7 +37,7 @@ repo:
 
 ## Node Tests
 
-Use `testing` and read `testing/references/node-test.md` for ccusage-specific
+Use `testing` and read `testing/references/node-test.md` for spnd-specific
 Node test patterns. Prefer Rust tests for production CLI runtime behavior.
 
 ## Package Scripts

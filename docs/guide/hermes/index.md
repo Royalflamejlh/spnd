@@ -1,33 +1,33 @@
 # Hermes Agent Data Source (Experimental)
 
-> Hermes Agent support is experimental. Expect changes while both ccusage and [Hermes Agent](https://github.com/NousResearch/hermes-agent) continue to evolve.
+> Hermes Agent support is experimental. Expect changes while both spnd and [Hermes Agent](https://github.com/NousResearch/hermes-agent) continue to evolve.
 
-ccusage can read Hermes Agent session usage from its local SQLite state database. The adapter uses the same focused and unified report shape as the other local coding CLI data sources.
+spnd can read Hermes Agent session usage from its local SQLite state database. The adapter uses the same focused and unified report shape as the other local coding CLI data sources.
 
 ## Focused Views
 
 ::: code-group
 
 ```bash [bunx (Recommended)]
-bunx ccusage hermes --help
+bunx @spnd/spnd hermes --help
 ```
 
 ```bash [npx]
-npx ccusage@latest hermes --help
+npx @spnd/spnd@latest hermes --help
 ```
 
 ```bash [pnpm]
-pnpm dlx ccusage hermes --help
+pnpm dlx @spnd/spnd hermes --help
 ```
 
 :::
 
 ## Data Source
 
-The CLI reads Hermes Agent session rows from `$HERMES_HOME/state.db`. When `HERMES_HOME` is not set, ccusage checks `~/.hermes/state.db`.
+The CLI reads Hermes Agent session rows from `$HERMES_HOME/state.db`. When `HERMES_HOME` is not set, spnd checks `~/.hermes/state.db`.
 
 ```bash
-HERMES_HOME="$HOME/.hermes" ccusage hermes daily
+HERMES_HOME="$HOME/.hermes" spnd hermes daily
 ```
 
 ```text
@@ -37,11 +37,11 @@ HERMES_HOME="$HOME/.hermes" ccusage hermes daily
 
 ## Report Views
 
-| Focused view             | Description                      | See also                                |
-| ------------------------ | -------------------------------- | --------------------------------------- |
-| `ccusage hermes daily`   | Aggregate usage by date          | [Daily Usage](/guide/daily-reports)     |
-| `ccusage hermes monthly` | Aggregate usage by month         | [Monthly Usage](/guide/monthly-reports) |
-| `ccusage hermes session` | Group usage by Hermes session ID | [Session Usage](/guide/session-reports) |
+| Focused view          | Description                      | See also                                |
+| --------------------- | -------------------------------- | --------------------------------------- |
+| `spnd hermes daily`   | Aggregate usage by date          | [Daily Usage](/guide/daily-reports)     |
+| `spnd hermes monthly` | Aggregate usage by month         | [Monthly Usage](/guide/monthly-reports) |
+| `spnd hermes session` | Group usage by Hermes session ID | [Session Usage](/guide/session-reports) |
 
 These views support `--json`, `--compact`, `--offline`, `--since`, `--until`, and `--timezone`.
 
@@ -66,5 +66,5 @@ Ensure the database exists at `$HERMES_HOME/state.db` or `~/.hermes/state.db`. I
 :::
 
 ::: details Costs showing as $0.00
-If Hermes has no recorded cost and a model is not in LiteLLM or ccusage's bundled fallback pricing, the calculated cost will be $0.00.
+If Hermes has no recorded cost and a model is not in LiteLLM or spnd's bundled fallback pricing, the calculated cost will be $0.00.
 :::

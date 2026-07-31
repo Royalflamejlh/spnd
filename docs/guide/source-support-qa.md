@@ -1,8 +1,8 @@
 # Source Support Q&A
 
-ccusage only supports a coding agent when it can read local usage records with enough information to produce accurate reports. At minimum, a source needs local timestamps, session identity, model identity, and token counts or recorded costs that can be mapped to token usage.
+spnd only supports a coding agent when it can read local usage records with enough information to produce accurate reports. At minimum, a source needs local timestamps, session identity, model identity, and token counts or recorded costs that can be mapped to token usage.
 
-If a tool stores only prompts, transcripts, quota percentages, or opaque cloud state, ccusage does not estimate token usage from text length. That would make daily, monthly, session, and cost reports look precise while being based on guesses.
+If a tool stores only prompts, transcripts, quota percentages, or opaque cloud state, spnd does not estimate token usage from text length. That would make daily, monthly, session, and cost reports look precise while being based on guesses.
 
 ## What Makes a Source Supportable?
 
@@ -26,19 +26,19 @@ The current local data has conversation files such as `conversations/<conversati
 
 The CLI log files include operational events such as conversation creation, streaming, prompt length, auth, and model configuration messages. They do not include input, output, cache, or reasoning token counts. Quota-oriented tools can inspect remaining Antigravity quota, but quota snapshots are not the same as historical per-session token usage.
 
-Because the local files do not expose the token accounting needed for ccusage reports, Antigravity CLI is not supported right now.
+Because the local files do not expose the token accounting needed for spnd reports, Antigravity CLI is not supported right now.
 :::
 
 ::: details Why is Grok CLI not supported?
-Grok CLI was investigated, but its local SQLite data did not contain usable token accounting. Without token counts, model usage, or recorded costs in the local database, ccusage has nothing reliable to aggregate.
+Grok CLI was investigated, but its local SQLite data did not contain usable token accounting. Without token counts, model usage, or recorded costs in the local database, spnd has nothing reliable to aggregate.
 
-Estimating tokens from message text would ignore provider-side context, hidden prompts, tool-call payloads, cached input, and tokenizer differences, so ccusage does not do that.
+Estimating tokens from message text would ignore provider-side context, hidden prompts, tool-call payloads, cached input, and tokenizer differences, so spnd does not do that.
 :::
 
 ::: details Why is Devin CLI not supported?
-Devin CLI usage information appears to live in Devin's cloud service rather than in a local usage log that ccusage can read. The locally available data did not provide direct access to historical token usage or costs.
+Devin CLI usage information appears to live in Devin's cloud service rather than in a local usage log that spnd can read. The locally available data did not provide direct access to historical token usage or costs.
 
-ccusage is a local, read-only analyzer. It does not scrape private cloud services or depend on undocumented authenticated APIs for user usage history. If Devin adds a local export with timestamps, sessions, models, and token counts, support can be revisited.
+spnd is a local, read-only analyzer. It does not scrape private cloud services or depend on undocumented authenticated APIs for user usage history. If Devin adds a local export with timestamps, sessions, models, and token counts, support can be revisited.
 :::
 
 ## Can These Be Added Later?

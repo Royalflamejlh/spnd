@@ -14,7 +14,7 @@ removed automatically when the fixture variable drops at the end of the test.
 For small inline trees, prefer `fs_fixture!`:
 
 ```rust
-use ccusage_test_support::fs_fixture;
+use spnd_test_support::fs_fixture;
 
 let fixture = fs_fixture!({
     "projects/example/session.jsonl": "{}\n",
@@ -26,7 +26,7 @@ let file_path = fixture.path("projects/example/session.jsonl");
 For incremental setup, use `Fixture` directly:
 
 ```rust
-use ccusage_test_support::Fixture;
+use spnd_test_support::Fixture;
 
 let fixture = Fixture::new();
 fixture.create_dir_all("projects/example/session");
