@@ -49,6 +49,11 @@ fn main() -> Result<()> {
         Some(Command::Kimi(args)) => adapter::kimi::run(args),
         Some(Command::OpenClaw(args)) => adapter::openclaw::run(args),
         None => {
+            // Bare `spnd` opens the interactive TUI; --json or piped output
+            // keeps the unified daily report so scripts stay scriptable.
+            if !cli.shared.json && std::io::IsTerminal::is_terminal(&std::io::stdout()) {
+                return ccusage_tui::run(cli.shared);
+            }
             let args = AgentCommandArgs {
                 shared: cli.shared,
                 kind: AgentReportKind::Daily,

@@ -1,16 +1,21 @@
 # Interactive TUI
 
-The `spnd tui` command opens an interactive terminal UI for browsing Claude
-Code usage instead of printing a one-shot report. It loads the same data as the
-`claude` reports and lets you flip between usage, session, and model views,
-switch between daily, weekly, and monthly bucketing, sort by any column, and
-drill into any model's usage over time — with the keyboard or the mouse.
+Running `spnd` with no command opens an interactive terminal UI for browsing
+Claude Code usage instead of printing a one-shot report. It loads the same
+data as the `claude` reports and lets you flip between usage, session, and
+model views, switch between daily, weekly, and monthly bucketing, sort by any
+column, and drill into any model's usage over time — with the keyboard or the
+mouse.
 
 ## Basic Usage
 
 ```bash
-spnd tui
+spnd        # bare invocation opens the TUI
+spnd tui    # explicit form, same thing
 ```
+
+When stdout is not a terminal, or `--json` is passed, the bare invocation
+prints the unified daily report instead, so pipes and scripts keep working.
 
 ## Example Output
 

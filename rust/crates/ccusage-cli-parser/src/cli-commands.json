@@ -15,7 +15,7 @@
 		"pi_period_options": ["agent_options", "pi_options", "last_options"]
 	},
 	"root": {
-		"usage": ["spnd [daily] <OPTIONS>", "spnd <COMMANDS>"],
+		"usage": ["spnd  (opens the interactive TUI)", "spnd daily <OPTIONS>", "spnd <COMMANDS>"],
 		"commands": [
 			{
 				"name": "daily",
