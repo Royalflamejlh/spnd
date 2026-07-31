@@ -59,7 +59,7 @@ pub(crate) fn load(shared: &SharedArgs) -> Result<Tables> {
 
 /// Aggregates the daily rows' per-model breakdowns into one summary row per
 /// model, sorted most expensive first.
-pub(crate) fn model_totals(daily: &[UsageSummary]) -> Vec<UsageSummary> {
+fn model_totals(daily: &[UsageSummary]) -> Vec<UsageSummary> {
     let mut order = Vec::new();
     let mut merged = FxHashMap::<String, ModelBreakdown>::default();
     for day in daily {
@@ -233,15 +233,15 @@ pub(crate) mod fixtures {
 
     use super::*;
 
-    pub(crate) struct RowFixture {
-        pub(crate) date: Option<&'static str>,
-        pub(crate) session: Option<(&'static str, &'static str)>,
-        pub(crate) model: &'static str,
-        pub(crate) input_tokens: u64,
-        pub(crate) cost: f64,
+    struct RowFixture {
+        date: Option<&'static str>,
+        session: Option<(&'static str, &'static str)>,
+        model: &'static str,
+        input_tokens: u64,
+        cost: f64,
     }
 
-    pub(crate) fn row(fixture: RowFixture) -> UsageSummary {
+    fn row(fixture: RowFixture) -> UsageSummary {
         UsageSummary {
             date: fixture.date.map(str::to_string),
             month: None,

@@ -25,7 +25,7 @@ impl Tab {
         }
     }
 
-    pub(crate) fn index(self) -> usize {
+    fn index(self) -> usize {
         match self {
             Self::Usage => 0,
             Self::Sessions => 1,
@@ -104,7 +104,7 @@ pub(crate) struct Sort {
     pub(crate) descending: bool,
 }
 
-pub(crate) const PERIOD_SORT_COLUMNS: [SortColumn; 7] = [
+const PERIOD_SORT_COLUMNS: [SortColumn; 7] = [
     SortColumn::Key,
     SortColumn::Input,
     SortColumn::Output,
@@ -113,7 +113,7 @@ pub(crate) const PERIOD_SORT_COLUMNS: [SortColumn; 7] = [
     SortColumn::TotalTokens,
     SortColumn::Cost,
 ];
-pub(crate) const SESSION_SORT_COLUMNS: [SortColumn; 5] = [
+const SESSION_SORT_COLUMNS: [SortColumn; 5] = [
     SortColumn::Key,
     SortColumn::Input,
     SortColumn::Output,
@@ -161,10 +161,10 @@ fn sort_rows(rows: &mut [UsageSummary], sort: Sort) {
 /// granularity plus its own selection and sort.
 pub(crate) struct ModelDetail {
     /// Index into `tables.models`, which `[`/`]` paging steps through.
-    pub(crate) index: usize,
+    index: usize,
     pub(crate) model: String,
     pub(crate) rows: Vec<UsageSummary>,
-    pub(crate) state: TableState,
+    state: TableState,
     sort: Sort,
 }
 
@@ -284,7 +284,7 @@ impl App {
     }
 
     /// The sortable columns of the active view, in cycling order.
-    pub(crate) fn sort_columns(&self) -> &'static [SortColumn] {
+    fn sort_columns(&self) -> &'static [SortColumn] {
         if self.detail.is_some() {
             return &PERIOD_SORT_COLUMNS;
         }
