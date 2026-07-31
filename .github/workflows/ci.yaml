@@ -280,24 +280,37 @@ jobs:
         # job is the only thing that runs it, and it never needs to resolve
         # against the workspace. Renovate does not update `dlx` specifiers, so
         # bump the pin here by hand.
+        # continue-on-error: publishing needs the pkg-pr-new GitHub App
+        # installed on the repository; without it the preview e2e and perf
+        # jobs are skipped instead of failing CI.
+        continue-on-error: true
         run: pnpm dlx pkg-pr-new@0.0.75 publish --pnpm --bin './apps/spnd' './packages/ccusage-linux-arm64' './packages/ccusage-linux-x64' './packages/ccusage-darwin-arm64' './packages/ccusage-darwin-x64' './packages/ccusage-win32-x64'
-      # Resolve the ccusage CLI preview URL and build the E2E fixture here (this
+      - name: Warn when the preview publish is unavailable
+        if: steps.publish.outcome == 'failure'
+        run: >
+          echo "::warning::pkg.pr.new publish failed (is the pkg-pr-new GitHub
+          App installed on this repository?); the preview e2e and perf jobs
+          are skipped"
+      # Resolve the spnd CLI preview URL and build the E2E fixture here (this
       # job has the checkout); the E2E jobs then run without a checkout.
       - id: preview-url
+        if: steps.publish.outcome == 'success'
         env:
           URLS: ${{ steps.publish.outputs.urls }}
         run: |
           node <<'JS'
           const urls = (process.env.URLS ?? '').split(/\s+/).filter(Boolean);
-          const url = urls.find((value) => /(?:^|\/)ccusage@/.test(value));
+          const url = urls.find((value) => /(?:^|\/)spnd@/.test(value));
           if (url == null) {
-            throw new Error(`ccusage preview URL not found in: ${urls.join(', ')}`);
+            throw new Error(`spnd preview URL not found in: ${urls.join(', ')}`);
           }
           require('node:fs').appendFileSync(process.env.GITHUB_OUTPUT, `url=${url}\n`);
           JS
       - name: Generate E2E fixture
+        if: steps.publish.outcome == 'success'
         run: .github/scripts/generate-e2e-fixture.nu "$RUNNER_TEMP/e2e-fixture"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: steps.publish.outcome == 'success'
         with:
           name: ccusage-e2e-fixture
           path: ${{ runner.temp }}/e2e-fixture
@@ -306,8 +319,9 @@ jobs:
   ccusage-preview-e2e:
     # Run on PRs and on pushes to the default branch. `push` only fires on main
     # (see on.push.branches), so this validates the published preview package
-    # post-merge too, not just on PRs.
-    if: needs.changes.outputs.code-changed == 'true'
+    # post-merge too, not just on PRs. Skipped when the preview publish was
+    # unavailable (pkg-pr-new app not installed).
+    if: needs.changes.outputs.code-changed == 'true' && needs.npm-publish-dry-run-and-upload-pkg-pr-now.outputs.preview-url != ''
     name: e2e ${{ matrix.runner }} (${{ matrix.os }})
     needs:
       - changes
@@ -430,7 +444,7 @@ jobs:
 
   ccusage-perf-comment:
     name: ccusage ${{ matrix.label }}
-    if: github.event_name == 'pull_request' && needs.changes.outputs.code-changed == 'true'
+    if: github.event_name == 'pull_request' && needs.changes.outputs.code-changed == 'true' && needs.npm-publish-dry-run-and-upload-pkg-pr-now.outputs.preview-url != ''
     needs:
       - changes
       - npm-publish-dry-run-and-upload-pkg-pr-now
@@ -481,11 +495,11 @@ jobs:
           preview_url="$(
             printf '%s\n' "$PKG_PR_NEW_URLS" \
               | tr '[:space:]' '\n' \
-              | grep -E '(^|/)ccusage@' \
+              | grep -E '(^|/)spnd@' \
               | head -n 1
           )"
           if [ -z "$preview_url" ]; then
-            echo "ccusage preview URL not found in: $PKG_PR_NEW_URLS" >&2
+            echo "spnd preview URL not found in: $PKG_PR_NEW_URLS" >&2
             exit 1
           fi
           echo "CCUSAGE_PREVIEW_URL=$preview_url" >> "$GITHUB_ENV"
@@ -500,7 +514,7 @@ jobs:
       - name: Compare performance
         run: |
           apps/spnd/scripts/compare-pr-performance.bb \
-            --base-package-url "https://pkg.pr.new/${{ github.repository }}/ccusage@${{ github.event.pull_request.base.sha }}" \
+            --base-package-url "https://pkg.pr.new/${{ github.repository }}/@spnd/spnd@${{ github.event.pull_request.base.sha }}" \
             --base-sha "${{ github.event.pull_request.base.sha }}" \
             --head-dir . \
             --head-package-url "$CCUSAGE_PREVIEW_URL" \
