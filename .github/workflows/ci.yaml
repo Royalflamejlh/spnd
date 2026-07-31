@@ -199,27 +199,27 @@ jobs:
             os: ubuntu-24.04-arm
             platform: linux
             arch: arm64
-            binary: result/bin/ccusage
+            binary: result/bin/spnd
           - name: build-linux-x64
             os: ubuntu-24.04
             platform: linux
             arch: x64
-            binary: result/bin/ccusage
+            binary: result/bin/spnd
           - name: build-mac-arm64
             os: macos-15
             platform: darwin
             arch: arm64
-            binary: result/bin/ccusage
+            binary: result/bin/spnd
           - name: build-mac-x64
             os: macos-15
             platform: darwin
             arch: x64
-            binary: result/bin/ccusage
+            binary: result/bin/spnd
           - name: build-windows-x64
             os: windows-2025
             platform: win32
             arch: x64
-            binary: rust/target/release/ccusage.exe
+            binary: rust/target/release/spnd.exe
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
