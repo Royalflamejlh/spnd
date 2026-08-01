@@ -213,20 +213,22 @@ jobs:
         env:
           TAG: ${{ needs.tagpr.outputs.tag }}
         run: scripts/package-release-assets.nu --version "${TAG#v}"
-      # Created as a draft, then filled, then published. Immutable releases are
-      # in force on this repository, and publishing is what seals a release: any
-      # asset upload afterwards is rejected with
-      # `HTTP 422: Cannot upload assets to an immutable release`. Creating the
-      # release already published, as this did before, left v20.0.21 with a
+      # The next four steps create the release as a draft, fill it, and only
+      # then publish it. Immutable releases are in force on this repository and
+      # publishing is what seals one, so any asset upload afterwards is rejected
+      # with `HTTP 422: Cannot upload assets to an immutable release`. Creating
+      # the release already published, as this did before, left v20.0.21 with a
       # changelog and zero assets -- no tarballs, no zips, no deb or rpm. A
       # draft accepts uploads, so the seal now closes over a complete release.
+      #
       # A draft creates no git tag, so GitHub does not consider the name taken
-      # and a re-run would leave two drafts sharing it, with the upload and
-      # publish steps below picking between them arbitrarily. Re-running the
-      # failed jobs is this workflow's documented recovery path, so clear the
-      # leftover first. Guarded on isDraft: reaching this with a published
-      # release means a previous attempt already succeeded, and deleting it
-      # would destroy a good release.
+      # and a re-run would leave two drafts sharing it, with the steps below
+      # choosing between them arbitrarily. Re-running the failed jobs is this
+      # workflow's documented recovery path, so clear the leftover first.
+      # Guarded on isDraft: reaching here with a published release means an
+      # earlier attempt already succeeded, and deleting it would destroy a good
+      # release. `gh release delete` leaves the git tag alone without
+      # --cleanup-tag.
       - name: Discard a leftover draft from an earlier attempt
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
