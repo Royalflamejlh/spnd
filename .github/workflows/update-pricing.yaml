@@ -2,7 +2,13 @@ name: update pricing
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    # Daily rather than hourly. Both upstreams publish a handful of pricing
+    # changes a month -- over the two weeks before this was changed, 5 snapshot
+    # commits landed out of roughly 670 scheduled job runs. Every run that finds
+    # nothing still pays a checkout, a Nix install, and a cache restore, so the
+    # hourly cadence spent almost all of its budget confirming no change. Use
+    # workflow_dispatch when a price change needs picking up sooner.
+    - cron: '0 6 * * *'
   workflow_dispatch:
 
 permissions: {}
