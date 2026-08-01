@@ -1,6 +1,6 @@
 {
 	"name": "@spnd/spnd-darwin-x64",
-	"version": "20.0.20",
+	"version": "20.0.21",
 	"description": "Native spnd binary for macOS x64",
 	"license": "MIT",
 	"repository": {
