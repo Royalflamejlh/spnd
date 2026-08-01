@@ -144,8 +144,19 @@ jobs:
           LOG_LEVEL: '0'
         run: |
           $version = $env:TAG -replace '^v', ''
-          npm install -g "@spnd/spnd@$version"
-          if ($LASTEXITCODE -ne 0) { throw 'npm install -g failed' }
+          # Retried with backoff because this job starts the moment `npm`
+          # finishes, and the registry CDN routinely trails a publish by tens of
+          # seconds. Without this the release goes red on propagation lag rather
+          # than on anything actually wrong with the package.
+          $installed = $false
+          foreach ($attempt in 1..5) {
+            npm install -g "@spnd/spnd@$version"
+            if ($LASTEXITCODE -eq 0) { $installed = $true; break }
+            $delay = 10 * $attempt
+            Write-Host "install attempt $attempt failed; retrying in ${delay}s (registry may not have propagated)"
+            Start-Sleep -Seconds $delay
+          }
+          if (-not $installed) { throw 'npm install -g failed after 5 attempts' }
           spnd --version
           if ($LASTEXITCODE -ne 0) { throw '--version failed' }
           # A minimal fixture so the report commands have something to summarize.
