@@ -148,12 +148,12 @@ jobs:
           for archive in "$RUNNER_TEMP"/native-packages/*.tar; do
             tar -xf "$archive"
           done
-      # First-time publishes of the spnd packages authenticate with the
-      # NPM_TOKEN repository secret; --provenance additionally signs the
-      # packages via the job's OIDC identity.
+      # Authenticates via npm trusted publishing (OIDC), which is why this job
+      # holds `id-token: write` and no NPM_TOKEN: each package names this
+      # workflow file as its trusted publisher on npmjs.com. Moving this step
+      # into another workflow file would change the OIDC claim and be rejected,
+      # so it stays here rather than in the shared build workflow.
       - run: pnpm --filter='./apps/spnd' --filter='./packages/ccusage-*' publish --provenance --no-git-checks --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   release:
     needs:
