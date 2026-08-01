@@ -21,28 +21,32 @@ jobs:
       - id: detect
         uses: ./.github/actions/detect-code-changes
 
-  # Security gate: scan the repository with tirith (https://tirith.sh/docs/ci/)
-  # before any of the real CI work runs. This is wired on `pull_request` (not
-  # `pull_request_target`), so fork PRs only ever get a read-only token and
-  # cannot leak secrets while we scan their code. The downstream jobs `needs`
-  # this job, so they are skipped unless tirith passes. tirith is installed from
-  # the flake's pinned nixpkgs so CI matches the dev shell.
-  tirith-scan:
-    name: tirith security scan
+  # Single gate for the cheap-but-high-signal checks, in fail-fast order:
+  # secret detection (gitleaks), workflow/format lint (the treefmt check, which
+  # runs actionlint + zizmor with the repo's exact ignore config), then the
+  # tirith repository scan (https://tirith.sh/docs/ci/). Everything heavier
+  # `needs` this job, so a failure here costs no build or test time.
+  #
+  # tirith is installed from the flake's pinned nixpkgs so CI matches the dev
+  # shell. The scan and its SARIF upload share one job: they were split so the
+  # `security-events: write` scope never sat in a job running PR-controlled
+  # code, which mattered while the repository accepted fork pull requests. It
+  # does not, so the split only cost a job handoff.
+  preflight:
+    name: security & lint preflight
     runs-on: ubuntu-24.04
     timeout-minutes: 15
-    # Read-only: this job executes PR-controlled code (the local action, the PR
-    # flake, the installed tirith), so it must hold no write scopes. The SARIF
-    # is published from the separate `tirith-sarif-upload` job, which never runs
-    # PR code, keeping the elevated `security-events: write` away from the scan.
     permissions:
       contents: read
+      security-events: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
       - uses: ./.github/actions/setup-nix-cache
+      - name: Secret scan and workflow lint
+        run: nix build --print-build-logs .#checks.x86_64-linux.gitleaks .#checks.x86_64-linux.treefmt
       - name: Install tirith
         run: nix profile install --inputs-from . nixpkgs#tirith
       # One pass produces the SARIF report and sets the gate exit code. tirith's
@@ -70,16 +74,14 @@ jobs:
           echo "tirith reported ${count} finding(s)" | tee -a "$GITHUB_STEP_SUMMARY"
           jq -r '.runs[].results[]? | "- [\(.level // "warning")] \(.ruleId): \(.locations[0].physicalLocation.artifactLocation.uri)"' \
             results.sarif 2>/dev/null | tee -a "$GITHUB_STEP_SUMMARY" || true
-      # Hand the SARIF to the privileged upload job as an artifact. Uploaded
-      # before the gate step so findings reach the Security tab even when the
-      # gate then blocks the PR.
-      - name: Upload SARIF artifact
+      # Published before the gate step so findings reach the Security tab even
+      # when the gate then blocks the PR.
+      - name: Publish SARIF to the Security tab
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: github/codeql-action/upload-sarif@7188fc363630916deb702c7fdcf4e481b751f97a # v4.37.1
         with:
-          name: tirith-sarif
-          path: results.sarif
-          if-no-files-found: error
+          sarif_file: results.sarif
+          category: tirith
       - name: Gate CI on tirith findings
         if: always()
         env:
@@ -99,61 +101,8 @@ jobs:
               ;;
           esac
 
-  # Publish the tirith SARIF to the Security tab. Split from the scan so the
-  # `security-events: write` scope lives in a job that never executes
-  # PR-controlled code: it only downloads the artifact and runs trusted, pinned
-  # actions. `always()` so findings are published even when the gate blocked the
-  # PR; skipped for fork PRs, whose token is read-only and cannot upload.
-  tirith-sarif-upload:
-    name: tirith SARIF upload
-    needs: tirith-scan
-    if: ${{ always() && !github.event.pull_request.head.repo.fork }}
-    runs-on: ubuntu-slim
-    timeout-minutes: 10
-    permissions:
-      contents: read
-      security-events: write
-    steps:
-      # Checkout only places files for path mapping; no PR code is executed in
-      # this privileged job.
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          persist-credentials: false
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-        with:
-          name: tirith-sarif
-      - uses: github/codeql-action/upload-sarif@7188fc363630916deb702c7fdcf4e481b751f97a # v4.37.1
-        with:
-          sarif_file: results.sarif
-          category: tirith
-
-  # Fast, unconditional fail-fast gate for the cheap-but-high-signal checks:
-  # secret detection (gitleaks) and workflow/format lint (the treefmt check,
-  # which runs actionlint + zizmor with the repo's exact ignore config). Runs in
-  # parallel with tirith-scan and is NOT gated on `changes`, so secrets and
-  # workflow regressions are caught even on docs-only PRs and on fork PRs (where
-  # local git hooks never run). Both are existing flake checks, so this reuses
-  # their exact behavior instead of re-specifying flags here. The heavy test job
-  # re-runs them inside `nix flake check`; that is intentional duplication so the
-  # gate can fail fast before any build/test work starts.
-  preflight:
-    name: security & lint preflight
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          persist-credentials: false
-      - uses: ./.github/actions/setup-nix-cache
-      - name: Secret scan and workflow lint
-        run: nix build --print-build-logs .#checks.x86_64-linux.gitleaks .#checks.x86_64-linux.treefmt
-
   test:
-    needs: [changes, tirith-scan, preflight]
+    needs: [changes, preflight]
     if: needs.changes.outputs.code-changed == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
@@ -183,7 +132,7 @@ jobs:
             run: apps/spnd/scripts/compare-pr-performance_test.clj
 
   build-native-packages:
-    needs: [changes, tirith-scan, preflight]
+    needs: [changes, preflight]
     if: needs.changes.outputs.code-changed == 'true'
     name: ${{ matrix.name }}
     permissions:
@@ -546,8 +495,6 @@ jobs:
   action-timeline:
     needs:
       - changes
-      - tirith-scan
-      - tirith-sarif-upload
       - preflight
       - test
       - build-native-packages
@@ -567,8 +514,6 @@ jobs:
     name: ci gate
     needs:
       - changes
-      - tirith-scan
-      - tirith-sarif-upload
       - preflight
       - test
       - build-native-packages
