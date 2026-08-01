@@ -20,6 +20,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          # `tagpr` replaces upstream's `autorelease: pending`, which came from
+          # release-please and matched nothing here. tagpr's own release pull
+          # request already gets a Conventional Commits title from
+          # .github/tagpr-template.md, so this is a safety net rather than the
+          # thing that makes it pass.
           ignoreLabels: |
-            autorelease: pending
+            tagpr
             dependencies
