@@ -1,4 +1,9 @@
-name: tagpr
+# Named for what the file does, not for the first job in it. The Actions tab
+# previously showed this workflow as "tagpr" while the file was release.yaml,
+# and npm trusted publishing matches on the *filename* -- so configuring a
+# trusted publisher from what the UI displayed produced a publisher that
+# matched nothing and failed every publish with a 404 on the OIDC exchange.
+name: Release
 
 on:
   push:
