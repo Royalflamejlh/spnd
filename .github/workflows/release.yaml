@@ -155,6 +155,60 @@ jobs:
       # so it stays here rather than in the shared build workflow.
       - run: pnpm --filter='./apps/spnd' --filter='./packages/ccusage-*' publish --provenance --no-git-checks --access public
 
+  # Smoke-tests what users actually install: `npm install -g` of the freshly
+  # published package on each supported OS, which is the only check that
+  # exercises the launcher resolving its platform-specific native dependency.
+  # A broken manifest (unresolved `workspace:*` specifiers, a missing native
+  # package) installs cleanly and only fails when the binary is invoked, so
+  # running the CLI here is the point. No checkout: the working directory stays
+  # empty so each runner behaves like a real end user.
+  e2e:
+    name: e2e ${{ matrix.os }}
+    needs:
+      - tagpr
+      - npm
+    if: needs.tagpr.outputs.tag != ''
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+          - macos-15
+          - windows-2025
+    steps:
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: lts/*
+      - name: Install the published package and exercise it
+        shell: pwsh
+        env:
+          TAG: ${{ needs.tagpr.outputs.tag }}
+          LOG_LEVEL: '0'
+        run: |
+          $version = $env:TAG -replace '^v', ''
+          npm install -g "@spnd/spnd@$version"
+          if ($LASTEXITCODE -ne 0) { throw 'npm install -g failed' }
+          spnd --version
+          if ($LASTEXITCODE -ne 0) { throw '--version failed' }
+          # A minimal fixture so the report commands have something to summarize.
+          $dir = Join-Path $env:RUNNER_TEMP 'e2e/projects/e2e-project/e2e-session'
+          New-Item -ItemType Directory -Force -Path $dir | Out-Null
+          $usage = '"usage":{"input_tokens":100,"output_tokens":50,"cache_creation_input_tokens":25,"cache_read_input_tokens":10}'
+          $message = '"message":{"role":"assistant","id":"e2e-msg","model":"claude-sonnet-4-20250514",' + $usage + '}'
+          $line = '{"timestamp":"2026-01-01T10:00:00.000Z","sessionId":"e2e-session",' + $message + ',"requestId":"e2e-req","costUSD":0.12,"version":"1.0.0"}'
+          Set-Content -Path (Join-Path $dir 'chat.jsonl') -Value $line
+          $env:CLAUDE_CONFIG_DIR = Join-Path $env:RUNNER_TEMP 'e2e'
+          foreach ($cmd in 'daily', 'monthly', 'session') {
+            spnd $cmd --offline | Out-Host
+            if ($LASTEXITCODE -ne 0) { throw "spnd $cmd failed" }
+            spnd $cmd --offline --json | node -e "JSON.parse(require('fs').readFileSync(0, 'utf8'))"
+            if ($LASTEXITCODE -ne 0) { throw "spnd $cmd --json produced invalid JSON" }
+            Write-Host "ok: $cmd"
+          }
+
   # Deliberately independent of `npm`: a registry outage or a rejected publish
   # must not also withhold the GitHub release, the deb/rpm assets, and the brew
   # and scoop manifests. Each publish target fails on its own.
