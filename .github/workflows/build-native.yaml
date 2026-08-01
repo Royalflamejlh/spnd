@@ -1,0 +1,66 @@
+name: Build native packages
+
+# Shared by ci.yaml and release.yaml so the platform matrix and the per-platform
+# action wiring are defined once. Only the build lives here: the npm publish
+# stays in release.yaml because npm trusted publishing matches on the filename
+# of the workflow that runs the publishing job, so moving it would change the
+# OIDC claim and be rejected.
+on:
+  workflow_call:
+    inputs:
+      matrix:
+        description: >
+          JSON array of matrix entries, each with name, os, platform, arch, and
+          binary. Passed as a string because `strategy.matrix` cannot take a
+          structured input directly.
+        type: string
+        required: true
+      ref:
+        description: Ref to build. Empty checks out the ref that triggered the caller.
+        type: string
+        default: ''
+      fetch-depth:
+        description: Checkout depth; 0 fetches the full history.
+        type: number
+        default: 1
+      nix-github-token:
+        description: Whether Nix builds may use the GitHub token from Nix config.
+        type: boolean
+        default: true
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    permissions:
+      actions: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(inputs.matrix) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref }}
+          fetch-depth: ${{ inputs.fetch-depth }}
+          persist-credentials: false
+      - uses: ./.github/actions/build-linux-native-package
+        if: matrix.platform == 'linux'
+        with:
+          arch: ${{ matrix.arch }}
+          binary: ${{ matrix.binary }}
+          nix-github-token: ${{ inputs.nix-github-token }}
+          cache-scope: ${{ matrix.name }}
+      - uses: ./.github/actions/build-macos-nix-native-package
+        if: matrix.platform == 'darwin'
+        with:
+          arch: ${{ matrix.arch }}
+          binary: ${{ matrix.binary }}
+          cache-scope: ${{ matrix.name }}
+      - uses: ./.github/actions/build-windows-native-package
+        if: matrix.platform == 'win32'
+        with:
+          arch: ${{ matrix.arch }}
+          binary: ${{ matrix.binary }}

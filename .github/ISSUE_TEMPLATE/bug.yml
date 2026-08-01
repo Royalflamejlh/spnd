@@ -6,9 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        **Before you start:** Read [CONTRIBUTING.md](https://github.com/ccusage/ccusage/blob/main/CONTRIBUTING.md).
-
-        Issues from new contributors are auto-closed by default. Maintainers review auto-closed issues and reopen worthwhile ones.
+        **Before you start:** Read [CONTRIBUTING.md](https://github.com/Royalflamejlh/spnd/blob/main/CONTRIBUTING.md).
 
         Keep this short, concrete, and written in your own voice.
 
@@ -39,6 +37,6 @@ body:
     id: version
     attributes:
       label: Version
-      description: e.g. 18.0.11
+      description: e.g. 20.0.20
     validations:
       required: false

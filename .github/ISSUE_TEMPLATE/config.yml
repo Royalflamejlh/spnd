@@ -1,1 +1,2 @@
-blank_issues_enabled: false
+# Blank issues are allowed: the templates are a convenience, not a gate.
+blank_issues_enabled: true
