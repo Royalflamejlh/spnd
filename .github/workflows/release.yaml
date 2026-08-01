@@ -220,6 +220,22 @@ jobs:
       # release already published, as this did before, left v20.0.21 with a
       # changelog and zero assets -- no tarballs, no zips, no deb or rpm. A
       # draft accepts uploads, so the seal now closes over a complete release.
+      # A draft creates no git tag, so GitHub does not consider the name taken
+      # and a re-run would leave two drafts sharing it, with the upload and
+      # publish steps below picking between them arbitrarily. Re-running the
+      # failed jobs is this workflow's documented recovery path, so clear the
+      # leftover first. Guarded on isDraft: reaching this with a published
+      # release means a previous attempt already succeeded, and deleting it
+      # would destroy a good release.
+      - name: Discard a leftover draft from an earlier attempt
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.tagpr.outputs.tag }}
+        run: |
+          if [ "$(gh release view "$TAG" --json isDraft --jq .isDraft 2>/dev/null)" = "true" ]; then
+            echo "discarding leftover draft for ${TAG}"
+            gh release delete "$TAG" --yes
+          fi
       - run: nix run .#changelogithub -- --draft
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
