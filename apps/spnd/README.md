@@ -1,7 +1,6 @@
 # spnd
 
 [![GitHub release](https://img.shields.io/github/v/release/Royalflamejlh/spnd?color=blue)](https://github.com/Royalflamejlh/spnd/releases)
-[![crates.io](https://img.shields.io/crates/v/spnd?color=orange)](https://crates.io/crates/spnd)
 [![npm](https://img.shields.io/npm/v/%40spnd%2Fspnd?color=yellow)](https://www.npmjs.com/package/@spnd/spnd)
 [![CI](https://github.com/Royalflamejlh/spnd/actions/workflows/ci.yaml/badge.svg)](https://github.com/Royalflamejlh/spnd/actions/workflows/ci.yaml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
@@ -22,14 +21,15 @@ commands, supported sources, and options (substitute `spnd` for `ccusage`).
 | [Homebrew](https://github.com/Royalflamejlh/spnd/blob/main/Formula/spnd.rb)         | `brew tap royalflamejlh/spnd https://github.com/Royalflamejlh/spnd && brew install spnd`                                                                |
 | [Scoop](https://github.com/Royalflamejlh/spnd/blob/main/bucket/spnd.json) (Windows) | `scoop bucket add spnd https://github.com/Royalflamejlh/spnd && scoop install spnd`                                                                     |
 | [npm](https://www.npmjs.com/package/@spnd/spnd)                                     | `npm install -g @spnd/spnd`                                                                                                                             |
-| [Cargo](https://crates.io/crates/spnd)                                              | `cargo install --git https://github.com/Royalflamejlh/spnd spnd`                                                                                        |
+| Cargo (builds from source)                                                          | `cargo install --git https://github.com/Royalflamejlh/spnd spnd`                                                                                        |
 | Nix                                                                                 | `nix run github:Royalflamejlh/spnd`                                                                                                                     |
 | deb/rpm                                                                             | download from [releases](https://github.com/Royalflamejlh/spnd/releases), then `apt install ./spnd-linux-x64.deb` or `dnf install ./spnd-linux-x64.rpm` |
 | Prebuilt binaries                                                                   | tarballs and zips for Linux, macOS, and Windows on the [releases page](https://github.com/Royalflamejlh/spnd/releases)                                  |
 
-The crates.io `spnd` package is a pointer crate (the workspace's internal path
-dependencies cannot be published); `cargo install` from git builds the real
-binary.
+`spnd` is not published to crates.io: the workspace's internal path
+dependencies cannot be published, so a registry release would only be a stub.
+The Cargo install above builds the real binary from git and needs a C toolchain
+for the bundled SQLite. Every other method ships a prebuilt binary.
 
 ## Interactive TUI
 
