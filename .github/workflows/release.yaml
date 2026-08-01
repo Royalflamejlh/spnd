@@ -155,10 +155,13 @@ jobs:
       # so it stays here rather than in the shared build workflow.
       - run: pnpm --filter='./apps/spnd' --filter='./packages/ccusage-*' publish --provenance --no-git-checks --access public
 
+  # Deliberately independent of `npm`: a registry outage or a rejected publish
+  # must not also withhold the GitHub release, the deb/rpm assets, and the brew
+  # and scoop manifests. Each publish target fails on its own.
   release:
     needs:
       - tagpr
-      - npm
+      - build-native-packages
     if: needs.tagpr.outputs.tag != ''
     runs-on: ubuntu-24.04
     permissions:
