@@ -144,8 +144,19 @@ jobs:
           LOG_LEVEL: '0'
         run: |
           $version = $env:TAG -replace '^v', ''
-          npm install -g "@spnd/spnd@$version"
-          if ($LASTEXITCODE -ne 0) { throw 'npm install -g failed' }
+          # Retried with backoff because this job starts the moment `npm`
+          # finishes, and the registry CDN routinely trails a publish by tens of
+          # seconds. Without this the release goes red on propagation lag rather
+          # than on anything actually wrong with the package.
+          $installed = $false
+          foreach ($attempt in 1..5) {
+            npm install -g "@spnd/spnd@$version"
+            if ($LASTEXITCODE -eq 0) { $installed = $true; break }
+            $delay = 10 * $attempt
+            Write-Host "install attempt $attempt failed; retrying in ${delay}s (registry may not have propagated)"
+            Start-Sleep -Seconds $delay
+          }
+          if (-not $installed) { throw 'npm install -g failed after 5 attempts' }
           spnd --version
           if ($LASTEXITCODE -ne 0) { throw '--version failed' }
           # A minimal fixture so the report commands have something to summarize.
@@ -202,14 +213,46 @@ jobs:
         env:
           TAG: ${{ needs.tagpr.outputs.tag }}
         run: scripts/package-release-assets.nu --version "${TAG#v}"
-      - run: nix run .#changelogithub
+      # The next four steps create the release as a draft, fill it, and only
+      # then publish it. Immutable releases are in force on this repository and
+      # publishing is what seals one, so any asset upload afterwards is rejected
+      # with `HTTP 422: Cannot upload assets to an immutable release`. Creating
+      # the release already published, as this did before, left v20.0.21 with a
+      # changelog and zero assets -- no tarballs, no zips, no deb or rpm. A
+      # draft accepts uploads, so the seal now closes over a complete release.
+      #
+      # A draft creates no git tag, so GitHub does not consider the name taken
+      # and a re-run would leave two drafts sharing it, with the steps below
+      # choosing between them arbitrarily. Re-running the failed jobs is this
+      # workflow's documented recovery path, so clear the leftover first.
+      # Guarded on isDraft: reaching here with a published release means an
+      # earlier attempt already succeeded, and deleting it would destroy a good
+      # release. `gh release delete` leaves the git tag alone without
+      # --cleanup-tag.
+      - name: Discard a leftover draft from an earlier attempt
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.tagpr.outputs.tag }}
+        run: |
+          if [ "$(gh release view "$TAG" --json isDraft --jq .isDraft 2>/dev/null)" = "true" ]; then
+            echo "discarding leftover draft for ${TAG}"
+            gh release delete "$TAG" --yes
+          fi
+      - run: nix run .#changelogithub -- --draft
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      # gh resolves a draft by tag through a GraphQL fallback, because the REST
+      # `releases/tags/{tag}` endpoint only ever returns published releases.
       - name: Upload release assets
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ needs.tagpr.outputs.tag }}
         run: gh release upload "$TAG" dist/* --clobber
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.tagpr.outputs.tag }}
+        run: gh release edit "$TAG" --draft=false --latest
       - name: Update Homebrew formula and Scoop manifest
         env:
           TAG: ${{ needs.tagpr.outputs.tag }}
