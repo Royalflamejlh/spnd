@@ -114,17 +114,17 @@ in
               ''unknown permission scope "code-quality"''
               "-ignore"
               "shellcheck reported issue in this script: SC2016:info:"
-              # `background:` and `wait-all:` are new parallel-step keys added in
-              # GitHub Actions on 2026-06-25 that actionlint does not yet recognize.
+              # `parallel:` is a step key added to GitHub Actions on 2026-06-25
+              # that actionlint 1.7.12 does not recognize; it reports the step as
+              # having neither `run:` nor `uses:`. The `test` job in ci.yaml and
+              # the check legs in update-pricing.yaml both use it.
               # actionlint:ignore inline comments cannot suppress syntax-check errors
               # (only expression-evaluation and job-dependency errors support that),
               # so a global -ignore pattern is the only mechanism that works here.
               # `-ignore` matches the message text only (not the file path), so the
-              # pattern cannot be narrowed to ci.yaml by prefixing the regex with a
-              # filename. The risk is bounded: any step genuinely missing run:/uses:
-              # would fail immediately at GitHub Actions runtime.
-              "-ignore"
-              ''unexpected key "background" for step''
+              # pattern cannot be narrowed to those two files by prefixing the regex
+              # with a filename. The risk is bounded: any step genuinely missing
+              # run:/uses: would fail immediately at GitHub Actions runtime.
               "-ignore"
               "step must run script with .run. section or run action with .uses. section"
             ];
