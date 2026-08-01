@@ -28,10 +28,11 @@ jobs:
   # `needs` this job, so a failure here costs no build or test time.
   #
   # tirith is installed from the flake's pinned nixpkgs so CI matches the dev
-  # shell. The scan and its SARIF upload share one job: they were split so the
-  # `security-events: write` scope never sat in a job running PR-controlled
-  # code, which mattered while the repository accepted fork pull requests. It
-  # does not, so the split only cost a job handoff.
+  # shell. The scan and its SARIF upload share one job: upstream split them so
+  # the `security-events: write` scope never sat in a job running PR-controlled
+  # code. That split bought nothing here, because GitHub already withholds the
+  # scope from fork pull requests entirely (see the upload step below), so the
+  # only thing it added was a job handoff.
   preflight:
     name: security & lint preflight
     runs-on: ubuntu-24.04
@@ -76,8 +77,17 @@ jobs:
             results.sarif 2>/dev/null | tee -a "$GITHUB_STEP_SUMMARY" || true
       # Published before the gate step so findings reach the Security tab even
       # when the gate then blocks the PR.
+      #
+      # Skipped for pull requests from forks: GitHub caps their GITHUB_TOKEN at
+      # read-only across every scope, so the `security-events: write` permission
+      # above is not actually granted and the upload would 403. Failing here
+      # would redden `preflight`, and with it every job that needs it, for a
+      # reason unrelated to the contributor's change. The findings still reach
+      # them through the job summary written above, and the gate below still
+      # runs, so a fork pull request is scanned and blocked on real findings
+      # exactly like any other -- only the Security tab entry is missing.
       - name: Publish SARIF to the Security tab
-        if: always()
+        if: ${{ always() && !github.event.pull_request.head.repo.fork }}
         uses: github/codeql-action/upload-sarif@7188fc363630916deb702c7fdcf4e481b751f97a # v4.37.1
         with:
           sarif_file: results.sarif
