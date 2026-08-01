@@ -213,14 +213,28 @@ jobs:
         env:
           TAG: ${{ needs.tagpr.outputs.tag }}
         run: scripts/package-release-assets.nu --version "${TAG#v}"
-      - run: nix run .#changelogithub
+      # Created as a draft, then filled, then published. Immutable releases are
+      # in force on this repository, and publishing is what seals a release: any
+      # asset upload afterwards is rejected with
+      # `HTTP 422: Cannot upload assets to an immutable release`. Creating the
+      # release already published, as this did before, left v20.0.21 with a
+      # changelog and zero assets -- no tarballs, no zips, no deb or rpm. A
+      # draft accepts uploads, so the seal now closes over a complete release.
+      - run: nix run .#changelogithub -- --draft
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      # gh resolves a draft by tag through a GraphQL fallback, because the REST
+      # `releases/tags/{tag}` endpoint only ever returns published releases.
       - name: Upload release assets
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ needs.tagpr.outputs.tag }}
         run: gh release upload "$TAG" dist/* --clobber
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.tagpr.outputs.tag }}
+        run: gh release edit "$TAG" --draft=false --latest
       - name: Update Homebrew formula and Scoop manifest
         env:
           TAG: ${{ needs.tagpr.outputs.tag }}
