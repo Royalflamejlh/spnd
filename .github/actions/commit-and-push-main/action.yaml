@@ -29,10 +29,25 @@ runs:
         # shellcheck disable=SC2086
         git commit --message "$MESSAGE" -- $PATHS
 
-        git fetch origin main
-        if ! git rebase origin/main; then
-          git rebase --abort
-          echo 'main moved with a conflicting change; the next run will retry.'
-          exit 1
-        fi
-        git push origin HEAD:main
+        # The whole rebase-and-push cycle is retried, not just the rebase: main
+        # can move again between the fetch and the push, which rejects the push
+        # even though the rebase itself succeeded. Only the release caller is
+        # unattended in a way that matters -- by the time it reaches this step
+        # it has already published the release, its assets, and the packages, so
+        # losing a push race here would redden a release that fully succeeded.
+        for attempt in 1 2 3; do
+          git fetch origin main
+          if ! git rebase origin/main; then
+            git rebase --abort
+            echo "::error::main moved with a conflicting change; resolve it by hand"
+            exit 1
+          fi
+          if git push origin HEAD:main; then
+            exit 0
+          fi
+          echo "push rejected on attempt ${attempt}; main moved again"
+          sleep $((attempt * 5))
+        done
+
+        echo "::error::could not push to main after 3 attempts"
+        exit 1
