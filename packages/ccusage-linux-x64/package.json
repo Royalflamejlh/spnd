@@ -1,6 +1,6 @@
 {
 	"name": "@spnd/spnd-linux-x64",
-	"version": "20.0.20",
+	"version": "20.0.21",
 	"description": "Static native spnd binary for Linux x64",
 	"license": "MIT",
 	"repository": {
