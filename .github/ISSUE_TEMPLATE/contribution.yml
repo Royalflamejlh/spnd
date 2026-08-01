@@ -1,13 +1,12 @@
-name: Contribution Proposal
-description: Propose a change or feature before opening a PR
-labels: []
+name: Feature Request
+description: Suggest a change or a new feature
+labels:
+  - enhancement
 body:
   - type: markdown
     attributes:
       value: |
-        **Before you start:** Read [CONTRIBUTING.md](https://github.com/ccusage/ccusage/blob/main/CONTRIBUTING.md).
-
-        PRs from new contributors are auto-closed unless the contributor has already been approved with `lgtm`.
+        **Before you start:** Read [CONTRIBUTING.md](https://github.com/Royalflamejlh/spnd/blob/main/CONTRIBUTING.md).
 
         Keep this short, concrete, and written in your own voice.
 
