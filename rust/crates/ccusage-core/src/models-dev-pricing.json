@@ -70,6 +70,16 @@
 			"context": 262144
 		}
 	},
+	"TEE/kimi-k2.7-code": {
+		"cost": {
+			"cache_read": 0.19,
+			"input": 0.95,
+			"output": 4
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"TEE/kimi-k3": {
 		"cost": {
 			"cache_read": 1.5,
@@ -1737,7 +1747,7 @@
 	"claude-opus-4-6@eu": {
 		"cost": {
 			"cache_read": 0.55,
-			"cache_write": 6.88,
+			"cache_write": 6.875,
 			"input": 5.5,
 			"output": 27.5
 		},
