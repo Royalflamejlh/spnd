@@ -29,6 +29,15 @@
 			"context": 262144
 		}
 	},
+	"Kimi-K2.5": {
+		"cost": {
+			"input": 0.6,
+			"output": 3
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"Kimi-K2.6": {
 		"cost": {
 			"cache_read": 0.19,
@@ -38,6 +47,24 @@
 		},
 		"limit": {
 			"context": 262144
+		}
+	},
+	"Kimi-K2.7-Code": {
+		"cost": {
+			"input": 0.95,
+			"output": 4
+		},
+		"limit": {
+			"context": 271360
+		}
+	},
+	"Kimi-K3": {
+		"cost": {
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 1048576
 		}
 	},
 	"Pro/moonshotai/Kimi-K2.5": {
@@ -1103,7 +1130,7 @@
 			"output": 15
 		},
 		"limit": {
-			"context": 1000000
+			"context": 200000
 		}
 	},
 	"anthropic/claude-sonnet-4-5-20250929": {
@@ -3270,7 +3297,7 @@
 	},
 	"moonshotai/Kimi-K2.7-Code": {
 		"cost": {
-			"cache_read": 0.15,
+			"cache_read": 0.17,
 			"cache_write": 0,
 			"input": 0.67,
 			"output": 3.4
@@ -3532,6 +3559,16 @@
 		},
 		"limit": {
 			"context": 1000000
+		}
+	},
+	"tensorx/moonshotai/kimi-k2.5": {
+		"cost": {
+			"cache_read": 0.125,
+			"input": 0.5,
+			"output": 2.8
+		},
+		"limit": {
+			"context": 262144
 		}
 	},
 	"umans-kimi-k2.7": {
