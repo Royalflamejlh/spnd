@@ -3186,16 +3186,6 @@
 			"context": 262128
 		}
 	},
-	"kimi-k2.5-lightning": {
-		"cost": {
-			"cache_read": 0.2,
-			"input": 1,
-			"output": 3
-		},
-		"limit": {
-			"context": 131072
-		}
-	},
 	"kimi-k2.6": {
 		"cost": {
 			"cache_read": 0.16,
