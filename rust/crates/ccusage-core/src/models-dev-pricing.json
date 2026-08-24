@@ -3247,6 +3247,7 @@
 	},
 	"kimi-k2.7-code-1100b": {
 		"cost": {
+			"cache_read": 0.18,
 			"input": 0.86,
 			"output": 3
 		},
