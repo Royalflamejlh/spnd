@@ -1449,6 +1449,72 @@
 			"context": 1000000
 		}
 	},
+	"azure-anthropic/claude-fable-5": {
+		"cost": {
+			"cache_read": 1,
+			"cache_write": 12.5,
+			"input": 10,
+			"output": 50
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"azure-anthropic/claude-opus-4-6": {
+		"cost": {
+			"cache_read": 0.5,
+			"cache_write": 6.25,
+			"input": 5,
+			"output": 25
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"azure-anthropic/claude-opus-4-7": {
+		"cost": {
+			"cache_read": 0.5,
+			"cache_write": 6.25,
+			"input": 5,
+			"output": 25
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"azure-anthropic/claude-opus-4-8": {
+		"cost": {
+			"cache_read": 0.5,
+			"cache_write": 6.25,
+			"input": 5,
+			"output": 25
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"azure-anthropic/claude-opus-5": {
+		"cost": {
+			"cache_read": 0.5,
+			"cache_write": 6.25,
+			"input": 5,
+			"output": 25
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"azure-anthropic/claude-sonnet-5": {
+		"cost": {
+			"cache_read": 0.2,
+			"cache_write": 2.5,
+			"input": 2,
+			"output": 10
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"baidu/kimi-k2.6": {
 		"cost": {
 			"cache_read": 0.16,
@@ -3532,7 +3598,7 @@
 		"cost": {
 			"cache_read": 0.2,
 			"cache_write": 0,
-			"input": 0.6,
+			"input": 0.57,
 			"output": 3.41
 		},
 		"limit": {
@@ -3551,7 +3617,7 @@
 	},
 	"moonshotai/Kimi-K2.7-Code": {
 		"cost": {
-			"cache_read": 0.17,
+			"cache_read": 0.19,
 			"cache_write": 0,
 			"input": 0.67,
 			"output": 3.4
@@ -4144,26 +4210,6 @@
 			"context": 262144
 		}
 	},
-	"workers-ai/@cf/moonshotai/kimi-k2.6": {
-		"cost": {
-			"cache_read": 0.16,
-			"input": 0.95,
-			"output": 4
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
-	"workers-ai/@cf/moonshotai/kimi-k2.7-code": {
-		"cost": {
-			"cache_read": 0.19,
-			"input": 0.95,
-			"output": 4
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
 	"~anthropic/claude-fable-latest": {
 		"cost": {
 			"cache_read": 1,
@@ -4211,11 +4257,11 @@
 	"~moonshotai/kimi-latest": {
 		"cost": {
 			"cache_read": 0.29,
-			"input": 2.6,
-			"output": 13
+			"input": 2.8,
+			"output": 14
 		},
 		"limit": {
-			"context": 974842
+			"context": 1048576
 		}
 	}
 }
