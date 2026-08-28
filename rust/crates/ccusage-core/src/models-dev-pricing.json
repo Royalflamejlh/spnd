@@ -147,36 +147,6 @@
 			"context": 1048576
 		}
 	},
-	"accounts/fireworks/routers/kimi-k2p6-fast": {
-		"cost": {
-			"cache_read": 0.3,
-			"input": 2,
-			"output": 8
-		},
-		"limit": {
-			"context": 262000
-		}
-	},
-	"accounts/fireworks/routers/kimi-k2p6-turbo": {
-		"cost": {
-			"cache_read": 0.3,
-			"input": 2,
-			"output": 8
-		},
-		"limit": {
-			"context": 262000
-		}
-	},
-	"accounts/fireworks/routers/kimi-k2p7-code-fast": {
-		"cost": {
-			"cache_read": 0.38,
-			"input": 1.9,
-			"output": 8
-		},
-		"limit": {
-			"context": 262000
-		}
-	},
 	"accounts/fireworks/routers/kimi-k3-fast": {
 		"cost": {
 			"cache_read": 0.45,
@@ -1727,10 +1697,10 @@
 	},
 	"claude-fable-5@eu": {
 		"cost": {
-			"cache_read": 0.99,
-			"cache_write": 12.375,
-			"input": 9.9,
-			"output": 49.5
+			"cache_read": 1.1,
+			"cache_write": 13.75,
+			"input": 11,
+			"output": 55
 		},
 		"limit": {
 			"context": 1000000
@@ -1781,10 +1751,10 @@
 	},
 	"claude-haiku-4-5@eu": {
 		"cost": {
-			"cache_read": 0.099,
-			"cache_write": 1.2375,
-			"input": 0.99,
-			"output": 4.95
+			"cache_read": 0.11,
+			"cache_write": 1.375,
+			"input": 1.1,
+			"output": 5.5
 		},
 		"limit": {
 			"context": 200000
@@ -1979,10 +1949,10 @@
 	},
 	"claude-opus-4-5@eu": {
 		"cost": {
-			"cache_read": 0.495,
-			"cache_write": 6.1875,
-			"input": 4.95,
-			"output": 24.75
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 200000
@@ -2032,10 +2002,10 @@
 	},
 	"claude-opus-4-6@eu": {
 		"cost": {
-			"cache_read": 0.495,
-			"cache_write": 6.1875,
-			"input": 4.95,
-			"output": 24.75
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
@@ -2076,10 +2046,10 @@
 	},
 	"claude-opus-4-7@eu": {
 		"cost": {
-			"cache_read": 0.495,
-			"cache_write": 6.1875,
-			"input": 4.95,
-			"output": 24.75
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
@@ -2131,10 +2101,10 @@
 	},
 	"claude-opus-4-8@eu": {
 		"cost": {
-			"cache_read": 0.495,
-			"cache_write": 6.1875,
-			"input": 4.95,
-			"output": 24.75
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
@@ -2280,10 +2250,10 @@
 	},
 	"claude-opus-5@eu": {
 		"cost": {
-			"cache_read": 0.495,
-			"cache_write": 6.1875,
-			"input": 4.95,
-			"output": 24.75
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
@@ -2399,10 +2369,10 @@
 	},
 	"claude-sonnet-4-5@eu": {
 		"cost": {
-			"cache_read": 0.27,
-			"cache_write": 3.7125,
-			"input": 2.97,
-			"output": 14.85
+			"cache_read": 0.3,
+			"cache_write": 4.125,
+			"input": 3.3,
+			"output": 16.5
 		},
 		"limit": {
 			"context": 1000000
@@ -2452,10 +2422,10 @@
 	},
 	"claude-sonnet-4-6@eu": {
 		"cost": {
-			"cache_read": 0.27,
-			"cache_write": 3.7125,
-			"input": 2.97,
-			"output": 14.85
+			"cache_read": 0.3,
+			"cache_write": 4.125,
+			"input": 3.3,
+			"output": 16.5
 		},
 		"limit": {
 			"context": 1000000
@@ -2546,10 +2516,10 @@
 	},
 	"claude-sonnet-4@eu": {
 		"cost": {
-			"cache_read": 0.27,
-			"cache_write": 3.375,
-			"input": 2.7,
-			"output": 13.5
+			"cache_read": 0.3,
+			"cache_write": 3.75,
+			"input": 3,
+			"output": 15
 		},
 		"limit": {
 			"context": 1000000
@@ -2579,10 +2549,10 @@
 	},
 	"claude-sonnet-5@eu": {
 		"cost": {
-			"cache_read": 0.198,
-			"cache_write": 2.475,
-			"input": 1.98,
-			"output": 9.9
+			"cache_read": 0.22,
+			"cache_write": 2.75,
+			"input": 2.2,
+			"output": 11
 		},
 		"limit": {
 			"context": 1000000
@@ -3242,16 +3212,6 @@
 			"context": 262144
 		}
 	},
-	"kimi-k2.5-fast": {
-		"cost": {
-			"cache_read": 0.13,
-			"input": 0.52,
-			"output": 2.59
-		},
-		"limit": {
-			"context": 262128
-		}
-	},
 	"kimi-k2.6": {
 		"cost": {
 			"cache_read": 0.16,
@@ -3264,22 +3224,11 @@
 	},
 	"kimi-k2.6-fast": {
 		"cost": {
-			"cache_read": 0.1725,
-			"input": 0.69,
-			"output": 3.22
+			"input": 1.655,
+			"output": 8.778
 		},
 		"limit": {
-			"context": 262128
-		}
-	},
-	"kimi-k2.6-flex": {
-		"cost": {
-			"cache_read": 0.08625,
-			"input": 0.345,
-			"output": 1.61
-		},
-		"limit": {
-			"context": 262128
+			"context": 262144
 		}
 	},
 	"kimi-k2.6-nitro": {
@@ -3293,9 +3242,9 @@
 	},
 	"kimi-k2.6@eu": {
 		"cost": {
-			"cache_read": 0.855,
-			"input": 0.855,
-			"output": 3.6
+			"cache_read": 0.95,
+			"input": 0.95,
+			"output": 4
 		},
 		"limit": {
 			"context": 256000
@@ -3321,14 +3270,24 @@
 			"context": 262144
 		}
 	},
-	"kimi-k2.7-code-flex": {
+	"kimi-k2.7-code-fast": {
 		"cost": {
-			"cache_read": 0.11875,
-			"input": 0.475,
-			"output": 2
+			"cache_read": 0.095,
+			"input": 0.95,
+			"output": 4
 		},
 		"limit": {
-			"context": 262144
+			"context": 262128
+		}
+	},
+	"kimi-k2.7-code-flex": {
+		"cost": {
+			"cache_read": 0.06175,
+			"input": 0.6175,
+			"output": 2.6
+		},
+		"limit": {
+			"context": 262128
 		}
 	},
 	"kimi-k2.7-code-highspeed": {
@@ -3352,9 +3311,9 @@
 	},
 	"kimi-k2.7-code@eu": {
 		"cost": {
-			"cache_read": 0.279,
-			"input": 1.125,
-			"output": 4.05
+			"cache_read": 0.31,
+			"input": 1.25,
+			"output": 4.5
 		},
 		"limit": {
 			"context": 262144
@@ -3400,11 +3359,21 @@
 			"context": 1000000
 		}
 	},
+	"kimi-k3-flex": {
+		"cost": {
+			"cache_read": 0.195,
+			"input": 1.95,
+			"output": 9.75
+		},
+		"limit": {
+			"context": 1048560
+		}
+	},
 	"kimi-k3@eu": {
 		"cost": {
-			"cache_read": 0.2025,
-			"input": 2.025,
-			"output": 10.125
+			"cache_read": 0.225,
+			"input": 2.25,
+			"output": 11.25
 		},
 		"limit": {
 			"context": 1048576
@@ -3423,6 +3392,7 @@
 	"kimi/kimi-k2.5": {
 		"cost": {
 			"cache_read": 0.1,
+			"cache_write": 0,
 			"input": 0.6,
 			"output": 3
 		},
@@ -3438,6 +3408,26 @@
 		},
 		"limit": {
 			"context": 262144
+		}
+	},
+	"kimi/kimi-k2.7-code": {
+		"cost": {
+			"cache_read": 0.19,
+			"input": 0.95,
+			"output": 4
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"kimi/kimi-k3": {
+		"cost": {
+			"cache_read": 0.33,
+			"input": 3.3,
+			"output": 16.5
+		},
+		"limit": {
+			"context": 1048576
 		}
 	},
 	"moonshot-ai/kimi-k2.7-code": {
@@ -3598,7 +3588,7 @@
 		"cost": {
 			"cache_read": 0.17,
 			"cache_write": 0,
-			"input": 0.56,
+			"input": 0.53,
 			"output": 3.39
 		},
 		"limit": {
@@ -3912,6 +3902,26 @@
 		},
 		"limit": {
 			"context": 262144
+		}
+	},
+	"scx-ai-gp/kimi-k2.7-code": {
+		"cost": {
+			"cache_read": 0.18,
+			"input": 0.89,
+			"output": 3.71
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"scx-ai-gp/kimi-k3": {
+		"cost": {
+			"cache_read": 0.28,
+			"input": 2.83,
+			"output": 14.13
+		},
+		"limit": {
+			"context": 1048576
 		}
 	},
 	"stealth/claude-opus-4.6": {
