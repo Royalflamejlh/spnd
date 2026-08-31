@@ -1844,16 +1844,6 @@
 			"context": 200000
 		}
 	},
-	"claude-opus-4-1-thinking:32000": {
-		"cost": {
-			"cache_read": 1.5,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
 	"claude-opus-4-1-thinking:32768": {
 		"cost": {
 			"cache_read": 1.5,
@@ -2121,16 +2111,6 @@
 		}
 	},
 	"claude-opus-4-thinking:1024": {
-		"cost": {
-			"cache_read": 1.5,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"claude-opus-4-thinking:32000": {
 		"cost": {
 			"cache_read": 1.5,
 			"input": 15,
