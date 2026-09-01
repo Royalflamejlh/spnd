@@ -3788,33 +3788,6 @@
 			"context": 1048576
 		}
 	},
-	"nebius/kimi-k2.6": {
-		"cost": {
-			"input": 0.95,
-			"output": 4
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
-	"nebius/kimi-k2.7-code": {
-		"cost": {
-			"input": 0.95,
-			"output": 4
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
-	"nebius/kimi-k3": {
-		"cost": {
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 1048576
-		}
-	},
 	"novita/kimi-k2": {
 		"cost": {
 			"input": 0.57,
