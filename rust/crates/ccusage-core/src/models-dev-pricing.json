@@ -448,6 +448,17 @@
 			"context": 1000000
 		}
 	},
+	"anthropic-claude-fable-5.1": {
+		"cost": {
+			"cache_read": 0.25,
+			"cache_write": 12.5,
+			"input": 10,
+			"output": 50
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"anthropic-claude-haiku-4.5": {
 		"cost": {
 			"cache_read": 0.1,
@@ -539,6 +550,17 @@
 	"anthropic.claude-fable-5": {
 		"cost": {
 			"cache_read": 1,
+			"cache_write": 12.5,
+			"input": 10,
+			"output": 50
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"anthropic.claude-fable-5-1": {
+		"cost": {
+			"cache_read": 0.25,
 			"cache_write": 12.5,
 			"input": 10,
 			"output": 50
@@ -712,9 +734,31 @@
 			"context": 1000000
 		}
 	},
+	"anthropic/claude-fable-5-1": {
+		"cost": {
+			"cache_read": 0.25,
+			"cache_write": 12.5,
+			"input": 10,
+			"output": 50
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"anthropic/claude-fable-5.1": {
+		"cost": {
+			"cache_read": 0.25,
+			"cache_write": 12.5,
+			"input": 10,
+			"output": 50
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"anthropic/claude-fable-latest": {
 		"cost": {
-			"cache_read": 1,
+			"cache_read": 0.25,
 			"cache_write": 12.5,
 			"input": 10,
 			"output": 50
@@ -955,17 +999,6 @@
 			"cache_write": 6.25,
 			"input": 5,
 			"output": 25
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
-	"anthropic/claude-opus-4.7-fast": {
-		"cost": {
-			"cache_read": 3,
-			"cache_write": 37.5,
-			"input": 30,
-			"output": 150
 		},
 		"limit": {
 			"context": 1000000
@@ -1676,6 +1709,28 @@
 	"claude-fable-5": {
 		"cost": {
 			"cache_read": 1,
+			"cache_write": 12.5,
+			"input": 10,
+			"output": 50
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"claude-fable-5-1": {
+		"cost": {
+			"cache_read": 0.25,
+			"cache_write": 12.5,
+			"input": 10,
+			"output": 50
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"claude-fable-5-1@default": {
+		"cost": {
+			"cache_read": 0.25,
 			"cache_write": 12.5,
 			"input": 10,
 			"output": 50
@@ -2847,6 +2902,17 @@
 			"context": 1000000
 		}
 	},
+	"global.anthropic.claude-fable-5-1": {
+		"cost": {
+			"cache_read": 0.25,
+			"cache_write": 12.5,
+			"input": 10,
+			"output": 50
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"global.anthropic.claude-haiku-4-5-20251001-v1:0": {
 		"cost": {
 			"cache_read": 0.1,
@@ -3962,6 +4028,17 @@
 			"context": 1000000
 		}
 	},
+	"us.anthropic.claude-fable-5-1": {
+		"cost": {
+			"cache_read": 0.275,
+			"cache_write": 13.75,
+			"input": 11,
+			"output": 55
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"us.anthropic.claude-haiku-4-5-20251001-v1:0": {
 		"cost": {
 			"cache_read": 0.1,
@@ -4155,7 +4232,7 @@
 	},
 	"~anthropic/claude-fable-latest": {
 		"cost": {
-			"cache_read": 1,
+			"cache_read": 0.25,
 			"cache_write": 12.5,
 			"input": 10,
 			"output": 50
