@@ -1535,7 +1535,7 @@
 			"output": 1.8
 		},
 		"limit": {
-			"context": 128000
+			"context": 131072
 		}
 	},
 	"canopywave/kimi-k2.6": {
@@ -2217,28 +2217,6 @@
 			"context": 200000
 		}
 	},
-	"claude-opus-4.5": {
-		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"claude-opus-4.6": {
-		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
 	"claude-opus-4.7": {
 		"cost": {
 			"cache_read": 0.5,
@@ -2536,17 +2514,6 @@
 		},
 		"limit": {
 			"context": 1000000
-		}
-	},
-	"claude-sonnet-4.5": {
-		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 200000
 		}
 	},
 	"claude-sonnet-4.6": {
@@ -4286,9 +4253,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.256,
-			"input": 2.55,
-			"output": 12.75
+			"cache_read": 0.29,
+			"input": 2.5,
+			"output": 14
 		},
 		"limit": {
 			"context": 1048576
