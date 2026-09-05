@@ -3890,6 +3890,16 @@
 			"context": 262144
 		}
 	},
+	"runware/kimi-k3": {
+		"cost": {
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"scx-ai-gp/kimi-k2.7-code": {
 		"cost": {
 			"cache_read": 0.18,
@@ -4253,9 +4263,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.29,
-			"input": 2.5,
-			"output": 14
+			"cache_read": 0.256,
+			"input": 2.55,
+			"output": 12.75
 		},
 		"limit": {
 			"context": 1048576
