@@ -2720,16 +2720,6 @@
 			"context": 128000
 		}
 	},
-	"deepinfra/kimi-k2.5": {
-		"cost": {
-			"cache_read": 0.07,
-			"input": 0.45,
-			"output": 2.25
-		},
-		"limit": {
-			"context": 256000
-		}
-	},
 	"deepinfra/moonshotai/Kimi-K2.5": {
 		"cost": {
 			"cache_read": 0.07,
@@ -3127,16 +3117,6 @@
 			"context": 131072
 		}
 	},
-	"kimi-k2-0711-preview": {
-		"cost": {
-			"cache_read": 0.15,
-			"input": 0.6,
-			"output": 2.5
-		},
-		"limit": {
-			"context": 131072
-		}
-	},
 	"kimi-k2-0905": {
 		"cost": {
 			"cache_read": 0.39999999999999997,
@@ -3149,9 +3129,8 @@
 	},
 	"kimi-k2-0905-preview": {
 		"cost": {
-			"cache_read": 0.15,
-			"input": 0.6,
-			"output": 2.5
+			"input": 0.632,
+			"output": 2.53
 		},
 		"limit": {
 			"context": 262144
@@ -3209,7 +3188,7 @@
 	},
 	"kimi-k2-thinking": {
 		"cost": {
-			"cache_read": 0.15,
+			"cache_read": 0.06,
 			"input": 0.6,
 			"output": 2.5
 		},
@@ -3219,9 +3198,8 @@
 	},
 	"kimi-k2-thinking-turbo": {
 		"cost": {
-			"cache_read": 0.15,
-			"input": 1.15,
-			"output": 8
+			"input": 1.265,
+			"output": 9.119
 		},
 		"limit": {
 			"context": 262144
@@ -3229,12 +3207,11 @@
 	},
 	"kimi-k2-turbo-preview": {
 		"cost": {
-			"cache_read": 0.6,
-			"input": 2.4,
-			"output": 10
+			"input": 0.15,
+			"output": 8
 		},
 		"limit": {
-			"context": 262144
+			"context": 256000
 		}
 	},
 	"kimi-k2.5": {
