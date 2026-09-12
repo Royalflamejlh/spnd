@@ -2258,10 +2258,10 @@
 	},
 	"claude-opus-5-fast": {
 		"cost": {
-			"cache_read": 1.2,
-			"cache_write": 15,
-			"input": 12,
-			"output": 60
+			"cache_read": 1,
+			"cache_write": 12.5,
+			"input": 10,
+			"output": 50
 		},
 		"limit": {
 			"context": 1000000
@@ -3611,6 +3611,17 @@
 			"context": 1000000
 		}
 	},
+	"moonshotai/Kimi-K3-Fast": {
+		"cost": {
+			"cache_read": 0.45,
+			"cache_write": 4.5,
+			"input": 4.5,
+			"output": 22.5
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"moonshotai/Kimi-K3-TEE": {
 		"cost": {
 			"cache_read": 0.29999999999999993,
@@ -4224,9 +4235,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.261,
-			"input": 2.34,
-			"output": 11.7
+			"cache_read": 0.2465,
+			"input": 2.125,
+			"output": 11.9
 		},
 		"limit": {
 			"context": 1048576
