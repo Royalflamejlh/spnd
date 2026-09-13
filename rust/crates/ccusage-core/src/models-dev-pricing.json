@@ -166,6 +166,16 @@
 			"context": 262144
 		}
 	},
+	"alibaba/kimi-k3": {
+		"cost": {
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"amazon/moonshot.kimi-k2-thinking": {
 		"cost": {
 			"input": 0.6,
@@ -3852,6 +3862,16 @@
 			"context": 1048576
 		}
 	},
+	"runpod/kimi-k3": {
+		"cost": {
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"runware/kimi-k2.6": {
 		"cost": {
 			"cache_read": 0.13,
@@ -3934,6 +3954,46 @@
 		},
 		"limit": {
 			"context": 1000000
+		}
+	},
+	"tencent/kimi-k2.6": {
+		"cost": {
+			"cache_read": 0.145,
+			"input": 0.858,
+			"output": 3.566
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"tencent/kimi-k2.7-code": {
+		"cost": {
+			"cache_read": 0.19,
+			"input": 0.95,
+			"output": 4
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"tencent/kimi-k2.7-code-highspeed": {
+		"cost": {
+			"cache_read": 0.38,
+			"input": 1.9,
+			"output": 8
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"tencent/kimi-k3": {
+		"cost": {
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 1048576
 		}
 	},
 	"tensorx/moonshotai/kimi-k2.5": {
@@ -4235,9 +4295,8 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.2465,
-			"input": 2.125,
-			"output": 11.9
+			"input": 2.1,
+			"output": 10.95
 		},
 		"limit": {
 			"context": 1048576
