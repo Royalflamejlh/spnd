@@ -832,6 +832,16 @@
 			"context": 200000
 		}
 	},
+	"anthropic/claude-haiku-4.5:thinking": {
+		"cost": {
+			"cache_read": 0.1,
+			"input": 1,
+			"output": 5
+		},
+		"limit": {
+			"context": 200000
+		}
+	},
 	"anthropic/claude-haiku-latest": {
 		"cost": {
 			"cache_read": 0.1,
@@ -941,10 +951,60 @@
 			"context": 200000
 		}
 	},
+	"anthropic/claude-opus-4.1:thinking": {
+		"cost": {
+			"cache_read": 1.5,
+			"input": 15,
+			"output": 75
+		},
+		"limit": {
+			"context": 200000
+		}
+	},
+	"anthropic/claude-opus-4.1:thinking:1024": {
+		"cost": {
+			"cache_read": 1.5,
+			"input": 15,
+			"output": 75
+		},
+		"limit": {
+			"context": 200000
+		}
+	},
+	"anthropic/claude-opus-4.1:thinking:32768": {
+		"cost": {
+			"cache_read": 1.5,
+			"input": 15,
+			"output": 75
+		},
+		"limit": {
+			"context": 200000
+		}
+	},
+	"anthropic/claude-opus-4.1:thinking:8192": {
+		"cost": {
+			"cache_read": 1.5,
+			"input": 15,
+			"output": 75
+		},
+		"limit": {
+			"context": 200000
+		}
+	},
 	"anthropic/claude-opus-4.5": {
 		"cost": {
 			"cache_read": 0.5,
 			"cache_write": 6.25,
+			"input": 5,
+			"output": 25
+		},
+		"limit": {
+			"context": 200000
+		}
+	},
+	"anthropic/claude-opus-4.5:thinking": {
+		"cost": {
+			"cache_read": 0.5,
 			"input": 5,
 			"output": 25
 		},
@@ -1054,6 +1114,46 @@
 		},
 		"limit": {
 			"context": 1000000
+		}
+	},
+	"anthropic/claude-opus-4:thinking": {
+		"cost": {
+			"cache_read": 1.5,
+			"input": 15,
+			"output": 75
+		},
+		"limit": {
+			"context": 200000
+		}
+	},
+	"anthropic/claude-opus-4:thinking:1024": {
+		"cost": {
+			"cache_read": 1.5,
+			"input": 15,
+			"output": 75
+		},
+		"limit": {
+			"context": 200000
+		}
+	},
+	"anthropic/claude-opus-4:thinking:32768": {
+		"cost": {
+			"cache_read": 1.5,
+			"input": 15,
+			"output": 75
+		},
+		"limit": {
+			"context": 200000
+		}
+	},
+	"anthropic/claude-opus-4:thinking:8192": {
+		"cost": {
+			"cache_read": 1.5,
+			"input": 15,
+			"output": 75
+		},
+		"limit": {
+			"context": 200000
 		}
 	},
 	"anthropic/claude-opus-5": {
@@ -1188,6 +1288,16 @@
 			"context": 1000000
 		}
 	},
+	"anthropic/claude-sonnet-4.5:thinking": {
+		"cost": {
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 200000
+		}
+	},
 	"anthropic/claude-sonnet-4.6": {
 		"cost": {
 			"cache_read": 0.3,
@@ -1200,6 +1310,56 @@
 		}
 	},
 	"anthropic/claude-sonnet-4.6:thinking": {
+		"cost": {
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"anthropic/claude-sonnet-4:thinking": {
+		"cost": {
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"anthropic/claude-sonnet-4:thinking:1024": {
+		"cost": {
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"anthropic/claude-sonnet-4:thinking:32768": {
+		"cost": {
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"anthropic/claude-sonnet-4:thinking:64000": {
+		"cost": {
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
+	"anthropic/claude-sonnet-4:thinking:8192": {
 		"cost": {
 			"cache_read": 0.3,
 			"input": 3,
@@ -1819,16 +1979,6 @@
 			"context": 200000
 		}
 	},
-	"claude-haiku-4-5-20251001-thinking": {
-		"cost": {
-			"cache_read": 0.1,
-			"input": 1,
-			"output": 5
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
 	"claude-haiku-4-5@20251001": {
 		"cost": {
 			"cache_read": 0.1,
@@ -1915,46 +2065,6 @@
 			"context": 200000
 		}
 	},
-	"claude-opus-4-1-thinking": {
-		"cost": {
-			"cache_read": 1.5,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"claude-opus-4-1-thinking:1024": {
-		"cost": {
-			"cache_read": 1.5,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"claude-opus-4-1-thinking:32768": {
-		"cost": {
-			"cache_read": 1.5,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"claude-opus-4-1-thinking:8192": {
-		"cost": {
-			"cache_read": 1.5,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
 	"claude-opus-4-1@20250805": {
 		"cost": {
 			"cache_read": 1.5,
@@ -1968,7 +2078,6 @@
 	},
 	"claude-opus-4-20250514": {
 		"cost": {
-			"cache_read": 1.5,
 			"input": 15,
 			"output": 75
 		},
@@ -1991,16 +2100,6 @@
 		"cost": {
 			"cache_read": 0.5,
 			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"claude-opus-4-5-20251101:thinking": {
-		"cost": {
-			"cache_read": 0.5,
 			"input": 5,
 			"output": 25
 		},
@@ -2182,46 +2281,6 @@
 			"context": 1000000
 		}
 	},
-	"claude-opus-4-thinking": {
-		"cost": {
-			"cache_read": 1.5,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"claude-opus-4-thinking:1024": {
-		"cost": {
-			"cache_read": 1.5,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"claude-opus-4-thinking:32768": {
-		"cost": {
-			"cache_read": 1.5,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"claude-opus-4-thinking:8192": {
-		"cost": {
-			"cache_read": 1.5,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
 	"claude-opus-4.7": {
 		"cost": {
 			"cache_read": 0.5,
@@ -2365,7 +2424,6 @@
 	},
 	"claude-sonnet-4-20250514": {
 		"cost": {
-			"cache_read": 0.3,
 			"input": 3,
 			"output": 15
 		},
@@ -2397,12 +2455,11 @@
 	},
 	"claude-sonnet-4-5-20250929-thinking": {
 		"cost": {
-			"cache_read": 0.3,
 			"input": 3,
 			"output": 15
 		},
 		"limit": {
-			"context": 1000000
+			"context": 200000
 		}
 	},
 	"claude-sonnet-4-5@20250929": {
@@ -2475,56 +2532,6 @@
 			"cache_write": 4.125,
 			"input": 3.3,
 			"output": 16.5
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
-	"claude-sonnet-4-thinking": {
-		"cost": {
-			"cache_read": 0.3,
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
-	"claude-sonnet-4-thinking:1024": {
-		"cost": {
-			"cache_read": 0.3,
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
-	"claude-sonnet-4-thinking:32768": {
-		"cost": {
-			"cache_read": 0.3,
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
-	"claude-sonnet-4-thinking:64000": {
-		"cost": {
-			"cache_read": 0.3,
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
-	"claude-sonnet-4-thinking:8192": {
-		"cost": {
-			"cache_read": 0.3,
-			"input": 3,
-			"output": 15
 		},
 		"limit": {
 			"context": 1000000
@@ -3262,16 +3269,6 @@
 			"cache_read": 0.19,
 			"input": 0.95,
 			"output": 4
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
-	"kimi-k2.7-code-1100b": {
-		"cost": {
-			"cache_read": 0.18,
-			"input": 0.86,
-			"output": 3
 		},
 		"limit": {
 			"context": 262144
