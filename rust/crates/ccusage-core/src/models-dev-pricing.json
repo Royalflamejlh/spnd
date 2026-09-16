@@ -147,11 +147,31 @@
 			"context": 1048576
 		}
 	},
+	"accounts/fireworks/routers/kimi-fast-latest": {
+		"cost": {
+			"cache_read": 0.45,
+			"input": 4.5,
+			"output": 22.5
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"accounts/fireworks/routers/kimi-k3-fast": {
 		"cost": {
 			"cache_read": 0.45,
 			"input": 4.5,
 			"output": 22.5
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
+	"accounts/fireworks/routers/kimi-latest": {
+		"cost": {
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
 		},
 		"limit": {
 			"context": 1048576
@@ -614,10 +634,10 @@
 	},
 	"anthropic.claude-opus-4-6-v1": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
@@ -669,10 +689,10 @@
 	},
 	"anthropic.claude-sonnet-4-6": {
 		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
+			"cache_read": 0.33,
+			"cache_write": 4.125,
+			"input": 3.3,
+			"output": 16.5
 		},
 		"limit": {
 			"context": 1000000
@@ -1402,12 +1422,23 @@
 			"context": 1000000
 		}
 	},
+	"apac.anthropic.claude-sonnet-4-20250514-v1:0": {
+		"cost": {
+			"cache_read": 0.3,
+			"cache_write": 3.75,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 200000
+		}
+	},
 	"au.anthropic.claude-haiku-4-5-20251001-v1:0": {
 		"cost": {
-			"cache_read": 0.1,
-			"cache_write": 1.25,
-			"input": 1,
-			"output": 5
+			"cache_read": 0.11,
+			"cache_write": 1.375,
+			"input": 1.1,
+			"output": 5.5
 		},
 		"limit": {
 			"context": 200000
@@ -1415,10 +1446,10 @@
 	},
 	"au.anthropic.claude-opus-4-6-v1": {
 		"cost": {
-			"cache_read": 1.65,
-			"cache_write": 20.625,
-			"input": 16.5,
-			"output": 82.5
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
@@ -1437,10 +1468,10 @@
 	},
 	"au.anthropic.claude-opus-4-8": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
@@ -1448,10 +1479,10 @@
 	},
 	"au.anthropic.claude-opus-5": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
@@ -1459,10 +1490,10 @@
 	},
 	"au.anthropic.claude-sonnet-4-5-20250929-v1:0": {
 		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
+			"cache_read": 0.33,
+			"cache_write": 4.125,
+			"input": 3.3,
+			"output": 16.5
 		},
 		"limit": {
 			"context": 200000
@@ -1481,10 +1512,10 @@
 	},
 	"au.anthropic.claude-sonnet-5": {
 		"cost": {
-			"cache_read": 0.2,
-			"cache_write": 2.5,
-			"input": 2,
-			"output": 10
+			"cache_read": 0.22,
+			"cache_write": 2.75,
+			"input": 2.2,
+			"output": 11
 		},
 		"limit": {
 			"context": 1000000
@@ -2731,16 +2762,6 @@
 			"context": 262144
 		}
 	},
-	"deepclaude": {
-		"cost": {
-			"cache_read": 0.3,
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 128000
-		}
-	},
 	"deepinfra/moonshotai/Kimi-K2.5": {
 		"cost": {
 			"cache_read": 0.07,
@@ -2836,6 +2857,17 @@
 		},
 		"limit": {
 			"context": 1000000
+		}
+	},
+	"eu.anthropic.claude-sonnet-4-20250514-v1:0": {
+		"cost": {
+			"cache_read": 0.3,
+			"cache_write": 3.75,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 200000
 		}
 	},
 	"eu.anthropic.claude-sonnet-4-5-20250929-v1:0": {
@@ -2979,6 +3011,17 @@
 			"context": 1000000
 		}
 	},
+	"global.anthropic.claude-sonnet-4-20250514-v1:0": {
+		"cost": {
+			"cache_read": 0.3,
+			"cache_write": 3.75,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 200000
+		}
+	},
 	"global.anthropic.claude-sonnet-4-5-20250929-v1:0": {
 		"cost": {
 			"cache_read": 0.3,
@@ -3034,10 +3077,10 @@
 	},
 	"jp.anthropic.claude-haiku-4-5-20251001-v1:0": {
 		"cost": {
-			"cache_read": 0.1,
-			"cache_write": 1.25,
-			"input": 1,
-			"output": 5
+			"cache_read": 0.11,
+			"cache_write": 1.375,
+			"input": 1.1,
+			"output": 5.5
 		},
 		"limit": {
 			"context": 200000
@@ -3045,10 +3088,10 @@
 	},
 	"jp.anthropic.claude-opus-4-7": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
@@ -3056,10 +3099,10 @@
 	},
 	"jp.anthropic.claude-opus-4-8": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
@@ -3067,10 +3110,10 @@
 	},
 	"jp.anthropic.claude-opus-5": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
@@ -3078,10 +3121,10 @@
 	},
 	"jp.anthropic.claude-sonnet-4-5-20250929-v1:0": {
 		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
+			"cache_read": 0.33,
+			"cache_write": 4.125,
+			"input": 3.3,
+			"output": 16.5
 		},
 		"limit": {
 			"context": 200000
@@ -3089,10 +3132,10 @@
 	},
 	"jp.anthropic.claude-sonnet-4-6": {
 		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
+			"cache_read": 0.33,
+			"cache_write": 4.125,
+			"input": 3.3,
+			"output": 16.5
 		},
 		"limit": {
 			"context": 1000000
@@ -3100,10 +3143,10 @@
 	},
 	"jp.anthropic.claude-sonnet-5": {
 		"cost": {
-			"cache_read": 0.2,
-			"cache_write": 2.5,
-			"input": 2,
-			"output": 10
+			"cache_read": 0.22,
+			"cache_write": 2.75,
+			"input": 2.2,
+			"output": 11
 		},
 		"limit": {
 			"context": 1000000
@@ -4035,10 +4078,10 @@
 	},
 	"us.anthropic.claude-fable-5": {
 		"cost": {
-			"cache_read": 1,
-			"cache_write": 12.5,
-			"input": 10,
-			"output": 50
+			"cache_read": 1.1,
+			"cache_write": 13.75,
+			"input": 11,
+			"output": 55
 		},
 		"limit": {
 			"context": 1000000
@@ -4057,10 +4100,10 @@
 	},
 	"us.anthropic.claude-haiku-4-5-20251001-v1:0": {
 		"cost": {
-			"cache_read": 0.1,
-			"cache_write": 1.25,
-			"input": 1,
-			"output": 5
+			"cache_read": 0.11,
+			"cache_write": 1.375,
+			"input": 1.1,
+			"output": 5.5
 		},
 		"limit": {
 			"context": 200000
@@ -4079,10 +4122,10 @@
 	},
 	"us.anthropic.claude-opus-4-5-20251101-v1:0": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 200000
@@ -4090,10 +4133,10 @@
 	},
 	"us.anthropic.claude-opus-4-6-v1": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
@@ -4101,10 +4144,10 @@
 	},
 	"us.anthropic.claude-opus-4-7": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
@@ -4112,10 +4155,10 @@
 	},
 	"us.anthropic.claude-opus-4-8": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
@@ -4123,16 +4166,16 @@
 	},
 	"us.anthropic.claude-opus-5": {
 		"cost": {
-			"cache_read": 0.5,
-			"cache_write": 6.25,
-			"input": 5,
-			"output": 25
+			"cache_read": 0.55,
+			"cache_write": 6.875,
+			"input": 5.5,
+			"output": 27.5
 		},
 		"limit": {
 			"context": 1000000
 		}
 	},
-	"us.anthropic.claude-sonnet-4-5-20250929-v1:0": {
+	"us.anthropic.claude-sonnet-4-20250514-v1:0": {
 		"cost": {
 			"cache_read": 0.3,
 			"cache_write": 3.75,
@@ -4143,12 +4186,23 @@
 			"context": 200000
 		}
 	},
+	"us.anthropic.claude-sonnet-4-5-20250929-v1:0": {
+		"cost": {
+			"cache_read": 0.33,
+			"cache_write": 4.125,
+			"input": 3.3,
+			"output": 16.5
+		},
+		"limit": {
+			"context": 200000
+		}
+	},
 	"us.anthropic.claude-sonnet-4-6": {
 		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
+			"cache_read": 0.33,
+			"cache_write": 4.125,
+			"input": 3.3,
+			"output": 16.5
 		},
 		"limit": {
 			"context": 1000000
@@ -4156,10 +4210,10 @@
 	},
 	"us.anthropic.claude-sonnet-5": {
 		"cost": {
-			"cache_read": 0.2,
-			"cache_write": 2.5,
-			"input": 2,
-			"output": 10
+			"cache_read": 0.22,
+			"cache_write": 2.75,
+			"input": 2.2,
+			"output": 11
 		},
 		"limit": {
 			"context": 1000000
@@ -4292,9 +4346,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.23,
-			"input": 2.1,
-			"output": 10.95
+			"cache_read": 0.232,
+			"input": 2,
+			"output": 11.2
 		},
 		"limit": {
 			"context": 1048576
