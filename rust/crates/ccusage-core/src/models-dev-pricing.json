@@ -3416,6 +3416,15 @@
 			"context": 1048560
 		}
 	},
+	"kimi-k3:fast": {
+		"cost": {
+			"input": 6,
+			"output": 30
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"kimi-k3@eu": {
 		"cost": {
 			"cache_read": 0.45,
@@ -3631,9 +3640,9 @@
 	},
 	"moonshotai/Kimi-K2.6-TEE": {
 		"cost": {
-			"cache_read": 0.05799999999999998,
-			"input": 0.58,
-			"output": 3.4
+			"cache_read": 0.04999999999999999,
+			"input": 0.5,
+			"output": 2.85
 		},
 		"limit": {
 			"context": 262144
@@ -4056,16 +4065,6 @@
 			"context": 1000000
 		}
 	},
-	"umans-kimi-k2.7": {
-		"cost": {
-			"cache_read": 0.19,
-			"input": 0.95,
-			"output": 4
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
 	"umans-kimi-k3": {
 		"cost": {
 			"cache_read": 0.3,
@@ -4346,9 +4345,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.232,
-			"input": 2,
-			"output": 11.2
+			"cache_read": 0.23,
+			"input": 2.1,
+			"output": 10.95
 		},
 		"limit": {
 			"context": 1048576
