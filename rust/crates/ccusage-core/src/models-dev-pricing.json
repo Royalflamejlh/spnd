@@ -203,7 +203,7 @@
 			"output": 2.5
 		},
 		"limit": {
-			"context": 128000
+			"context": 256000
 		}
 	},
 	"amazon/moonshotai.kimi-k2.5": {
@@ -875,13 +875,13 @@
 	},
 	"anthropic/claude-opus-4": {
 		"cost": {
-			"cache_read": 1.5,
-			"cache_write": 18.75,
-			"input": 15,
-			"output": 75
+			"cache_read": 1.3,
+			"cache_write": 16,
+			"input": 13,
+			"output": 64
 		},
 		"limit": {
-			"context": 200000
+			"context": 192512
 		}
 	},
 	"anthropic/claude-opus-4-1-20250805": {
@@ -4346,9 +4346,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.17,
-			"input": 1.7,
-			"output": 8.5
+			"cache_read": 0.15,
+			"input": 1.5,
+			"output": 7.5
 		},
 		"limit": {
 			"context": 1048576
