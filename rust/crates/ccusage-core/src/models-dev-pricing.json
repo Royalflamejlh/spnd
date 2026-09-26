@@ -2447,10 +2447,10 @@
 	},
 	"claude-opus-5-5@eu": {
 		"cost": {
-			"cache_read": 0.55,
-			"cache_write": 6.875,
-			"input": 5.5,
-			"output": 27.5
+			"cache_read": 0.22,
+			"cache_write": 5.5,
+			"input": 4.4,
+			"output": 22
 		},
 		"limit": {
 			"context": 1000000
@@ -4522,9 +4522,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.33,
-			"input": 0.8845,
-			"output": 10.5346
+			"cache_read": 0.3,
+			"input": 1.0301,
+			"output": 9.043
 		},
 		"limit": {
 			"context": 1048576
