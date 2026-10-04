@@ -3130,6 +3130,17 @@
 			"context": 1000000
 		}
 	},
+	"eu.anthropic.claude-sonnet-5-5": {
+		"cost": {
+			"cache_read": 0.22,
+			"cache_write": 2.75,
+			"input": 2.2,
+			"output": 11
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"fireworks/kimi-k3": {
 		"cost": {
 			"cache_read": 0.3,
@@ -4138,9 +4149,10 @@
 	},
 	"moonshotai/kimi-k3": {
 		"cost": {
-			"cache_read": 0.5,
+			"cache_read": 0.3,
+			"cache_write": 3.75,
 			"input": 3,
-			"output": 12.5
+			"output": 15
 		},
 		"limit": {
 			"context": 1048576
@@ -4533,6 +4545,17 @@
 			"context": 1000000
 		}
 	},
+	"us.anthropic.claude-sonnet-5-5": {
+		"cost": {
+			"cache_read": 0.22,
+			"cache_write": 2.75,
+			"input": 2.2,
+			"output": 11
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"us.moonshotai.kimi-k3": {
 		"cost": {
 			"cache_read": 0.33,
@@ -4672,7 +4695,7 @@
 	"~moonshotai/kimi-latest": {
 		"cost": {
 			"cache_read": 0.45,
-			"input": 0.9895,
+			"input": 0.6438,
 			"output": 13
 		},
 		"limit": {
