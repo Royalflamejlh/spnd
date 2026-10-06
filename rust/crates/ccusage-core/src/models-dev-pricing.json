@@ -4227,6 +4227,16 @@
 			"context": 1048576
 		}
 	},
+	"qwen/qwen3.8-27b-kimiko": {
+		"cost": {
+			"cache_read": 0.05,
+			"input": 0.1,
+			"output": 0.6
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"runpod/kimi-k3": {
 		"cost": {
 			"cache_read": 0.3,
@@ -4695,7 +4705,7 @@
 	"~moonshotai/kimi-latest": {
 		"cost": {
 			"cache_read": 0.45,
-			"input": 0.66,
+			"input": 0.83,
 			"output": 13
 		},
 		"limit": {
