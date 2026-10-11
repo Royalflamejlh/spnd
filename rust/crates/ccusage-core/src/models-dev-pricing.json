@@ -1806,7 +1806,7 @@
 	},
 	"aws-bedrock/claude-sonnet-5-5": {
 		"cost": {
-			"cache_read": 0.2,
+			"cache_read": 0.1,
 			"cache_write": 2.5,
 			"input": 2,
 			"output": 10
@@ -1916,7 +1916,7 @@
 	},
 	"azure-anthropic/claude-sonnet-5-5": {
 		"cost": {
-			"cache_read": 0.2,
+			"cache_read": 0.1,
 			"cache_write": 2.5,
 			"input": 2,
 			"output": 10
@@ -4886,9 +4886,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.3,
-			"input": 0.33,
-			"output": 14.89
+			"cache_read": 0.29,
+			"input": 0.75,
+			"output": 14.9
 		},
 		"limit": {
 			"context": 1048576
