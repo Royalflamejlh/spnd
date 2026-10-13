@@ -756,17 +756,6 @@
 			"context": 200000
 		}
 	},
-	"anthropic/claude-3-haiku": {
-		"cost": {
-			"cache_read": 0.03,
-			"cache_write": 0.3,
-			"input": 0.25,
-			"output": 1.25
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
 	"anthropic/claude-3.5-haiku": {
 		"cost": {
 			"cache_read": 0.08,
@@ -2366,6 +2355,17 @@
 			"context": 200000
 		}
 	},
+	"claude-opus-4-5-think": {
+		"cost": {
+			"cache_read": 0.5,
+			"cache_write": 6.25,
+			"input": 5,
+			"output": 25
+		},
+		"limit": {
+			"context": 200000
+		}
+	},
 	"claude-opus-4-5@20251101": {
 		"cost": {
 			"cache_read": 0.5,
@@ -2774,6 +2774,17 @@
 		},
 		"limit": {
 			"context": 200000
+		}
+	},
+	"claude-sonnet-4-5-think": {
+		"cost": {
+			"cache_read": 0.33,
+			"cache_write": 4.125,
+			"input": 3.3,
+			"output": 16.5
+		},
+		"limit": {
+			"context": 1000000
 		}
 	},
 	"claude-sonnet-4-5@20250929": {
@@ -4182,8 +4193,8 @@
 	},
 	"moonshotai/kimi-k2": {
 		"cost": {
-			"input": 0.55,
-			"output": 2.2
+			"input": 0.783978,
+			"output": 3.16342
 		},
 		"limit": {
 			"context": 131072
@@ -4221,9 +4232,9 @@
 	},
 	"moonshotai/kimi-k2-thinking": {
 		"cost": {
-			"cache_read": 0.15,
-			"input": 0.6,
-			"output": 2.5
+			"cache_read": 0.20631,
+			"input": 0.82524,
+			"output": 3.4385
 		},
 		"limit": {
 			"context": 262144
@@ -4434,9 +4445,9 @@
 	},
 	"scx-ai-gp/kimi-k2.7-code": {
 		"cost": {
-			"cache_read": 0.19,
-			"input": 0.95,
-			"output": 4
+			"cache_read": 0.143,
+			"input": 0.737,
+			"output": 3.08
 		},
 		"limit": {
 			"context": 262144
@@ -4444,9 +4455,9 @@
 	},
 	"scx-ai-gp/kimi-k3": {
 		"cost": {
-			"cache_read": 0.35,
-			"input": 3.5,
-			"output": 18
+			"cache_read": 0.319,
+			"input": 3.135,
+			"output": 15.675
 		},
 		"limit": {
 			"context": 1048576
