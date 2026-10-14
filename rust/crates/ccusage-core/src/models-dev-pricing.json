@@ -439,10 +439,10 @@
 	},
 	"anthropic-claude-5.5-haiku": {
 		"cost": {
-			"cache_read": 0.01,
-			"cache_write": 0.125,
-			"input": 0.1,
-			"output": 0.5
+			"cache_read": 0.05,
+			"cache_write": 0.625,
+			"input": 0.5,
+			"output": 2.5
 		},
 		"limit": {
 			"context": 1000000
@@ -4294,9 +4294,9 @@
 	},
 	"moonshotai/kimi-k2.6:thinking": {
 		"cost": {
-			"cache_read": 0.125,
-			"input": 0.5,
-			"output": 2.6
+			"cache_read": 0.099,
+			"input": 0.441,
+			"output": 2.45
 		},
 		"limit": {
 			"context": 262144
@@ -4897,9 +4897,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.55,
-			"input": 0.73,
-			"output": 10
+			"cache_read": 0.3,
+			"input": 0.496,
+			"output": 14
 		},
 		"limit": {
 			"context": 1048576
