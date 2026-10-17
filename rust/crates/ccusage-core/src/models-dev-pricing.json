@@ -4150,6 +4150,16 @@
 			"context": 262144
 		}
 	},
+	"moonshotai/Kimi-K2.7-Code-Highspeed": {
+		"cost": {
+			"cache_read": 0.38,
+			"input": 1.9,
+			"output": 8
+		},
+		"limit": {
+			"context": 262000
+		}
+	},
 	"moonshotai/Kimi-K3": {
 		"cost": {
 			"cache_read": 0.3,
@@ -4897,9 +4907,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.284,
-			"input": 0.294,
-			"output": 24
+			"cache_read": 0.0513,
+			"input": 0.27,
+			"output": 14.2307
 		},
 		"limit": {
 			"context": 1048576
