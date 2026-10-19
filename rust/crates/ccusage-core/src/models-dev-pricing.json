@@ -4254,9 +4254,9 @@
 	},
 	"moonshotai/kimi-k2.6:thinking": {
 		"cost": {
-			"cache_read": 0.0728,
-			"input": 0.43225,
-			"output": 1.82
+			"cache_read": 0.045,
+			"input": 0.45,
+			"output": 1.95
 		},
 		"limit": {
 			"context": 262144
@@ -4306,9 +4306,9 @@
 	},
 	"moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.18,
-			"input": 0.504,
-			"output": 8.1
+			"cache_read": 0.165,
+			"input": 1.65,
+			"output": 8.25
 		},
 		"limit": {
 			"context": 1048576
@@ -4857,9 +4857,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.27,
-			"input": 0.27,
-			"output": 14
+			"cache_read": 0.228,
+			"input": 0.238,
+			"output": 13
 		},
 		"limit": {
 			"context": 1048576
