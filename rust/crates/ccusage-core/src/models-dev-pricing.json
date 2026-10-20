@@ -3817,16 +3817,6 @@
 			"context": 1048576
 		}
 	},
-	"kimi-k3-eco": {
-		"cost": {
-			"cache_read": 0.1,
-			"input": 1,
-			"output": 4
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
 	"kimi-k3-fast": {
 		"cost": {
 			"cache_read": 0.45,
@@ -4859,7 +4849,7 @@
 		"cost": {
 			"cache_read": 0.228,
 			"input": 0.238,
-			"output": 13
+			"output": 16
 		},
 		"limit": {
 			"context": 1048576
