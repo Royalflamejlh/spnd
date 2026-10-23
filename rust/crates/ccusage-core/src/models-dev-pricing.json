@@ -150,6 +150,16 @@
 			"context": 1048576
 		}
 	},
+	"accounts/fireworks/routers/kimi-k3-spot": {
+		"cost": {
+			"cache_read": 0.21,
+			"input": 2.1,
+			"output": 10.5
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"accounts/fireworks/routers/kimi-latest": {
 		"cost": {
 			"cache_read": 0.3,
@@ -203,50 +213,6 @@
 			"cache_write": 0.3,
 			"input": 0.25,
 			"output": 1.25
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"anthropic--claude-3-opus": {
-		"cost": {
-			"cache_read": 1.5,
-			"cache_write": 18.75,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"anthropic--claude-3-sonnet": {
-		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"anthropic--claude-3.5-sonnet": {
-		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"anthropic--claude-3.7-sonnet": {
-		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
 		},
 		"limit": {
 			"context": 200000
@@ -351,61 +317,6 @@
 			"context": 1000000
 		}
 	},
-	"anthropic-claude-3-opus": {
-		"cost": {
-			"cache_read": 1.5,
-			"cache_write": 18.75,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"anthropic-claude-3.5-haiku": {
-		"cost": {
-			"cache_read": 0.08,
-			"cache_write": 1,
-			"input": 0.8,
-			"output": 4
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"anthropic-claude-3.5-sonnet": {
-		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"anthropic-claude-3.7-sonnet": {
-		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"anthropic-claude-4.1-opus": {
-		"cost": {
-			"cache_read": 1.5,
-			"cache_write": 18.75,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
 	"anthropic-claude-4.5-sonnet": {
 		"cost": {
 			"cache_read": 0.3,
@@ -483,17 +394,6 @@
 			"context": 200000
 		}
 	},
-	"anthropic-claude-opus-4": {
-		"cost": {
-			"cache_read": 1.5,
-			"cache_write": 18.75,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
 	"anthropic-claude-opus-4.5": {
 		"cost": {
 			"cache_read": 0.5,
@@ -555,17 +455,6 @@
 			"cache_write": 5,
 			"input": 4,
 			"output": 20
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
-	"anthropic-claude-sonnet-4": {
-		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
 		},
 		"limit": {
 			"context": 1000000
@@ -747,45 +636,12 @@
 			"context": 1000000
 		}
 	},
-	"anthropic/claude-3-7-sonnet-20250219": {
-		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"anthropic/claude-3.5-haiku": {
-		"cost": {
-			"cache_read": 0.08,
-			"cache_write": 1,
-			"input": 0.8,
-			"output": 4
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"anthropic/claude-3.7-sonnet": {
-		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
 	"anthropic/claude-fable-5": {
 		"cost": {
-			"cache_read": 1.3,
-			"cache_write": 16.25,
-			"input": 13,
-			"output": 65
+			"cache_read": 1,
+			"cache_write": 12.5,
+			"input": 10,
+			"output": 50
 		},
 		"limit": {
 			"context": 1000000
@@ -804,10 +660,10 @@
 	},
 	"anthropic/claude-fable-5.1": {
 		"cost": {
-			"cache_read": 0.325,
-			"cache_write": 16.25,
-			"input": 13,
-			"output": 65
+			"cache_read": 0.25,
+			"cache_write": 12.5,
+			"input": 10,
+			"output": 50
 		},
 		"limit": {
 			"context": 1000000
@@ -870,10 +726,10 @@
 	},
 	"anthropic/claude-haiku-4.5": {
 		"cost": {
-			"cache_read": 0.13754,
-			"cache_write": 1.71925,
-			"input": 1.3754,
-			"output": 6.877
+			"cache_read": 0.1058,
+			"cache_write": 1.3225,
+			"input": 1.058,
+			"output": 5.29
 		},
 		"limit": {
 			"context": 200000
@@ -902,10 +758,10 @@
 	},
 	"anthropic/claude-haiku-5.5": {
 		"cost": {
-			"cache_read": 0.013,
-			"cache_write": 0.1625,
-			"input": 0.13,
-			"output": 0.65
+			"cache_read": 0.01,
+			"cache_write": 0.125,
+			"input": 0.1,
+			"output": 0.5
 		},
 		"limit": {
 			"context": 1000000
@@ -934,17 +790,6 @@
 		}
 	},
 	"anthropic/claude-opus-4-1-20250805": {
-		"cost": {
-			"cache_read": 1.5,
-			"cache_write": 18.75,
-			"input": 15,
-			"output": 75
-		},
-		"limit": {
-			"context": 200000
-		}
-	},
-	"anthropic/claude-opus-4-20250514": {
 		"cost": {
 			"cache_read": 1.5,
 			"cache_write": 18.75,
@@ -1063,10 +908,10 @@
 	},
 	"anthropic/claude-opus-4.5": {
 		"cost": {
-			"cache_read": 0.6877,
-			"cache_write": 8.59625,
-			"input": 6.877,
-			"output": 34.385
+			"cache_read": 0.529,
+			"cache_write": 6.6125,
+			"input": 5.29,
+			"output": 26.45
 		},
 		"limit": {
 			"context": 200000
@@ -1135,10 +980,10 @@
 	},
 	"anthropic/claude-opus-4.7": {
 		"cost": {
-			"cache_read": 0.6877,
-			"cache_write": 8.59625,
-			"input": 6.877,
-			"output": 34.385
+			"cache_read": 0.529,
+			"cache_write": 6.6125,
+			"input": 5.29,
+			"output": 26.45
 		},
 		"limit": {
 			"context": 1000000
@@ -1156,10 +1001,10 @@
 	},
 	"anthropic/claude-opus-4.8": {
 		"cost": {
-			"cache_read": 0.6877,
-			"cache_write": 8.59625,
-			"input": 6.877,
-			"output": 34.385
+			"cache_read": 0.529,
+			"cache_write": 6.6125,
+			"input": 5.29,
+			"output": 26.45
 		},
 		"limit": {
 			"context": 1000000
@@ -1188,10 +1033,10 @@
 	},
 	"anthropic/claude-opus-5": {
 		"cost": {
-			"cache_read": 0.65,
-			"cache_write": 8.125,
-			"input": 6.5,
-			"output": 32.5
+			"cache_read": 0.5,
+			"cache_write": 6.25,
+			"input": 5,
+			"output": 25
 		},
 		"limit": {
 			"context": 1000000
@@ -1221,10 +1066,10 @@
 	},
 	"anthropic/claude-opus-5.5": {
 		"cost": {
-			"cache_read": 0.26,
-			"cache_write": 6.5,
-			"input": 5.2,
-			"output": 26
+			"cache_read": 0.2,
+			"cache_write": 5,
+			"input": 4,
+			"output": 20
 		},
 		"limit": {
 			"context": 1000000
@@ -1287,24 +1132,13 @@
 	},
 	"anthropic/claude-sonnet-4": {
 		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
+			"cache_read": 0.26,
+			"cache_write": 3.2,
+			"input": 2.6,
+			"output": 13
 		},
 		"limit": {
-			"context": 200000
-		}
-	},
-	"anthropic/claude-sonnet-4-20250514": {
-		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 200000
+			"context": 983040
 		}
 	},
 	"anthropic/claude-sonnet-4-5": {
@@ -1342,10 +1176,10 @@
 	},
 	"anthropic/claude-sonnet-4.5": {
 		"cost": {
-			"cache_read": 0.41262,
-			"cache_write": 5.15775,
-			"input": 4.1262,
-			"output": 20.631
+			"cache_read": 0.3174,
+			"cache_write": 3.9675,
+			"input": 3.174,
+			"output": 15.87
 		},
 		"limit": {
 			"context": 200000
@@ -1363,10 +1197,10 @@
 	},
 	"anthropic/claude-sonnet-4.6": {
 		"cost": {
-			"cache_read": 0.41262,
-			"cache_write": 5.15775,
-			"input": 4.1262,
-			"output": 20.631
+			"cache_read": 0.3174,
+			"cache_write": 3.9675,
+			"input": 3.174,
+			"output": 15.87
 		},
 		"limit": {
 			"context": 200000
@@ -1384,10 +1218,10 @@
 	},
 	"anthropic/claude-sonnet-5": {
 		"cost": {
-			"cache_read": 0.26,
-			"cache_write": 3.25,
-			"input": 2.6,
-			"output": 13
+			"cache_read": 0.2,
+			"cache_write": 2.5,
+			"input": 2,
+			"output": 10
 		},
 		"limit": {
 			"context": 1000000
@@ -1406,10 +1240,10 @@
 	},
 	"anthropic/claude-sonnet-5.5": {
 		"cost": {
-			"cache_read": 0.26,
-			"cache_write": 3.25,
-			"input": 2.6,
-			"output": 13
+			"cache_read": 0.2,
+			"cache_write": 2.5,
+			"input": 2,
+			"output": 10
 		},
 		"limit": {
 			"context": 1000000
@@ -1913,17 +1747,6 @@
 		},
 		"limit": {
 			"context": 200000
-		}
-	},
-	"claude-3-7-sonnet-latest": {
-		"cost": {
-			"cache_read": 0.3,
-			"cache_write": 3.75,
-			"input": 3,
-			"output": 15
-		},
-		"limit": {
-			"context": 1000000
 		}
 	},
 	"claude-3-haiku-20240307": {
@@ -3687,9 +3510,10 @@
 	},
 	"kimi-k2.5": {
 		"cost": {
-			"cache_read": 0.1,
-			"input": 0.6,
-			"output": 3
+			"cache_read": 0.1148,
+			"cache_write": 0.7175,
+			"input": 0.574,
+			"output": 3.011
 		},
 		"limit": {
 			"context": 262144
@@ -4046,19 +3870,19 @@
 	},
 	"moonshotai/Kimi-K2.5": {
 		"cost": {
-			"cache_read": 0.12,
-			"input": 0.6,
-			"output": 3
+			"cache_read": 0.07,
+			"input": 0.45,
+			"output": 2.25
 		},
 		"limit": {
-			"context": 262000
+			"context": 262144
 		}
 	},
 	"moonshotai/Kimi-K2.6": {
 		"cost": {
-			"cache_read": 0.1238,
+			"cache_read": 0.126,
 			"cache_write": 0,
-			"input": 0.54,
+			"input": 0.603,
 			"output": 3.2
 		},
 		"limit": {
@@ -4149,8 +3973,8 @@
 	},
 	"moonshotai/kimi-k2": {
 		"cost": {
-			"input": 0.783978,
-			"output": 3.16342
+			"input": 0.60306,
+			"output": 2.4334
 		},
 		"limit": {
 			"context": 131072
@@ -4158,12 +3982,11 @@
 	},
 	"moonshotai/kimi-k2-0905": {
 		"cost": {
-			"cache_read": 0.15,
-			"input": 0.6,
-			"output": 2.5
+			"input": 1.058,
+			"output": 3.174
 		},
 		"limit": {
-			"context": 262000
+			"context": 262144
 		}
 	},
 	"moonshotai/kimi-k2-instruct": {
@@ -4188,9 +4011,9 @@
 	},
 	"moonshotai/kimi-k2-thinking": {
 		"cost": {
-			"cache_read": 0.20631,
-			"input": 0.82524,
-			"output": 3.4385
+			"cache_read": 0.1587,
+			"input": 0.6348,
+			"output": 2.645
 		},
 		"limit": {
 			"context": 262144
@@ -4204,16 +4027,6 @@
 		},
 		"limit": {
 			"context": 262144
-		}
-	},
-	"moonshotai/kimi-k2-thinking-turbo": {
-		"cost": {
-			"cache_read": 0.15,
-			"input": 1.15,
-			"output": 8
-		},
-		"limit": {
-			"context": 262000
 		}
 	},
 	"moonshotai/kimi-k2.5": {
@@ -4239,9 +4052,9 @@
 	},
 	"moonshotai/kimi-k2.6": {
 		"cost": {
-			"cache_read": 0.2,
-			"cache_write": 0,
-			"input": 0.95,
+			"cache_read": 0.25,
+			"cache_write": 1.25,
+			"input": 1,
 			"output": 4
 		},
 		"limit": {
@@ -4260,10 +4073,9 @@
 	},
 	"moonshotai/kimi-k2.7-code": {
 		"cost": {
-			"cache_read": 0.14,
-			"cache_write": 0,
-			"input": 0.69,
-			"output": 3.49
+			"cache_read": 0.2,
+			"input": 0.75,
+			"output": 3.5
 		},
 		"limit": {
 			"context": 262144
