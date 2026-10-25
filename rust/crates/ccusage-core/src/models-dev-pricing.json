@@ -90,6 +90,26 @@
 			"context": 262000
 		}
 	},
+	"Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-Derestricted": {
+		"cost": {
+			"cache_read": 0.0306,
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
+	"Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-Derestricted-Lite": {
+		"cost": {
+			"cache_read": 0.0306,
+			"input": 0.306,
+			"output": 0.306
+		},
+		"limit": {
+			"context": 262144
+		}
+	},
 	"TEE/kimi-k2.6": {
 		"cost": {
 			"cache_read": 0.375,
@@ -4751,9 +4771,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.19,
-			"input": 0.19,
-			"output": 8.94
+			"cache_read": 0.2,
+			"input": 0.2033,
+			"output": 7.6972
 		},
 		"limit": {
 			"context": 1048576
