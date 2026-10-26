@@ -1423,6 +1423,17 @@
 			"context": 1000000
 		}
 	},
+	"au.anthropic.claude-sonnet-5-5": {
+		"cost": {
+			"cache_read": 0.11,
+			"cache_write": 2.75,
+			"input": 2.2,
+			"output": 11
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"aws-bedrock/claude-fable-5": {
 		"cost": {
 			"cache_read": 1,
@@ -3964,10 +3975,10 @@
 	},
 	"moonshotai/Kimi-K2.6": {
 		"cost": {
-			"cache_read": 0.169,
+			"cache_read": 0.135,
 			"cache_write": 0,
-			"input": 0.6026,
-			"output": 3.2
+			"input": 0.63,
+			"output": 3.5
 		},
 		"limit": {
 			"context": 262144
@@ -4147,9 +4158,9 @@
 	},
 	"moonshotai/kimi-k2.6:thinking": {
 		"cost": {
-			"cache_read": 0.07568,
-			"input": 0.44935,
-			"output": 1.892
+			"cache_read": 0.045,
+			"input": 0.45,
+			"output": 1.95
 		},
 		"limit": {
 			"context": 262144
@@ -4221,8 +4232,29 @@
 	"moonshotai/kimi-latest": {
 		"cost": {
 			"cache_read": 0.2,
-			"input": 1.2,
-			"output": 5.5
+			"cache_write": 2,
+			"input": 2,
+			"output": 10
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
+	"morph-kimik3": {
+		"cost": {
+			"cache_read": 0.29,
+			"input": 2.5,
+			"output": 14
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
+	"morph-kimik3-fast": {
+		"cost": {
+			"cache_read": 0.6,
+			"input": 6,
+			"output": 22.5
 		},
 		"limit": {
 			"context": 1048576
@@ -4771,9 +4803,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.2,
-			"input": 0.2033,
-			"output": 7.6972
+			"cache_read": 0.204,
+			"input": 0.214,
+			"output": 20
 		},
 		"limit": {
 			"context": 1048576
