@@ -2920,16 +2920,6 @@
 			"context": 262144
 		}
 	},
-	"embercloud/kimi-k2.5": {
-		"cost": {
-			"cache_read": 0.225,
-			"input": 0.405,
-			"output": 1.98
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
 	"eu.anthropic.claude-fable-5": {
 		"cost": {
 			"cache_read": 1.1,
@@ -3975,9 +3965,9 @@
 	},
 	"moonshotai/Kimi-K2.6": {
 		"cost": {
-			"cache_read": 0.117,
+			"cache_read": 0.1248,
 			"cache_write": 0,
-			"input": 0.585,
+			"input": 0.624,
 			"output": 3.5
 		},
 		"limit": {
@@ -4803,8 +4793,8 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.14,
-			"input": 0.15,
+			"cache_read": 0.149,
+			"input": 0.159,
 			"output": 20
 		},
 		"limit": {
