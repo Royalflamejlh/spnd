@@ -22,6 +22,7 @@
 	"Gemma-4-31B-Claude-4.6-Opus-Reasoning-Distilled": {
 		"cost": {
 			"cache_read": 0.0306,
+			"cache_write": 0.3825,
 			"input": 0.306,
 			"output": 0.306
 		},
@@ -93,6 +94,7 @@
 	"Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-Derestricted": {
 		"cost": {
 			"cache_read": 0.0306,
+			"cache_write": 0.3825,
 			"input": 0.306,
 			"output": 0.306
 		},
@@ -103,6 +105,7 @@
 	"Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-Derestricted-Lite": {
 		"cost": {
 			"cache_read": 0.0306,
+			"cache_write": 0.3825,
 			"input": 0.306,
 			"output": 0.306
 		},
@@ -1718,16 +1721,6 @@
 		},
 		"limit": {
 			"context": 1000000
-		}
-	},
-	"baidu/kimi-k2.6": {
-		"cost": {
-			"cache_read": 0.16,
-			"input": 0.95,
-			"output": 4
-		},
-		"limit": {
-			"context": 262144
 		}
 	},
 	"baseten/Kimi-K2-Instruct-FP4": {
@@ -3965,9 +3958,9 @@
 	},
 	"moonshotai/Kimi-K2.6": {
 		"cost": {
-			"cache_read": 0.1248,
+			"cache_read": 0.1674,
 			"cache_write": 0,
-			"input": 0.624,
+			"input": 0.6236,
 			"output": 3.5
 		},
 		"limit": {
@@ -4369,50 +4362,6 @@
 			"context": 1048576
 		}
 	},
-	"stealth/claude-opus-4.6": {
-		"cost": {
-			"cache_read": 0.4,
-			"cache_write": 5,
-			"input": 4,
-			"output": 20
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
-	"stealth/claude-opus-4.7": {
-		"cost": {
-			"cache_read": 0.4,
-			"cache_write": 5,
-			"input": 4,
-			"output": 20
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
-	"stealth/claude-opus-4.8": {
-		"cost": {
-			"cache_read": 0.4,
-			"cache_write": 5,
-			"input": 4,
-			"output": 20
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
-	"stealth/claude-sonnet-4.6": {
-		"cost": {
-			"cache_read": 0.24,
-			"cache_write": 3,
-			"input": 2.4,
-			"output": 12
-		},
-		"limit": {
-			"context": 1000000
-		}
-	},
 	"tencent/kimi-k2.6": {
 		"cost": {
 			"cache_read": 0.145,
@@ -4793,9 +4742,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.149,
-			"input": 0.159,
-			"output": 20
+			"cache_read": 0.18,
+			"input": 0.1824,
+			"output": 9.3388
 		},
 		"limit": {
 			"context": 1048576
