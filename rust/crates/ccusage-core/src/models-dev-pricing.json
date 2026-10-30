@@ -3641,6 +3641,16 @@
 			"context": 262144
 		}
 	},
+	"kimi-k2.8-preview": {
+		"cost": {
+			"cache_read": 0.25,
+			"input": 1,
+			"output": 4
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"kimi-k3": {
 		"cost": {
 			"cache_read": 0.3,
@@ -3958,9 +3968,9 @@
 	},
 	"moonshotai/Kimi-K2.6": {
 		"cost": {
-			"cache_read": 0.1674,
+			"cache_read": 0.1365,
 			"cache_write": 0,
-			"input": 0.6236,
+			"input": 0.6825,
 			"output": 3.5
 		},
 		"limit": {
@@ -4392,6 +4402,16 @@
 			"context": 262144
 		}
 	},
+	"tencent/kimi-k2.8-preview": {
+		"cost": {
+			"cache_read": 0.25,
+			"input": 1,
+			"output": 4
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"tencent/kimi-k3": {
 		"cost": {
 			"cache_read": 0.3,
@@ -4742,9 +4762,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.18,
-			"input": 0.1824,
-			"output": 9.3388
+			"cache_read": 0.15,
+			"input": 0.152,
+			"output": 10.1583
 		},
 		"limit": {
 			"context": 1048576
