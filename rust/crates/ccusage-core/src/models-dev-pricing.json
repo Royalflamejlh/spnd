@@ -3470,7 +3470,7 @@
 			"output": 3.7131
 		},
 		"limit": {
-			"context": 256000
+			"context": 262144
 		}
 	},
 	"kimi-k2-7-code": {
@@ -3480,7 +3480,7 @@
 			"output": 4
 		},
 		"limit": {
-			"context": 256000
+			"context": 262144
 		}
 	},
 	"kimi-k2-7-code-highspeed": {
@@ -3490,7 +3490,7 @@
 			"output": 8
 		},
 		"limit": {
-			"context": 256000
+			"context": 262144
 		}
 	},
 	"kimi-k2-instruct-fast": {
@@ -3664,9 +3664,9 @@
 	},
 	"kimi-k3-1-pro": {
 		"cost": {
-			"cache_read": 0.30000000000000004,
-			"input": 3,
-			"output": 15
+			"cache_read": 0.375,
+			"input": 3.75,
+			"output": 18.75
 		},
 		"limit": {
 			"context": 1000000
@@ -3674,9 +3674,9 @@
 	},
 	"kimi-k3-1-pro-highspeed": {
 		"cost": {
-			"cache_read": 0.6000000000000001,
-			"input": 6,
-			"output": 30
+			"cache_read": 0.75,
+			"input": 7.5,
+			"output": 37.5
 		},
 		"limit": {
 			"context": 1000000
@@ -3968,9 +3968,9 @@
 	},
 	"moonshotai/Kimi-K2.6": {
 		"cost": {
-			"cache_read": 0.1365,
+			"cache_read": 0.1831,
 			"cache_write": 0,
-			"input": 0.6825,
+			"input": 0.6821,
 			"output": 3.5
 		},
 		"limit": {
@@ -4151,9 +4151,9 @@
 	},
 	"moonshotai/kimi-k2.6:thinking": {
 		"cost": {
-			"cache_read": 0.039,
-			"input": 0.39,
-			"output": 1.8
+			"cache_read": 0.0656,
+			"input": 0.3895,
+			"output": 1.64
 		},
 		"limit": {
 			"context": 262144
@@ -4330,16 +4330,6 @@
 		},
 		"limit": {
 			"context": 1048576
-		}
-	},
-	"runware/kimi-k2.6": {
-		"cost": {
-			"cache_read": 0.13,
-			"input": 0.6,
-			"output": 3.05
-		},
-		"limit": {
-			"context": 262144
 		}
 	},
 	"runware/kimi-k3": {
@@ -4762,9 +4752,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.15,
-			"input": 0.152,
-			"output": 10.1583
+			"cache_read": 0.07475,
+			"input": 0.1495,
+			"output": 7.15
 		},
 		"limit": {
 			"context": 1048576
