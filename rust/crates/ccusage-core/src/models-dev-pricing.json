@@ -4332,6 +4332,26 @@
 			"context": 1048576
 		}
 	},
+	"runpod/kimi-k3.1-pro": {
+		"cost": {
+			"cache_read": 0.2,
+			"input": 2,
+			"output": 10
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
+	"runpod/kimi-k3.1-pro-highspeed": {
+		"cost": {
+			"cache_read": 0.2,
+			"input": 4,
+			"output": 20
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"runware/kimi-k3": {
 		"cost": {
 			"cache_read": 0.3,
