@@ -3968,9 +3968,9 @@
 	},
 	"moonshotai/Kimi-K2.6": {
 		"cost": {
-			"cache_read": 0.1831,
+			"cache_read": 0.2092,
 			"cache_write": 0,
-			"input": 0.6821,
+			"input": 0.7795,
 			"output": 3.5
 		},
 		"limit": {
