@@ -1723,6 +1723,16 @@
 			"context": 1000000
 		}
 	},
+	"baidu/kimi-k3": {
+		"cost": {
+			"cache_read": 0.3,
+			"input": 3,
+			"output": 15
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"baseten/Kimi-K2-Instruct-FP4": {
 		"cost": {
 			"cache_read": 0.2,
@@ -3970,8 +3980,8 @@
 		"cost": {
 			"cache_read": 0.2092,
 			"cache_write": 0,
-			"input": 0.7795,
-			"output": 3.5
+			"input": 0.799,
+			"output": 3.75
 		},
 		"limit": {
 			"context": 262144
@@ -4151,9 +4161,9 @@
 	},
 	"moonshotai/kimi-k2.6:thinking": {
 		"cost": {
-			"cache_read": 0.0656,
-			"input": 0.3895,
-			"output": 1.64
+			"cache_read": 0.039,
+			"input": 0.39,
+			"output": 1.8
 		},
 		"limit": {
 			"context": 262144
@@ -4773,8 +4783,8 @@
 	"~moonshotai/kimi-latest": {
 		"cost": {
 			"cache_read": 0.15,
-			"input": 0.1548,
-			"output": 9.3388
+			"input": 0.152,
+			"output": 10.1583
 		},
 		"limit": {
 			"context": 1048576
