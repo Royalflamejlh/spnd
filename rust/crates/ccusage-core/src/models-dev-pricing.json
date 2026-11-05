@@ -123,16 +123,6 @@
 			"context": 262144
 		}
 	},
-	"TEE/kimi-k2.7-code": {
-		"cost": {
-			"cache_read": 0.19,
-			"input": 0.95,
-			"output": 4
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
 	"TEE/kimi-k3": {
 		"cost": {
 			"cache_read": 1.5,
@@ -3674,19 +3664,19 @@
 	},
 	"kimi-k3-1-pro": {
 		"cost": {
-			"cache_read": 0.375,
-			"input": 3.75,
-			"output": 18.75
+			"cache_read": 1.8,
+			"input": 2,
+			"output": 10
 		},
 		"limit": {
-			"context": 1000000
+			"context": 1048576
 		}
 	},
 	"kimi-k3-1-pro-highspeed": {
 		"cost": {
-			"cache_read": 0.75,
-			"input": 7.5,
-			"output": 37.5
+			"cache_read": 0.375,
+			"input": 5,
+			"output": 25
 		},
 		"limit": {
 			"context": 1000000
@@ -4060,6 +4050,16 @@
 			"context": 1048576
 		}
 	},
+	"moonshotai/Kimi-K3.1-Pro": {
+		"cost": {
+			"cache_read": 0.2,
+			"input": 2,
+			"output": 10
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"moonshotai/chat-completion/models/Kimi-K2_6": {
 		"cost": {
 			"input": 0.95,
@@ -4161,9 +4161,9 @@
 	},
 	"moonshotai/kimi-k2.6:thinking": {
 		"cost": {
-			"cache_read": 0.039,
-			"input": 0.39,
-			"output": 1.8
+			"cache_read": 0.0656,
+			"input": 0.3895,
+			"output": 1.64
 		},
 		"limit": {
 			"context": 262144
@@ -4387,6 +4387,16 @@
 			"cache_read": 0.319,
 			"input": 3.135,
 			"output": 15.675
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
+	"scx-ai-gp/kimi-k3.1-pro": {
+		"cost": {
+			"cache_read": 0.19,
+			"input": 1.9,
+			"output": 9.5
 		},
 		"limit": {
 			"context": 1048576
@@ -4783,8 +4793,8 @@
 	"~moonshotai/kimi-latest": {
 		"cost": {
 			"cache_read": 0.15,
-			"input": 0.152,
-			"output": 10.1583
+			"input": 0.1567,
+			"output": 10.5448
 		},
 		"limit": {
 			"context": 1048576
