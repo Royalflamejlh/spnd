@@ -3316,6 +3316,16 @@
 			"context": 1000000
 		}
 	},
+	"inference.net/kimi-k3.1-pro": {
+		"cost": {
+			"cache_read": 0.2,
+			"input": 2,
+			"output": 10
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"jp.anthropic.claude-haiku-4-5-20251001-v1:0": {
 		"cost": {
 			"cache_read": 0.11,
@@ -3505,8 +3515,8 @@
 	},
 	"kimi-k2-thinking": {
 		"cost": {
-			"cache_read": 0.3,
-			"input": 0.6,
+			"cache_read": 0.4,
+			"input": 0.4,
 			"output": 2.5
 		},
 		"limit": {
@@ -4792,8 +4802,8 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.15,
-			"input": 0.1529,
+			"cache_read": 0.18,
+			"input": 0.1824,
 			"output": 9.3388
 		},
 		"limit": {
