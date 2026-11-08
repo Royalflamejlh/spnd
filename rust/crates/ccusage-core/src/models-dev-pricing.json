@@ -143,6 +143,16 @@
 			"context": 1048576
 		}
 	},
+	"accounts/fireworks/models/kimi-k3p1-pro": {
+		"cost": {
+			"cache_read": 0.2,
+			"input": 2,
+			"output": 10
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"accounts/fireworks/routers/kimi-fast-latest": {
 		"cost": {
 			"cache_read": 0.45,
@@ -4273,6 +4283,16 @@
 			"context": 1048576
 		}
 	},
+	"morph-kimik31": {
+		"cost": {
+			"cache_read": 0.29,
+			"input": 2.5,
+			"output": 14
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"novita/kimi-k2": {
 		"cost": {
 			"input": 0.57,
@@ -4802,9 +4822,9 @@
 	},
 	"~moonshotai/kimi-latest": {
 		"cost": {
-			"cache_read": 0.18,
-			"input": 0.1824,
-			"output": 9.3388
+			"cache_read": 0.16,
+			"input": 0.1605,
+			"output": 10.1583
 		},
 		"limit": {
 			"context": 1048576
