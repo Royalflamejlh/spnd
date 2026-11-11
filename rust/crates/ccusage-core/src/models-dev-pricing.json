@@ -2038,6 +2038,17 @@
 			"context": 1000000
 		}
 	},
+	"claude-fable-5.2": {
+		"cost": {
+			"cache_read": 0.2,
+			"cache_write": 10,
+			"input": 8,
+			"output": 40
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"claude-fable-5@default": {
 		"cost": {
 			"cache_read": 1,
@@ -4304,9 +4315,9 @@
 	},
 	"moonshotai/kimi-k2.6:thinking": {
 		"cost": {
-			"cache_read": 0.039,
-			"input": 0.39,
-			"output": 1.8
+			"cache_read": 0.231,
+			"input": 0.88,
+			"output": 4.13
 		},
 		"limit": {
 			"context": 262144
@@ -4979,7 +4990,7 @@
 		"cost": {
 			"cache_read": 0.18,
 			"input": 0.1824,
-			"output": 9.3388
+			"output": 11.0055
 		},
 		"limit": {
 			"context": 1048576
