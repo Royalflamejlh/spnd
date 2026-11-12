@@ -416,6 +416,17 @@
 			"context": 1000000
 		}
 	},
+	"anthropic-claude-fable-5.2": {
+		"cost": {
+			"cache_read": 0.2,
+			"cache_write": 10,
+			"input": 8,
+			"output": 40
+		},
+		"limit": {
+			"context": 1000000
+		}
+	},
 	"anthropic-claude-haiku-4.5": {
 		"cost": {
 			"cache_read": 0.1,
@@ -4122,7 +4133,7 @@
 	},
 	"moonshotai/Kimi-K2.6": {
 		"cost": {
-			"cache_read": 0.156,
+			"cache_read": 0.19,
 			"cache_write": 0,
 			"input": 0.7995,
 			"output": 3.75
