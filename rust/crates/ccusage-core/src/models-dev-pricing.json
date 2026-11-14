@@ -4144,7 +4144,7 @@
 		"cost": {
 			"cache_read": 0.19,
 			"cache_write": 0,
-			"input": 0.7995,
+			"input": 0.7985,
 			"output": 3.75
 		},
 		"limit": {
@@ -4376,8 +4376,8 @@
 	},
 	"moonshotai/kimi-k3-fast": {
 		"cost": {
-			"cache_read": 0.45,
-			"input": 4.5,
+			"cache_read": 0.6,
+			"input": 6,
 			"output": 22.5
 		},
 		"limit": {
@@ -4398,7 +4398,7 @@
 	"moonshotai/kimi-k3.1-pro-highspeed": {
 		"cost": {
 			"cache_read": 0.2,
-			"cache_write": 4,
+			"cache_write": 5,
 			"input": 4,
 			"output": 20
 		},
