@@ -212,9 +212,9 @@
 	},
 	"accounts/fireworks/routers/kimi-latest": {
 		"cost": {
-			"cache_read": 0.3,
-			"input": 3,
-			"output": 15
+			"cache_read": 0.2,
+			"input": 2,
+			"output": 10
 		},
 		"limit": {
 			"context": 1048576
@@ -4183,6 +4183,16 @@
 			"context": 1048576
 		}
 	},
+	"lyber/kimi-k3.1-pro-abliterated": {
+		"cost": {
+			"cache_read": 0.4,
+			"input": 4,
+			"output": 15
+		},
+		"limit": {
+			"context": 1048576
+		}
+	},
 	"moonshot-ai/kimi-k2.7-code": {
 		"cost": {
 			"cache_read": 0.19,
@@ -4348,7 +4358,7 @@
 		"cost": {
 			"cache_read": 0.19,
 			"cache_write": 0,
-			"input": 0.7985,
+			"input": 0.7995,
 			"output": 3.75
 		},
 		"limit": {
