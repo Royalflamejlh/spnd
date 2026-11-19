@@ -130,26 +130,6 @@
 			"context": 262144
 		}
 	},
-	"TEE/kimi-k2.6": {
-		"cost": {
-			"cache_read": 0.039,
-			"input": 0.39,
-			"output": 1.8
-		},
-		"limit": {
-			"context": 262144
-		}
-	},
-	"TEE/kimi-k3": {
-		"cost": {
-			"cache_read": 0.185,
-			"input": 1.85,
-			"output": 9.5
-		},
-		"limit": {
-			"context": 1048576
-		}
-	},
 	"TEE/kimi-k3.1-pro": {
 		"cost": {
 			"cache_read": 0.4,
@@ -2025,9 +2005,9 @@
 	},
 	"canopywave/kimi-k3": {
 		"cost": {
-			"cache_read": 0.3,
-			"input": 3,
-			"output": 15
+			"cache_read": 0.27,
+			"input": 2.7,
+			"output": 13.5
 		},
 		"limit": {
 			"context": 1048576
@@ -2353,9 +2333,9 @@
 	"claude-haiku-5.5": {
 		"cost": {
 			"cache_read": 0.011,
-			"cache_write": 0.14,
-			"input": 0.113,
-			"output": 0.563
+			"cache_write": 0.143,
+			"input": 0.114,
+			"output": 0.569
 		},
 		"limit": {
 			"context": 1000000
@@ -4345,10 +4325,10 @@
 	},
 	"moonshotai/Kimi-K2.6": {
 		"cost": {
-			"cache_read": 0.23,
+			"cache_read": 0.19,
 			"cache_write": 0,
-			"input": 0.7898,
-			"output": 3.96
+			"input": 0.585,
+			"output": 2.7
 		},
 		"limit": {
 			"context": 262144
@@ -5293,10 +5273,10 @@
 	},
 	"~anthropic/claude-haiku-latest": {
 		"cost": {
-			"cache_read": 0.05,
-			"cache_write": 0.625,
-			"input": 0.5,
-			"output": 2.5
+			"cache_read": 0.01,
+			"cache_write": 0.125,
+			"input": 0.1,
+			"output": 0.5
 		},
 		"limit": {
 			"context": 1000000
